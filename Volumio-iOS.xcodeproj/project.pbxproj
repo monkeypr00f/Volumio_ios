@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6005E4EB1D9916A5000B80AE /* CurrentTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */; };
+		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
+		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
+		602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803871DA02E1600055D42 /* TabBarViewController.swift */; };
+		6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803891DA031E200055D42 /* BrowseTableViewController.swift */; };
+		6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */; };
+		6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */; };
+		6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B01D9133A50067A8B5 /* Main.storyboard */; };
+		6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */; };
+		60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */; };
+		60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */; };
+		F9FF5511CFAA090301EC9FD1 /* Pods_Volumio_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		34E1700E8CD6C8F51FA00170 /* Pods-Volumio-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentTrack.swift; sourceTree = "<group>"; };
+		601424761D916F0C001159B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		601424781D9173A3001159B2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		602803871DA02E1600055D42 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		602803891DA031E200055D42 /* BrowseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseTableViewController.swift; sourceTree = "<group>"; };
+		6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseDetailTableViewController.swift; sourceTree = "<group>"; };
+		6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Volumio-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6086E2B11D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6086E2B61D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6086E2B81D9133A50067A8B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFmManager.swift; sourceTree = "<group>"; };
+		60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E501DC537BB78B6FDB36A4E0 /* Pods-Volumio-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6086E2A41D9133A50067A8B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F9FF5511CFAA090301EC9FD1 /* Pods_Volumio_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6005E4E91D99168A000B80AE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6014247A1D9173AD001159B2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				602803871DA02E1600055D42 /* TabBarViewController.swift */,
+				601424781D9173A3001159B2 /* PlaybackViewController.swift */,
+				602803891DA031E200055D42 /* BrowseTableViewController.swift */,
+				6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6014247B1D9173C4001159B2 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */,
+				60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */,
+			);
+			name = Manager;
+			sourceTree = "<group>";
+		};
+		6086E29E1D9133A50067A8B5 = {
+			isa = PBXGroup;
+			children = (
+				6086E2A91D9133A50067A8B5 /* Volumio-iOS */,
+				6086E2A81D9133A50067A8B5 /* Products */,
+				B86260B29102044B72DD60D9 /* Pods */,
+				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6086E2A81D9133A50067A8B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6086E2A91D9133A50067A8B5 /* Volumio-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */,
+				6014247B1D9173C4001159B2 /* Manager */,
+				6014247A1D9173AD001159B2 /* Controllers */,
+				6005E4E91D99168A000B80AE /* Models */,
+				6086E2B01D9133A50067A8B5 /* Main.storyboard */,
+				6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */,
+				601424761D916F0C001159B2 /* Assets.xcassets */,
+				6086E2B81D9133A50067A8B5 /* Info.plist */,
+			);
+			path = "Volumio-iOS";
+			sourceTree = "<group>";
+		};
+		9051AE3E5FA14F9AC25A3619 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B86260B29102044B72DD60D9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34E1700E8CD6C8F51FA00170 /* Pods-Volumio-iOS.debug.xcconfig */,
+				E501DC537BB78B6FDB36A4E0 /* Pods-Volumio-iOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6086E2A61D9133A50067A8B5 /* Volumio-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6086E2BB1D9133A50067A8B5 /* Build configuration list for PBXNativeTarget "Volumio-iOS" */;
+			buildPhases = (
+				33814AE97C0D6B75E28E410F /* [CP] Check Pods Manifest.lock */,
+				6086E2A31D9133A50067A8B5 /* Sources */,
+				6086E2A41D9133A50067A8B5 /* Frameworks */,
+				6086E2A51D9133A50067A8B5 /* Resources */,
+				B5FE78A908105098119D3EDC /* [CP] Embed Pods Frameworks */,
+				15AD8FBD9ABC016773436C82 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Volumio-iOS";
+			productName = "Volumio-iOS";
+			productReference = 6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6086E29F1D9133A50067A8B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Federico Sintucci";
+				TargetAttributes = {
+					6086E2A61D9133A50067A8B5 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7VJCA99LU5;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6086E2A21D9133A50067A8B5 /* Build configuration list for PBXProject "Volumio-iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6086E29E1D9133A50067A8B5;
+			productRefGroup = 6086E2A81D9133A50067A8B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6086E2A61D9133A50067A8B5 /* Volumio-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6086E2A51D9133A50067A8B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */,
+				601424771D916F0C001159B2 /* Assets.xcassets in Resources */,
+				6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		15AD8FBD9ABC016773436C82 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		33814AE97C0D6B75E28E410F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B5FE78A908105098119D3EDC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6086E2A31D9133A50067A8B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */,
+				60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */,
+				6005E4EB1D9916A5000B80AE /* CurrentTrack.swift in Sources */,
+				6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */,
+				6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */,
+				60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */,
+				602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */,
+				601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6086E2B01D9133A50067A8B5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6086E2B11D9133A50067A8B5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6086E2B61D9133A50067A8B5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6086E2B91D9133A50067A8B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6086E2BA1D9133A50067A8B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6086E2BC1D9133A50067A8B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34E1700E8CD6C8F51FA00170 /* Pods-Volumio-iOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				INFOPLIST_FILE = "Volumio-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		6086E2BD1D9133A50067A8B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E501DC537BB78B6FDB36A4E0 /* Pods-Volumio-iOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				INFOPLIST_FILE = "Volumio-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6086E2A21D9133A50067A8B5 /* Build configuration list for PBXProject "Volumio-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6086E2B91D9133A50067A8B5 /* Debug */,
+				6086E2BA1D9133A50067A8B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6086E2BB1D9133A50067A8B5 /* Build configuration list for PBXNativeTarget "Volumio-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6086E2BC1D9133A50067A8B5 /* Debug */,
+				6086E2BD1D9133A50067A8B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6086E29F1D9133A50067A8B5 /* Project object */;
+}
