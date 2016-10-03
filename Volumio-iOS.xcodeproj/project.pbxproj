@@ -13,6 +13,8 @@
 		602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803871DA02E1600055D42 /* TabBarViewController.swift */; };
 		6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803891DA031E200055D42 /* BrowseTableViewController.swift */; };
 		6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */; };
+		602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038F1DA25CF500055D42 /* QueueTableViewController.swift */; };
+		602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803921DA27DE500055D42 /* TrackTableViewCell.swift */; };
 		6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */; };
 		6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B01D9133A50067A8B5 /* Main.storyboard */; };
 		6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */; };
@@ -29,6 +31,8 @@
 		602803871DA02E1600055D42 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		602803891DA031E200055D42 /* BrowseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseTableViewController.swift; sourceTree = "<group>"; };
 		6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseDetailTableViewController.swift; sourceTree = "<group>"; };
+		6028038F1DA25CF500055D42 /* QueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
+		602803921DA27DE500055D42 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Volumio-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6086E2B11D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 				601424781D9173A3001159B2 /* PlaybackViewController.swift */,
 				602803891DA031E200055D42 /* BrowseTableViewController.swift */,
 				6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */,
+				6028038F1DA25CF500055D42 /* QueueTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -78,6 +83,14 @@
 				60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */,
 			);
 			name = Manager;
+			sourceTree = "<group>";
+		};
+		602803911DA27DCA00055D42 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				602803921DA27DE500055D42 /* TrackTableViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		6086E29E1D9133A50067A8B5 = {
@@ -105,6 +118,7 @@
 				6014247B1D9173C4001159B2 /* Manager */,
 				6014247A1D9173AD001159B2 /* Controllers */,
 				6005E4E91D99168A000B80AE /* Models */,
+				602803911DA27DCA00055D42 /* Views */,
 				6086E2B01D9133A50067A8B5 /* Main.storyboard */,
 				6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */,
 				601424761D916F0C001159B2 /* Assets.xcassets */,
@@ -259,6 +273,8 @@
 				60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */,
 				6005E4EB1D9916A5000B80AE /* CurrentTrack.swift in Sources */,
 				6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */,
+				602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */,
+				602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */,
 				6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */,
 				60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */,
 				602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */,

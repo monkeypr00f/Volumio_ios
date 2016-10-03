@@ -63,7 +63,7 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func pressPlay(_ sender: UIButton) {
-        switch SocketIOManager.sharedInstance.currentTrack![0].status! {
+        switch SocketIOManager.sharedInstance.currentTrack!.status! {
         case "play":
             SocketIOManager.sharedInstance.setPlayback(status: "pause")
         case "pause":
@@ -85,7 +85,7 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func pressVolumeUp(_ sender: UIButton) {
-        if var volume = SocketIOManager.sharedInstance.currentTrack![0].volume {
+        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
             if volume < 100 {
                 volume += 5
                 currentVolume.text = "\(volume)"
@@ -95,7 +95,7 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func pressVolumeDown(_ sender: UIButton) {
-        if var volume = SocketIOManager.sharedInstance.currentTrack![0].volume {
+        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
             if volume > 0 {
                 volume -= 5
                 currentVolume.text = "\(volume)"
@@ -105,7 +105,7 @@ class PlaybackViewController: UIViewController {
     }
     
     func getPlayerStatus() {
-        if let status = SocketIOManager.sharedInstance.currentTrack![0].status {
+        if let status = SocketIOManager.sharedInstance.currentTrack!.status {
             switch status {
             case "play":
                 self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
@@ -121,7 +121,7 @@ class PlaybackViewController: UIViewController {
     
     func getCurrentTrackInfo() {
         
-        let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack![0]
+        let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
         currentAlbum.text = currentTrackInfo.album!
         currentTitle.text = currentTrackInfo.title!
         currentArtist.text = currentTrackInfo.artist!

@@ -20,14 +20,14 @@ class SocketIOManager: NSObject {
     
     var socket: SocketIOClient = SocketIOClient(socketURL: URL(string: "http://volumio.local:3000")!)
     
-    var currentTrack : [CurrentTrack]?
+    var currentTrack : CurrentTrack?
+    var currentPlaylist : [CurrentTrack]?
     var currentSources : [[String:Any]]?
     
     func establishConnection() {
         socket.connect()
         socket.on("connect") { data, ack in
             self.socket.emit("getState")
-            self.socket.emit("getBrowseSources")
         }
     }
     
@@ -53,14 +53,15 @@ class SocketIOManager: NSObject {
     
     func getState() {
         socket.on("pushState") {data, ack in
-            if let json = data as? [[String : Any]] {
-                self.currentTrack = Mapper<CurrentTrack>().mapArray(JSONObject: json)
+            if let json = data[0] as? [String : Any] {
+                self.currentTrack = Mapper<CurrentTrack>().map(JSONObject: json)
             }
             NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
         }
     }
     
     func browseSources() {
+        self.socket.emit("getBrowseSources")
         socket.on("pushBrowseSources") {data, ack in
             if let json = data[0] as? [[String : Any]] {
                 self.currentSources = json
@@ -69,9 +70,16 @@ class SocketIOManager: NSObject {
     }
     
     func browseLibrary(uri:String) {
-        socket.emit("getBrowseLibrary", ["uri":uri])
-        socket.onAny {
-            print("Got event: \($0.event), with items: \($0.items)")
+//        socket.emit("getBrowseLibrary", ["uri":uri])
+    }
+    
+    func getQueue() {
+        self.socket.emit("getQueue")
+        socket.on("pushQueue") {data, ack in
+            if let json = data[0] as? [[String:Any]] {
+                self.currentPlaylist = Mapper<CurrentTrack>().mapArray(JSONObject: json)!
+            }
+            NotificationCenter.default.post(name: NSNotification.Name("currentPlaylist"), object: nil)
         }
     }
     
