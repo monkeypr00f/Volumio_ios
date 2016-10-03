@@ -385,7 +385,7 @@
                         <sections>
                             <tableViewSection id="dnc-Jd-TvS">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="BRf-xr-Cwo" style="IBUITableViewCellStyleDefault" id="YWh-Ua-aNQ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="setting" textLabel="BRf-xr-Cwo" style="IBUITableViewCellStyleDefault" id="YWh-Ua-aNQ">
                                         <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YWh-Ua-aNQ" id="pYH-F1-VU9">

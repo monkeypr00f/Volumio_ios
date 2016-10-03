@@ -28,6 +28,10 @@ class PlaybackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let logo = UIImage(named: "logo")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        
         SocketIOManager.sharedInstance.getState()
         SocketIOManager.sharedInstance.browseSources()
         
