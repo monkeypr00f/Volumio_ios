@@ -35,6 +35,10 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
+    func playTrack(position:Int) {
+        socket.emit("play", position)
+    }
+    
     func setPlayback(status:String) {
         socket.emit(status)
     }
@@ -58,6 +62,10 @@ class SocketIOManager: NSObject {
             }
             NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
         }
+        
+//        socket.onAny {
+//            print("Got event: \($0.event), with items: \($0.items)")
+//        }
     }
     
     func browseSources() {
@@ -81,6 +89,11 @@ class SocketIOManager: NSObject {
             }
             NotificationCenter.default.post(name: NSNotification.Name("currentPlaylist"), object: nil)
         }
+    }
+    
+    func removeFromQueue(position:Int) {
+        self.socket.emit("removeFromQueue", position)
+        self.getQueue()
     }
     
 }

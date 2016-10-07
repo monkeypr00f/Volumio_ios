@@ -21,9 +21,11 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var currentVolume: UILabel!
 
     @IBOutlet weak var outerRing: UIView!
-    @IBOutlet weak var centerRing: UIView!
     @IBOutlet weak var innerRing: UIView!
-    @IBOutlet weak var volumeController: UIView!
+    @IBOutlet weak var playerView: UIView!
+    @IBOutlet weak var playerViewShadow: UIView!
+    
+    var pageIndex:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,32 +35,23 @@ class PlaybackViewController: UIViewController {
         self.navigationItem.titleView = imageView
         
         SocketIOManager.sharedInstance.getState()
-        SocketIOManager.sharedInstance.browseSources()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
             self.getCurrentTrackInfo()
-            self.getPlayerStatus()
         })
         
         NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrackInfo), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getPlayerStatus), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-    }
+        }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
         innerRing.makeCircle()
-        centerRing.makeCircle()
         outerRing.makeCircle()
         
-        volumeController.layer.borderWidth = 1
-        volumeController.layer.borderColor = UIColor(red: 205/255, green: 205/255, blue: 205/255, alpha: 1).cgColor
-        volumeController.layer.shadowColor = UIColor.black.cgColor
-        volumeController.layer.shadowOpacity = 0.1
-        volumeController.layer.shadowOffset = CGSize.zero
-        volumeController.layer.shadowRadius = 20
-        volumeController.layer.shadowPath = UIBezierPath(rect: volumeController.bounds).cgPath
+        playerViewShadow.layer.shadowOffset = CGSize.zero
+        playerViewShadow.layer.shadowOpacity = 1
+        playerViewShadow.layer.shadowRadius = 3
     }
     
     override func didReceiveMemoryWarning() {
@@ -107,35 +100,29 @@ class PlaybackViewController: UIViewController {
             }
         }
     }
-    
-    func getPlayerStatus() {
-        if let status = SocketIOManager.sharedInstance.currentTrack!.status {
-            switch status {
-            case "play":
-                self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
-            case "pause":
-                self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-            case "stop":
-                self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-            default:
-                self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
-            }
-        }
-    }
-    
+
     func getCurrentTrackInfo() {
-        
+                        
         let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
-        currentAlbum.text = currentTrackInfo.album!
-        currentTitle.text = currentTrackInfo.title!
-        currentArtist.text = currentTrackInfo.artist!
+        currentAlbum.text = currentTrackInfo.album ?? ""
+        currentTitle.text = currentTrackInfo.title ?? ""
+        currentArtist.text = currentTrackInfo.artist ?? ""
         currentAlbumArt.kf.indicatorType = .activity
         
         if let volume = currentTrackInfo.volume {
             currentVolume.text = "\(volume)"
+        } else {
+            SocketIOManager.sharedInstance.setVolume(value: 50)
         }
         
-       if currentTrackInfo.albumArt!.range(of:"http") != nil{
+        if let duration = currentTrackInfo.duration {
+            if let seek = currentTrackInfo.seek {
+                let percentage = Float(seek) / (Float(duration) * 1000)
+                currentProgress.setProgress(percentage, animated: true)
+            }
+        }
+
+        if currentTrackInfo.albumArt!.range(of:"http") != nil{
             currentAlbumArt.kf.setImage(with: URL(string: currentTrackInfo.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2)), .forceRefresh])
         } else {
             LastFmManager.sharedInstance.getAlbumArt(artist: currentTrackInfo.artist!, album: currentTrackInfo.album!, completionHandler: { (albumUrl) in
@@ -149,6 +136,23 @@ class PlaybackViewController: UIViewController {
         
         if currentTrackInfo.service! == "spop" {
             spotifyTrack.isHidden = false
+        }
+        
+        self.getPlayerStatus()
+    }
+    
+    func getPlayerStatus() {
+        if let status = SocketIOManager.sharedInstance.currentTrack!.status {
+            switch status {
+            case "play":
+                self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
+            case "pause":
+                self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+            case "stop":
+                self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+            default:
+                self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+            }
         }
     }
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11077"/>
+    </dependencies>
+    <scenes>
+        <!--InterfaceController-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller backgroundImage="background" id="AgC-eL-Hgc" userLabel="InterfaceController" customClass="InterfaceController" customModule="Volumio" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="center" verticalAlignment="bottom" id="X7J-QL-yz3">
+                            <items>
+                                <group alignment="left" verticalAlignment="bottom" layout="vertical" spacing="20" id="iPW-Qi-kZ5">
+                                    <items>
+                                        <button alignment="left" verticalAlignment="bottom" backgroundImage="prev" id="zZ6-Os-c3W">
+                                            <connections>
+                                                <action selector="prevButton" destination="AgC-eL-Hgc" id="d07-dq-tt9"/>
+                                            </connections>
+                                        </button>
+                                        <button alignment="left" verticalAlignment="bottom" backgroundImage="volume_min" id="kos-hM-imm">
+                                            <connections>
+                                                <action selector="volumeDown" destination="AgC-eL-Hgc" id="qBP-qx-6ys"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                                <button alignment="center" backgroundImage="play" id="mnz-mb-cPa">
+                                    <connections>
+                                        <action selector="pressPlayButton" destination="AgC-eL-Hgc" id="PoE-aY-AWt"/>
+                                    </connections>
+                                </button>
+                                <group alignment="right" verticalAlignment="bottom" layout="vertical" spacing="20" id="DcC-3s-aGw">
+                                    <items>
+                                        <button alignment="right" verticalAlignment="bottom" backgroundImage="next" id="26e-4J-G4j">
+                                            <connections>
+                                                <action selector="nextButton" destination="AgC-eL-Hgc" id="NL5-i4-9Cg"/>
+                                            </connections>
+                                        </button>
+                                        <button alignment="left" verticalAlignment="bottom" backgroundImage="volume_max" id="Ugx-4l-DEG">
+                                            <connections>
+                                                <action selector="volumeUp" destination="AgC-eL-Hgc" id="RLF-b2-234"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="0.0" id="eSs-Ws-kaq">
+                            <items>
+                                <label width="1" alignment="center" text="Artist" textAlignment="center" id="FdF-0b-Qka">
+                                    <fontDescription key="font" type="system" weight="light" pointSize="12"/>
+                                </label>
+                                <label width="1" alignment="center" text="Title" textAlignment="center" id="RK3-OI-chr">
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="18"/>
+                                </label>
+                                <label width="1" alignment="center" text="Album" textAlignment="center" id="Z5s-G8-7L4">
+                                    <fontDescription key="font" type="system" weight="light" pointSize="12"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="albumLable" destination="Z5s-G8-7L4" id="Drt-9T-v8J"/>
+                        <outlet property="artistLable" destination="FdF-0b-Qka" id="wM3-Up-J2S"/>
+                        <outlet property="playButton" destination="mnz-mb-cPa" id="efG-k5-jd2"/>
+                        <outlet property="titleLabel" destination="RK3-OI-chr" id="SGb-b3-8oL"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="312"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Volumio" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

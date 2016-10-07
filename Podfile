@@ -9,4 +9,5 @@ target 'Volumio-iOS' do
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'Kingfisher'
+#    pod 'Hue', :git => 'https://github.com/hyperoslo/Hue.git', :branch => 'swift3'
 end

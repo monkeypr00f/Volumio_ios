@@ -15,6 +15,15 @@
 		6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */; };
 		602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038F1DA25CF500055D42 /* QueueTableViewController.swift */; };
 		602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803921DA27DE500055D42 /* TrackTableViewCell.swift */; };
+		6028039A1DA2C0CF00055D42 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602803981DA2C0CF00055D42 /* Interface.storyboard */; };
+		6028039C1DA2C0CF00055D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6028039B1DA2C0CF00055D42 /* Assets.xcassets */; };
+		602803A31DA2C0CF00055D42 /* Volumio Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 602803A21DA2C0CF00055D42 /* Volumio Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		602803AA1DA2C0CF00055D42 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803A91DA2C0CF00055D42 /* InterfaceController.swift */; };
+		602803AC1DA2C0CF00055D42 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803AB1DA2C0CF00055D42 /* ExtensionDelegate.swift */; };
+		602803AE1DA2C0CF00055D42 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803AD1DA2C0CF00055D42 /* NotificationController.swift */; };
+		602803B01DA2C0CF00055D42 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803AF1DA2C0CF00055D42 /* ComplicationController.swift */; };
+		602803B21DA2C0CF00055D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602803B11DA2C0CF00055D42 /* Assets.xcassets */; };
+		602803B61DA2C0CF00055D42 /* Volumio.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 602803961DA2C0CF00055D42 /* Volumio.app */; };
 		6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */; };
 		6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B01D9133A50067A8B5 /* Main.storyboard */; };
 		6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */; };
@@ -22,6 +31,48 @@
 		60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */; };
 		F9FF5511CFAA090301EC9FD1 /* Pods_Volumio_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		602803A41DA2C0CF00055D42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6086E29F1D9133A50067A8B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 602803A11DA2C0CF00055D42;
+			remoteInfo = "Volumio Extension";
+		};
+		602803B41DA2C0CF00055D42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6086E29F1D9133A50067A8B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 602803951DA2C0CF00055D42;
+			remoteInfo = Volumio;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		602803BC1DA2C0CF00055D42 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				602803A31DA2C0CF00055D42 /* Volumio Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		602803BE1DA2C0CF00055D42 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				602803B61DA2C0CF00055D42 /* Volumio.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		34E1700E8CD6C8F51FA00170 /* Pods-Volumio-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -33,6 +84,18 @@
 		6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseDetailTableViewController.swift; sourceTree = "<group>"; };
 		6028038F1DA25CF500055D42 /* QueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
 		602803921DA27DE500055D42 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
+		602803961DA2C0CF00055D42 /* Volumio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volumio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		602803991DA2C0CF00055D42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		6028039B1DA2C0CF00055D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6028039D1DA2C0CF00055D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		602803A21DA2C0CF00055D42 /* Volumio Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Volumio Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		602803A81DA2C0CF00055D42 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		602803A91DA2C0CF00055D42 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		602803AB1DA2C0CF00055D42 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		602803AD1DA2C0CF00055D42 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		602803AF1DA2C0CF00055D42 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		602803B11DA2C0CF00055D42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		602803B31DA2C0CF00055D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Volumio-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6086E2B11D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -45,6 +108,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		055989AD8505DA472DCA71B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6028039F1DA2C0CF00055D42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A41D9133A50067A8B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,10 +170,44 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		602803971DA2C0CF00055D42 /* Volumio */ = {
+			isa = PBXGroup;
+			children = (
+				602803981DA2C0CF00055D42 /* Interface.storyboard */,
+				6028039B1DA2C0CF00055D42 /* Assets.xcassets */,
+				6028039D1DA2C0CF00055D42 /* Info.plist */,
+			);
+			path = Volumio;
+			sourceTree = "<group>";
+		};
+		602803A61DA2C0CF00055D42 /* Volumio Extension */ = {
+			isa = PBXGroup;
+			children = (
+				602803A91DA2C0CF00055D42 /* InterfaceController.swift */,
+				602803AB1DA2C0CF00055D42 /* ExtensionDelegate.swift */,
+				602803AD1DA2C0CF00055D42 /* NotificationController.swift */,
+				602803AF1DA2C0CF00055D42 /* ComplicationController.swift */,
+				602803B11DA2C0CF00055D42 /* Assets.xcassets */,
+				602803B31DA2C0CF00055D42 /* Info.plist */,
+				602803A71DA2C0CF00055D42 /* Supporting Files */,
+			);
+			path = "Volumio Extension";
+			sourceTree = "<group>";
+		};
+		602803A71DA2C0CF00055D42 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				602803A81DA2C0CF00055D42 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		6086E29E1D9133A50067A8B5 = {
 			isa = PBXGroup;
 			children = (
 				6086E2A91D9133A50067A8B5 /* Volumio-iOS */,
+				602803971DA2C0CF00055D42 /* Volumio */,
+				602803A61DA2C0CF00055D42 /* Volumio Extension */,
 				6086E2A81D9133A50067A8B5 /* Products */,
 				B86260B29102044B72DD60D9 /* Pods */,
 				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
@@ -107,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */,
+				602803961DA2C0CF00055D42 /* Volumio.app */,
+				602803A21DA2C0CF00055D42 /* Volumio Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,6 +260,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		602803951DA2C0CF00055D42 /* Volumio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 602803BD1DA2C0CF00055D42 /* Build configuration list for PBXNativeTarget "Volumio" */;
+			buildPhases = (
+				602803941DA2C0CF00055D42 /* Resources */,
+				602803BC1DA2C0CF00055D42 /* Embed App Extensions */,
+				055989AD8505DA472DCA71B5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				602803A51DA2C0CF00055D42 /* PBXTargetDependency */,
+			);
+			name = Volumio;
+			productName = Volumio;
+			productReference = 602803961DA2C0CF00055D42 /* Volumio.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		602803A11DA2C0CF00055D42 /* Volumio Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 602803BB1DA2C0CF00055D42 /* Build configuration list for PBXNativeTarget "Volumio Extension" */;
+			buildPhases = (
+				6028039E1DA2C0CF00055D42 /* Sources */,
+				6028039F1DA2C0CF00055D42 /* Frameworks */,
+				602803A01DA2C0CF00055D42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Volumio Extension";
+			productName = "Volumio Extension";
+			productReference = 602803A21DA2C0CF00055D42 /* Volumio Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		6086E2A61D9133A50067A8B5 /* Volumio-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6086E2BB1D9133A50067A8B5 /* Build configuration list for PBXNativeTarget "Volumio-iOS" */;
@@ -157,10 +305,12 @@
 				6086E2A51D9133A50067A8B5 /* Resources */,
 				B5FE78A908105098119D3EDC /* [CP] Embed Pods Frameworks */,
 				15AD8FBD9ABC016773436C82 /* [CP] Copy Pods Resources */,
+				602803BE1DA2C0CF00055D42 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				602803B51DA2C0CF00055D42 /* PBXTargetDependency */,
 			);
 			name = "Volumio-iOS";
 			productName = "Volumio-iOS";
@@ -177,6 +327,16 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Federico Sintucci";
 				TargetAttributes = {
+					602803951DA2C0CF00055D42 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7VJCA99LU5;
+						ProvisioningStyle = Automatic;
+					};
+					602803A11DA2C0CF00055D42 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7VJCA99LU5;
+						ProvisioningStyle = Automatic;
+					};
 					6086E2A61D9133A50067A8B5 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7VJCA99LU5;
@@ -199,11 +359,30 @@
 			projectRoot = "";
 			targets = (
 				6086E2A61D9133A50067A8B5 /* Volumio-iOS */,
+				602803951DA2C0CF00055D42 /* Volumio */,
+				602803A11DA2C0CF00055D42 /* Volumio Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		602803941DA2C0CF00055D42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6028039C1DA2C0CF00055D42 /* Assets.xcassets in Resources */,
+				6028039A1DA2C0CF00055D42 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		602803A01DA2C0CF00055D42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				602803B21DA2C0CF00055D42 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A51D9133A50067A8B5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,6 +444,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6028039E1DA2C0CF00055D42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				602803AE1DA2C0CF00055D42 /* NotificationController.swift in Sources */,
+				602803B01DA2C0CF00055D42 /* ComplicationController.swift in Sources */,
+				602803AC1DA2C0CF00055D42 /* ExtensionDelegate.swift in Sources */,
+				602803AA1DA2C0CF00055D42 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A31D9133A50067A8B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,7 +474,28 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		602803A51DA2C0CF00055D42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 602803A11DA2C0CF00055D42 /* Volumio Extension */;
+			targetProxy = 602803A41DA2C0CF00055D42 /* PBXContainerItemProxy */;
+		};
+		602803B51DA2C0CF00055D42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 602803951DA2C0CF00055D42 /* Volumio */;
+			targetProxy = 602803B41DA2C0CF00055D42 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		602803981DA2C0CF00055D42 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				602803991DA2C0CF00055D42 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		6086E2B01D9133A50067A8B5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -304,6 +515,76 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		602803B71DA2C0CF00055D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				IBSC_MODULE = Volumio_Extension;
+				INFOPLIST_FILE = Volumio/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		602803B81DA2C0CF00055D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				IBSC_MODULE = Volumio_Extension;
+				INFOPLIST_FILE = Volumio/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		602803B91DA2C0CF00055D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				INFOPLIST_FILE = "Volumio Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		602803BA1DA2C0CF00055D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				INFOPLIST_FILE = "Volumio Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
 		6086E2B91D9133A50067A8B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -432,6 +713,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		602803BB1DA2C0CF00055D42 /* Build configuration list for PBXNativeTarget "Volumio Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				602803B91DA2C0CF00055D42 /* Debug */,
+				602803BA1DA2C0CF00055D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		602803BD1DA2C0CF00055D42 /* Build configuration list for PBXNativeTarget "Volumio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				602803B71DA2C0CF00055D42 /* Debug */,
+				602803B81DA2C0CF00055D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6086E2A21D9133A50067A8B5 /* Build configuration list for PBXProject "Volumio-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

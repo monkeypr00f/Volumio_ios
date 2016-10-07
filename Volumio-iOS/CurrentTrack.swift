@@ -20,6 +20,7 @@ class CurrentTrack: Mappable {
     var uri: String?
     var status: String?
     var service: String?
+    var position: Int?
     
     required init?(map: Map) {
         
@@ -37,5 +38,6 @@ class CurrentTrack: Mappable {
         uri         <- map["uri"]
         status      <- map["status"]
         service     <- map["service"]
+        position    <- map["position"]
     }
 }
