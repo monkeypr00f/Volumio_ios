@@ -63,9 +63,9 @@ class SocketIOManager: NSObject {
             NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
         }
         
-//        socket.onAny {
-//            print("Got event: \($0.event), with items: \($0.items)")
-//        }
+        socket.onAny {
+            print("Got event: \($0.event), with items: \($0.items)")
+        }
     }
     
     func browseSources() {

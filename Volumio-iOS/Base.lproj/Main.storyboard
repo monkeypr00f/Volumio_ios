@@ -330,6 +330,7 @@
                         <outlet property="currentAlbum" destination="ru8-RY-Im4" id="erY-Dr-h0s"/>
                         <outlet property="currentAlbumArt" destination="M3N-Po-ilB" id="B0R-GK-gmx"/>
                         <outlet property="currentArtist" destination="JuB-aN-hpF" id="wEP-3Q-9Ty"/>
+                        <outlet property="currentDuration" destination="OAY-lW-eo7" id="tih-Jc-V1E"/>
                         <outlet property="currentProgress" destination="VvN-0w-wtO" id="L0I-mv-Ptc"/>
                         <outlet property="currentTitle" destination="HXz-VE-XTr" id="Lve-pm-yCL"/>
                         <outlet property="currentVolume" destination="hhQ-MM-cHJ" id="Lx4-bs-Xgc"/>
@@ -338,6 +339,7 @@
                         <outlet property="playButton" destination="AZ4-6W-RsB" id="Smr-NU-KhJ"/>
                         <outlet property="playerView" destination="bmy-kf-XAK" id="ceY-UW-QiV"/>
                         <outlet property="playerViewShadow" destination="u6t-oV-Z14" id="BhF-f8-qBx"/>
+                        <outlet property="seekValue" destination="avu-qI-7mf" id="6vu-4q-zeR"/>
                         <outlet property="spotifyTrack" destination="eFE-cO-EXh" id="SWA-TQ-dfk"/>
                     </connections>
                 </viewController>

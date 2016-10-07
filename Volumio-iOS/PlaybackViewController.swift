@@ -19,13 +19,18 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var spotifyTrack: UIImageView!
     @IBOutlet weak var currentProgress: UIProgressView!
     @IBOutlet weak var currentVolume: UILabel!
+    @IBOutlet weak var seekValue: UILabel!
+    @IBOutlet weak var currentDuration: UILabel!
 
     @IBOutlet weak var outerRing: UIView!
     @IBOutlet weak var innerRing: UIView!
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var playerViewShadow: UIView!
     
-    var pageIndex:Int!
+    var counter: Int = 0
+    var trackDuration: Int = 0
+    var currentTrackInfo:CurrentTrack!
+    var timer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,10 +108,11 @@ class PlaybackViewController: UIViewController {
 
     func getCurrentTrackInfo() {
                         
-        let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
+        currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
         currentAlbum.text = currentTrackInfo.album ?? ""
         currentTitle.text = currentTrackInfo.title ?? ""
         currentArtist.text = currentTrackInfo.artist ?? ""
+        
         currentAlbumArt.kf.indicatorType = .activity
         
         if let volume = currentTrackInfo.volume {
@@ -116,8 +122,13 @@ class PlaybackViewController: UIViewController {
         }
         
         if let duration = currentTrackInfo.duration {
+            trackDuration = duration
+            currentDuration.text = timeFormatted(totalSeconds: duration)
             if let seek = currentTrackInfo.seek {
-                let percentage = Float(seek) / (Float(duration) * 1000)
+                counter = seek
+                seekValue.text = timeFormatted(totalSeconds: counter/1000)
+                
+                let percentage = Float(counter) / (Float(trackDuration) * 1000)
                 currentProgress.setProgress(percentage, animated: true)
             }
         }
@@ -142,18 +153,51 @@ class PlaybackViewController: UIViewController {
     }
     
     func getPlayerStatus() {
-        if let status = SocketIOManager.sharedInstance.currentTrack!.status {
+        if let status = currentTrackInfo.status {
             switch status {
             case "play":
+                startTimer()
                 self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
             case "pause":
+                stopTimer()
                 self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
             case "stop":
+                stopTimer()
                 self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
             default:
+                stopTimer()
                 self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
             }
         }
+    }
+    
+    func timeFormatted(totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        let hours: Int = totalSeconds / 3600
+        if hours == 0 {
+            return String(format: "%02d:%02d", minutes, seconds)
+        } else {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
+    }
+    
+    func startTimer() {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSeek), userInfo:nil, repeats: true)
+    }
+    
+    func stopTimer() {
+        timer.invalidate()
+        seekValue.text = timeFormatted(totalSeconds: counter/1000)
+    }
+    
+    func updateSeek() {
+        counter += 1000
+        seekValue.text = timeFormatted(totalSeconds: counter/1000)
+        
+        let percentage = Float(counter) / (Float(trackDuration) * 1000)
+        currentProgress.setProgress(percentage, animated: true)
     }
 }
 
