@@ -1,5 +1,5 @@
 //
-//  CurrentTrack.swift
+//  TrackObject.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 26/09/16.
@@ -9,7 +9,7 @@
 import UIKit
 import ObjectMapper
 
-class CurrentTrack: Mappable {
+class TrackObject: Mappable {
     var title: String?
     var artist: String?
     var album: String?

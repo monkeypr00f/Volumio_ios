@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class QueueTableViewController: UITableViewController {
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +22,7 @@ class QueueTableViewController: UITableViewController {
         })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
+            // da modificare, controlla quella che sta suonando
             self.tableView.reloadData()
         })
     }
@@ -89,7 +90,10 @@ class QueueTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        SocketIOManager.sharedInstance.playTrack(position: indexPath.row)
+        SocketIOManager.sharedInstance.playTrack(position: indexPath.row)
+        DispatchQueue.main.async {
+            tableView.reloadData()
+        }
     }
 
     // Override to support rearranging the table view.
@@ -102,7 +106,7 @@ class QueueTableViewController: UITableViewController {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-
+    
     /*
     // MARK: - Navigation
 

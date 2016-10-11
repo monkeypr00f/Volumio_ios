@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6005E4EB1D9916A5000B80AE /* CurrentTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */; };
+		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
+		6023A9AF1DAACD9C009810EF /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6023A9AE1DAACD9C009810EF /* SettingsTableViewController.swift */; };
 		602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803871DA02E1600055D42 /* TabBarViewController.swift */; };
 		6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602803891DA031E200055D42 /* BrowseTableViewController.swift */; };
 		6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */; };
@@ -25,9 +26,13 @@
 		602803B21DA2C0CF00055D42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602803B11DA2C0CF00055D42 /* Assets.xcassets */; };
 		602803B61DA2C0CF00055D42 /* Volumio.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 602803961DA2C0CF00055D42 /* Volumio.app */; };
 		6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */; };
-		6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B01D9133A50067A8B5 /* Main.storyboard */; };
 		6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */; };
 		60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */; };
+		60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E781981DABCC9800C48A43 /* LibraryObject.swift */; };
+		60E7819B1DABDF1600C48A43 /* BrowsePlaylistDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E7819A1DABDF1600C48A43 /* BrowsePlaylistDetailTableViewController.swift */; };
+		60E7819D1DABE1AA00C48A43 /* PlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E7819C1DABE1AA00C48A43 /* PlaylistTableViewController.swift */; };
+		60E7819F1DABE36D00C48A43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60E7819E1DABE36D00C48A43 /* Main.storyboard */; };
+		60E781A11DABE76300C48A43 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E781A01DABE76300C48A43 /* PlaylistTableViewCell.swift */; };
 		60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */; };
 		F9FF5511CFAA090301EC9FD1 /* Pods_Volumio_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -76,9 +81,10 @@
 
 /* Begin PBXFileReference section */
 		34E1700E8CD6C8F51FA00170 /* Pods-Volumio-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentTrack.swift; sourceTree = "<group>"; };
+		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
 		601424761D916F0C001159B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		601424781D9173A3001159B2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
+		6023A9AE1DAACD9C009810EF /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		602803871DA02E1600055D42 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		602803891DA031E200055D42 /* BrowseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseTableViewController.swift; sourceTree = "<group>"; };
 		6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -98,10 +104,14 @@
 		602803B31DA2C0CF00055D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6086E2A71D9133A50067A8B5 /* Volumio-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Volumio-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6086E2B11D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6086E2B61D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6086E2B81D9133A50067A8B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFmManager.swift; sourceTree = "<group>"; };
+		60E781981DABCC9800C48A43 /* LibraryObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryObject.swift; sourceTree = "<group>"; };
+		60E7819A1DABDF1600C48A43 /* BrowsePlaylistDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePlaylistDetailTableViewController.swift; sourceTree = "<group>"; };
+		60E7819C1DABE1AA00C48A43 /* PlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewController.swift; sourceTree = "<group>"; };
+		60E7819E1DABE36D00C48A43 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		60E781A01DABE76300C48A43 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E501DC537BB78B6FDB36A4E0 /* Pods-Volumio-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,7 +146,8 @@
 		6005E4E91D99168A000B80AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6005E4EA1D9916A5000B80AE /* CurrentTrack.swift */,
+				6005E4EA1D9916A5000B80AE /* TrackObject.swift */,
+				60E781981DABCC9800C48A43 /* LibraryObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -144,11 +155,14 @@
 		6014247A1D9173AD001159B2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				602803871DA02E1600055D42 /* TabBarViewController.swift */,
 				601424781D9173A3001159B2 /* PlaybackViewController.swift */,
 				602803891DA031E200055D42 /* BrowseTableViewController.swift */,
 				6028038B1DA1024100055D42 /* BrowseDetailTableViewController.swift */,
+				60E7819A1DABDF1600C48A43 /* BrowsePlaylistDetailTableViewController.swift */,
+				60E7819C1DABE1AA00C48A43 /* PlaylistTableViewController.swift */,
 				6028038F1DA25CF500055D42 /* QueueTableViewController.swift */,
+				602803871DA02E1600055D42 /* TabBarViewController.swift */,
+				6023A9AE1DAACD9C009810EF /* SettingsTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -166,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				602803921DA27DE500055D42 /* TrackTableViewCell.swift */,
+				60E781A01DABE76300C48A43 /* PlaylistTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -232,7 +247,7 @@
 				6014247A1D9173AD001159B2 /* Controllers */,
 				6005E4E91D99168A000B80AE /* Models */,
 				602803911DA27DCA00055D42 /* Views */,
-				6086E2B01D9133A50067A8B5 /* Main.storyboard */,
+				60E7819E1DABE36D00C48A43 /* Main.storyboard */,
 				6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */,
 				601424761D916F0C001159B2 /* Assets.xcassets */,
 				6086E2B81D9133A50067A8B5 /* Info.plist */,
@@ -387,9 +402,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60E7819F1DABE36D00C48A43 /* Main.storyboard in Resources */,
 				6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */,
 				601424771D916F0C001159B2 /* Assets.xcassets in Resources */,
-				6086E2B21D9133A50067A8B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,13 +476,18 @@
 			files = (
 				6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */,
 				60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */,
-				6005E4EB1D9916A5000B80AE /* CurrentTrack.swift in Sources */,
+				6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */,
+				6023A9AF1DAACD9C009810EF /* SettingsTableViewController.swift in Sources */,
 				6028038A1DA031E200055D42 /* BrowseTableViewController.swift in Sources */,
+				60E781A11DABE76300C48A43 /* PlaylistTableViewCell.swift in Sources */,
 				602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */,
 				602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */,
 				6028038C1DA1024100055D42 /* BrowseDetailTableViewController.swift in Sources */,
 				60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */,
+				60E7819D1DABE1AA00C48A43 /* PlaylistTableViewController.swift in Sources */,
+				60E7819B1DABDF1600C48A43 /* BrowsePlaylistDetailTableViewController.swift in Sources */,
 				602803881DA02E1600055D42 /* TabBarViewController.swift in Sources */,
+				60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */,
 				601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,14 +514,6 @@
 				602803991DA2C0CF00055D42 /* Base */,
 			);
 			name = Interface.storyboard;
-			sourceTree = "<group>";
-		};
-		6086E2B01D9133A50067A8B5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6086E2B11D9133A50067A8B5 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */ = {

@@ -29,7 +29,7 @@ class PlaybackViewController: UIViewController {
     
     var counter: Int = 0
     var trackDuration: Int = 0
-    var currentTrackInfo:CurrentTrack!
+    var currentTrackInfo:TrackObject!
     var timer = Timer()
     
     override func viewDidLoad() {
@@ -67,23 +67,23 @@ class PlaybackViewController: UIViewController {
     @IBAction func pressPlay(_ sender: UIButton) {
         switch SocketIOManager.sharedInstance.currentTrack!.status! {
         case "play":
-            SocketIOManager.sharedInstance.setPlayback(status: "pause")
+            SocketIOManager.sharedInstance.doAction(action: "pause")
         case "pause":
-            SocketIOManager.sharedInstance.setPlayback(status: "play")
+            SocketIOManager.sharedInstance.doAction(action: "play")
         case "stop":
-            SocketIOManager.sharedInstance.setPlayback(status: "play")
+            SocketIOManager.sharedInstance.doAction(action: "play")
         default:
-            SocketIOManager.sharedInstance.setPlayback(status: "stop")
+            SocketIOManager.sharedInstance.doAction(action: "stop")
         }
         getPlayerStatus()
     }
     
     @IBAction func pressPrevious(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.prevTrack()
+        SocketIOManager.sharedInstance.doAction(action: "prev")
     }
     
     @IBAction func pressNext(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.nextTrack()
+        SocketIOManager.sharedInstance.doAction(action: "next")
     }
     
     @IBAction func pressVolumeUp(_ sender: UIButton) {
