@@ -390,7 +390,7 @@
                                             <constraint firstAttribute="height" constant="1" id="GNv-1Z-0ze"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dVt-DP-HFD">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dVt-DP-HFD">
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hWO-v0-0yQ">
                                                 <subviews>
@@ -400,9 +400,6 @@
                                                             <constraint firstAttribute="height" constant="16" id="xrt-XZ-bwA"/>
                                                         </constraints>
                                                         <state key="normal" image="repeat"/>
-                                                        <connections>
-                                                            <action selector="pressPrevious:" destination="QqN-dO-5fx" eventType="touchUpInside" id="Lcr-Gg-vhL"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Y6-GU-4zg">
                                                         <constraints>
@@ -440,15 +437,12 @@
                                                             <constraint firstAttribute="width" constant="16" id="mF5-QZ-6YC"/>
                                                         </constraints>
                                                         <state key="normal" image="shuffle"/>
-                                                        <connections>
-                                                            <action selector="pressPrevious:" destination="QqN-dO-5fx" eventType="touchUpInside" id="b65-vt-aFz"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SaL-u5-AjI">
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="L6u-P9-mRv">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="L6u-P9-mRv">
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8q-gU-NnB" userLabel="-">
                                                                 <constraints>
@@ -457,7 +451,7 @@
                                                                 </constraints>
                                                                 <state key="normal" image="volume_min"/>
                                                                 <connections>
-                                                                    <action selector="pressVolumeDown:" destination="QqN-dO-5fx" eventType="touchUpInside" id="yuC-yZ-NSA"/>
+                                                                    <action selector="pressVolumeDown:" destination="QqN-dO-5fx" eventType="touchUpInside" id="zQA-XI-0P2"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhQ-MM-cHJ">
@@ -472,7 +466,7 @@
                                                                 </constraints>
                                                                 <state key="normal" image="volume_max"/>
                                                                 <connections>
-                                                                    <action selector="pressVolumeUp:" destination="QqN-dO-5fx" eventType="touchUpInside" id="A7P-Ou-ycX"/>
+                                                                    <action selector="pressVolumeUp:" destination="QqN-dO-5fx" eventType="touchUpInside" id="mK2-f8-vOg"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -502,7 +496,7 @@
                                     <constraint firstItem="u6t-oV-Z14" firstAttribute="leading" secondItem="bmy-kf-XAK" secondAttribute="leading" id="TUZ-UB-mrJ"/>
                                     <constraint firstAttribute="trailing" secondItem="u6t-oV-Z14" secondAttribute="trailing" id="bEl-5M-kFV"/>
                                     <constraint firstAttribute="bottom" secondItem="dVt-DP-HFD" secondAttribute="bottom" constant="80" id="cG0-g5-Vg6"/>
-                                    <constraint firstItem="dVt-DP-HFD" firstAttribute="top" secondItem="u6t-oV-Z14" secondAttribute="bottom" id="dg2-CA-Ld7"/>
+                                    <constraint firstItem="dVt-DP-HFD" firstAttribute="top" secondItem="u6t-oV-Z14" secondAttribute="bottom" constant="20" id="dg2-CA-Ld7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeD-7U-4wd" userLabel="Outer">

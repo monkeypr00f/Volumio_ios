@@ -150,12 +150,12 @@ class PlaybackViewController: UIViewController {
         }
 
         if currentTrackInfo.albumArt!.range(of:"http") != nil{
-            currentAlbumArt.kf.setImage(with: URL(string: currentTrackInfo.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2)), .forceRefresh])
+            currentAlbumArt.kf.setImage(with: URL(string: currentTrackInfo.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
         } else {
             LastFmManager.sharedInstance.getAlbumArt(artist: currentTrackInfo.artist!, album: currentTrackInfo.album!, completionHandler: { (albumUrl) in
                 if let albumUrl = albumUrl {
                     DispatchQueue.main.async {
-                        self.currentAlbumArt.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2)), .forceRefresh])
+                        self.currentAlbumArt.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                     }
                 }
             })
