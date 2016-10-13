@@ -12,10 +12,13 @@ class BrowseTableViewController: UITableViewController {
     
     var sourcesList : [[String:Any]] = []
 
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.browseSources()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SocketIOManager.sharedInstance.browseSources()
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseSources"), object: nil, queue: nil, using: { notification in

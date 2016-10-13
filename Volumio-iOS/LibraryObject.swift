@@ -13,7 +13,7 @@ class LibraryObject: Mappable {
     var title: String?
     var artist: String?
     var album: String?
-    var albumart: String?
+    var albumArt: String?
     var uri: String?
     var service: String?
     var type: String?
@@ -27,7 +27,7 @@ class LibraryObject: Mappable {
         title       <- map["title"]
         artist      <- map["artist"]
         album       <- map["album"]
-        albumart    <- map["albumart"]
+        albumArt    <- map["albumart"]
         uri         <- map["uri"]
         service     <- map["service"]
         type        <- map["type"]

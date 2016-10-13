@@ -14,12 +14,15 @@ class BrowseDetailTableViewController: UITableViewController {
     var serviceUri : String!
     
     var sourceLibrary : [LibraryObject] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.title = serviceName
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseLibrary"), object: nil, queue: nil, using: { notification in
@@ -58,9 +61,9 @@ class BrowseDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 3:
-            performSegue(withIdentifier: "browsePlaylist", sender: self)
+            performSegue(withIdentifier: "browseCategories", sender: self)
         default:
-            performSegue(withIdentifier: "showPlaylist", sender: self)
+            performSegue(withIdentifier: "browsePlaylist", sender: self)
         }
     }
 
@@ -68,17 +71,17 @@ class BrowseDetailTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "browsePlaylist" {
+        if segue.identifier == "browseCategories" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowsePlaylistDetailTableViewController
+                let destinationController = segue.destination as! BrowseCategoryDetailTableViewController
                 destinationController.serviceName = sourceLibrary[indexPath.row].title
                 destinationController.serviceUri = sourceLibrary[indexPath.row].uri
             }
         }
         
-        if segue.identifier == "showPlaylist" {
+        if segue.identifier == "browsePlaylist" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! PlaylistTableViewController
+                let destinationController = segue.destination as! BrowsePlaylistsTableViewController
                 destinationController.serviceName = sourceLibrary[indexPath.row].title
                 destinationController.serviceUri = sourceLibrary[indexPath.row].uri
             }

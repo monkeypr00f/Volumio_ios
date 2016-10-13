@@ -1,5 +1,5 @@
 //
-//  BrowsePlaylistDetailTableViewController.swift
+//  BrowseCategoryDetailTableViewController.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 10/10/16.
@@ -8,18 +8,21 @@
 
 import UIKit
 
-class BrowsePlaylistDetailTableViewController: UITableViewController {
+class BrowseCategoryDetailTableViewController: UITableViewController {
 
     var serviceName : String!
     var serviceUri : String!
     
     var sourceCategory : [LibraryObject] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.title = serviceName
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseLibrary"), object: nil, queue: nil, using: { notification in
@@ -51,20 +54,23 @@ class BrowsePlaylistDetailTableViewController: UITableViewController {
         
         cell.playlistTitle.text = playlist.title ?? ""
         
-        if playlist.albumart!.range(of:"http") != nil{
-            cell.playlistImage.kf.setImage(with: URL(string: (playlist.albumart)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+        if playlist.albumArt?.range(of:"http") != nil{
+            cell.playlistImage.kf.setImage(with: URL(string: (playlist.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
         }
 
         return cell
     }
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "browsePlaylist" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let destinationController = segue.destination as! BrowsePlaylistsTableViewController
+                destinationController.serviceName = sourceCategory[indexPath.row].title
+                destinationController.serviceUri = sourceCategory[indexPath.row].uri
+            }
+        }
     }
-    */
 
 }
