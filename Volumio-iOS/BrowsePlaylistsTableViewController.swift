@@ -31,6 +31,8 @@ class BrowsePlaylistsTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +61,11 @@ class BrowsePlaylistsTableViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - Navigation

@@ -27,6 +27,8 @@ class BrowseTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +53,11 @@ class BrowseTableViewController: UITableViewController {
         cell.textLabel?.text = source["name"] as! String?
 
         return cell
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - Navigation

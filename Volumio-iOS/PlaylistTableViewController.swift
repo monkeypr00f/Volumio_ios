@@ -33,6 +33,8 @@ class PlaylistTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -100,6 +102,11 @@ class PlaylistTableViewController: UITableViewController {
             UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         )
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
     }
 
 

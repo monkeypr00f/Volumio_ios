@@ -31,6 +31,8 @@ class BrowseCategoryDetailTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,6 +62,13 @@ class BrowseCategoryDetailTableViewController: UITableViewController {
 
         return cell
     }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
