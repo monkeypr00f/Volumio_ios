@@ -567,7 +567,7 @@
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				IBSC_MODULE = Volumio_Extension;
 				INFOPLIST_FILE = Volumio/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -585,7 +585,7 @@
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				IBSC_MODULE = Volumio_Extension;
 				INFOPLIST_FILE = Volumio/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -602,7 +602,7 @@
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				INFOPLIST_FILE = "Volumio Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -619,7 +619,7 @@
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				INFOPLIST_FILE = "Volumio Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS.watchkitapp.watchkitextension";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -732,7 +732,7 @@
 				INFOPLIST_FILE = "Volumio-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -748,7 +748,7 @@
 				INFOPLIST_FILE = "Volumio-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "fsintucci.Volumio-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

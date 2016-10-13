@@ -8,11 +8,14 @@
 
 import UIKit
 import Eureka
+import Kingfisher
 
 class SettingsViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        clearImageCache()
         
         form = Section("Plugins")
             
@@ -33,6 +36,12 @@ class SettingsViewController: FormViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func clearImageCache() {
+        ImageCache.default.calculateDiskCacheSize { size in
+            print("Used disk size by bytes: \(size)")
+        }
     }
     
     func shutdownAlert() {
