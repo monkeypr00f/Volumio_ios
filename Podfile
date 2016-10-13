@@ -9,4 +9,5 @@ target 'Volumio-iOS' do
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'Kingfisher'
+    pod 'Eureka', '~> 2.0.0-beta.1'
 end

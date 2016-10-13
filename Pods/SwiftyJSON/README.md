@@ -287,7 +287,7 @@ let id: Int = json["id"].intValue
 let name: String = json["name"].stringValue
 ```
 ```swift
-//If not a Array or nil, return []
+//If not an Array or nil, return []
 let list: Array<JSON> = json["list"].arrayValue
 ```
 ```swift
@@ -330,7 +330,7 @@ if let string = json.rawString() {
 ####Existence
 ```swift
 //shows you whether value specified in JSON or not
-if json["name"].isExists()
+if json["name"].exists()
 ```
 
 ####Literal convertibles
@@ -386,16 +386,25 @@ json["list",3,"what"] = "that"
 let path = ["list",3,"what"]
 json[path] = "that"
 ```
+```swift
+//With other JSON objects
+let user: JSON = ["username" : "Steve", "password": "supersecurepassword"]
+let auth: JSON = [
+  "user": user.object //use user.object instead of just user
+  "apikey": "supersecretapitoken"
+]
+````
+
 ##Work with Alamofire
 
 SwiftyJSON nicely wraps the result of the Alamofire JSON response handler:
 ```swift
 Alamofire.request(.GET, url).validate().responseJSON { response in
     switch response.result {
-    case .Success(let value):
+    case .success(let value):
         let json = JSON(value)
         print("JSON: \(json)")
-    case .Failure(let error):
+    case .failure(let error):
         print(error)
     }
 }

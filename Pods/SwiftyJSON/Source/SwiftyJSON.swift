@@ -1,6 +1,6 @@
 //  SwiftyJSON.swift
 //
-//  Copyright (c) 2014 Ruoyu Fu, Pinglin Tang
+//  Copyright (c) 2014 - 2016 Ruoyu Fu, Pinglin Tang
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,6 @@ public enum Type :Int{
 }
 
 // MARK: - JSON Base
-
 public struct JSON {
     
     /**
@@ -171,6 +170,9 @@ public struct JSON {
                 self.rawString = string
             case  _ as NSNull:
                 _type = .null
+            case let array as [JSON]:
+                _type = .array
+                self.rawArray = array.map { $0.object }
             case let array as [Any]:
                 _type = .array
                 self.rawArray = array
@@ -196,14 +198,17 @@ public struct JSON {
     public static var null: JSON { get { return JSON(NSNull()) } }
 }
 
-public enum JSONIndex:Comparable {
+public enum JSONIndex:Comparable
+{
     case array(Int)
     case dictionary(DictionaryIndex<String, JSON>)
     case null
 }
 
-public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
-    switch (lhs, rhs) {
+public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool
+{
+    switch (lhs, rhs)
+    {
     case (.array(let left), .array(let right)):
         return left == right
     case (.dictionary(let left), .dictionary(let right)):
@@ -214,8 +219,10 @@ public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
     }
 }
 
-public func <(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
-    switch (lhs, rhs) {
+public func <(lhs: JSONIndex, rhs: JSONIndex) -> Bool
+{
+    switch (lhs, rhs)
+    {
     case (.array(let left), .array(let right)):
         return left < right
     case (.dictionary(let left), .dictionary(let right)):
@@ -226,12 +233,15 @@ public func <(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
 }
 
 
-extension JSON: Collection{
+extension JSON: Collection
+{
     
     public typealias Index = JSONIndex
     
-    public var startIndex: Index{
-        switch type {
+    public var startIndex: Index
+    {
+        switch type
+        {
         case .array:
             return .array(rawArray.startIndex)
         case .dictionary:
@@ -241,8 +251,10 @@ extension JSON: Collection{
         }
     }
     
-    public var endIndex: Index{
-        switch type {
+    public var endIndex: Index
+    {
+        switch type
+        {
         case .array:
             return .array(rawArray.endIndex)
         case .dictionary:
@@ -252,8 +264,10 @@ extension JSON: Collection{
         }
     }
     
-    public func index(after i: Index) -> Index {
-        switch i {
+    public func index(after i: Index) -> Index
+    {
+        switch i
+        {
         case .array(let idx):
             return .array(rawArray.index(after: idx))
         case .dictionary(let idx):
@@ -264,8 +278,10 @@ extension JSON: Collection{
         
     }
     
-    public subscript (position: Index) -> (String, JSON) {
-        switch position {
+    public subscript (position: Index) -> (String, JSON)
+    {
+        switch position
+        {
         case .array(let idx):
             return (String(idx), JSON(self.rawArray[idx]))
         case .dictionary(let idx):
@@ -283,7 +299,8 @@ extension JSON: Collection{
 /**
  *  To mark both String and Int can be used in subscript.
  */
-public enum JSONKey {
+public enum JSONKey
+{
     case index(Int)
     case key(String)
 }
@@ -460,13 +477,42 @@ extension JSON: Swift.ExpressibleByFloatLiteral {
 }
 
 extension JSON: Swift.ExpressibleByDictionaryLiteral {
-    
     public init(dictionaryLiteral elements: (String, Any)...) {
-        self.init(elements.reduce([String : Any](minimumCapacity: elements.count)){(dictionary: [String : Any], element:(String, Any)) -> [String : Any] in
-            var d = dictionary
-            d[element.0] = element.1
-            return d
-        } as Any)
+        let array = elements
+        self.init(dictionaryLiteral: array)
+    }
+    
+    public init(dictionaryLiteral elements: [(String, Any)]) {
+        let jsonFromDictionaryLiteral: ([String : Any]) -> JSON = { dictionary in
+            let initializeElement = Array(dictionary.keys).flatMap { key -> (String, Any)? in
+                if let value = dictionary[key] {
+                    return (key, value)
+                }
+                return nil
+            }
+            return JSON(dictionaryLiteral: initializeElement)
+        }
+        
+        var dict = [String : Any](minimumCapacity: elements.count)
+        
+        for element in elements {
+            let elementToSet: Any
+            if let json = element.1 as? JSON {
+                elementToSet = json.object
+            } else if let jsonArray = element.1 as? [JSON] {
+                elementToSet = JSON(jsonArray).object
+            } else if let dictionary = element.1 as? [String : Any] {
+                elementToSet = jsonFromDictionaryLiteral(dictionary).object
+            } else if let dictArray = element.1 as? [[String : Any]] {
+                let jsonArray = dictArray.map { jsonFromDictionaryLiteral($0) }
+                elementToSet = JSON(jsonArray).object
+            } else {
+                elementToSet = element.1
+            }
+            dict[element.0] = elementToSet
+        }
+        
+        self.init(dict)
     }
 }
 
@@ -597,12 +643,11 @@ extension JSON {
     //Optional [String : JSON]
     public var dictionary: [String : JSON]? {
         if self.type == .dictionary {
-            
-            return self.rawDictionary.reduce([String : JSON]()) { (dictionary: [String : JSON], element: (String, Any)) -> [String : JSON] in
-                var d = dictionary
-                d[element.0] = JSON(element.1)
-                return d
+            var d = [String : JSON](minimumCapacity: rawDictionary.count)
+            for (key, value) in rawDictionary {
+                d[key] = JSON(value)
             }
+            return d
         } else {
             return nil
         }
@@ -861,14 +906,19 @@ extension JSON {
         }
     }
     
-    public var int: Int? {
-        get {
+    public var int: Int?
+    {
+        get
+        {
             return self.number?.intValue
         }
-        set {
-            if let newValue = newValue {
+        set
+        {
+            if let newValue = newValue
+            {
                 self.object = NSNumber(value: newValue)
-            } else {
+            } else
+            {
                 self.object = NSNull()
             }
         }
@@ -1180,8 +1230,7 @@ extension NSNumber {
     var isBool:Bool {
         get {
             let objCType = String(cString: self.objCType)
-            if (self.compare(trueNumber) == ComparisonResult.orderedSame && objCType == trueObjCType)
-                || (self.compare(falseNumber) == ComparisonResult.orderedSame && objCType == falseObjCType){
+            if (self.compare(trueNumber) == .orderedSame && objCType == trueObjCType) || (self.compare(falseNumber) == .orderedSame && objCType == falseObjCType){
                 return true
             } else {
                 return false
@@ -1197,7 +1246,7 @@ func ==(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-        return lhs.compare(rhs) == ComparisonResult.orderedSame
+        return lhs.compare(rhs) == .orderedSame
     }
 }
 
@@ -1213,7 +1262,7 @@ func <(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-        return lhs.compare(rhs) == ComparisonResult.orderedAscending
+        return lhs.compare(rhs) == .orderedAscending
     }
 }
 
@@ -1237,7 +1286,7 @@ func <=(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-        return lhs.compare(rhs) != ComparisonResult.orderedDescending
+        return lhs.compare(rhs) != .orderedDescending
     }
 }
 
@@ -1249,6 +1298,6 @@ func >=(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-        return lhs.compare(rhs) != ComparisonResult.orderedAscending
+        return lhs.compare(rhs) != .orderedAscending
     }
 }
