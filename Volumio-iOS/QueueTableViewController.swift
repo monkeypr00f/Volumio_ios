@@ -13,7 +13,6 @@ class QueueTableViewController: UITableViewController {
     
      var queue : [TrackObject] = []
 
-        
     override func viewDidLoad() {
         super.viewDidLoad()
 

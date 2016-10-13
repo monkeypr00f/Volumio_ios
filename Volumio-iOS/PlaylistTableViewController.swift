@@ -55,6 +55,9 @@ class PlaylistTableViewController: UITableViewController {
         let playlist = sourcePlaylist[indexPath.row]
         
         cell.trackTitle.text = playlist.title ?? ""
+        let artist = playlist.artist ?? ""
+        let album = playlist.album ?? ""
+        cell.trackArtist.text = "\(artist) - \(album)"
         
         if playlist.albumArt?.range(of:"http") != nil{
             cell.trackImage.kf.setImage(with: URL(string: playlist.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])

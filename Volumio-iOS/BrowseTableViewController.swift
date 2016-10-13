@@ -49,7 +49,6 @@ class BrowseTableViewController: UITableViewController {
         let source = sourcesList[indexPath.row]
         
         cell.textLabel?.text = source["name"] as! String?
-        cell.detailTextLabel?.text = source["uri"] as! String?
 
         return cell
     }
