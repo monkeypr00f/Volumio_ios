@@ -1,5 +1,5 @@
 //
-//  SettingsTableViewController.swift
+//  SettingsViewController.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 09/10/16.
@@ -7,26 +7,32 @@
 //
 
 import UIKit
+import Eureka
 
-class SettingsTableViewController: UITableViewController {
+class SettingsViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        form = Section("Plugins")
+            
+            <<< ButtonRow("Installed") { (row: ButtonRow) -> Void in
+                row.title = row.tag
+                row.presentationMode = .segueName(segueName: "pluginsSettings", onDismiss: nil)
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(named: "plugins")
+            }
+            
+            +++ Section("System")
+            <<< ButtonRow("Shutdown") {
+                $0.title = $0.tag
+                }.onCellSelection { [weak self] (cell, row) in
+                self?.shutdownAlert()
+            }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-            case 0: shutdownAlert()
-            default: return
-        }
     }
     
     func shutdownAlert() {
@@ -47,14 +53,7 @@ class SettingsTableViewController: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    // MARK: - Navigation
 
 }
