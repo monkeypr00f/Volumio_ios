@@ -10,6 +10,9 @@ import UIKit
 import Kingfisher
 
 class QueueTableViewController: UITableViewController {
+    
+     var queue : [TrackObject] = []
+
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +21,10 @@ class QueueTableViewController: UITableViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentPlaylist"), object: nil, queue: nil, using: { notification in
-            self.tableView.reloadData()
+            if let sources = SocketIOManager.sharedInstance.currentPlaylist {
+                self.queue = sources
+                self.tableView.reloadData()
+            }
         })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
@@ -39,16 +45,16 @@ class QueueTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SocketIOManager.sharedInstance.currentPlaylist?.count ?? 0
+        return queue.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
-        let track = SocketIOManager.sharedInstance.currentPlaylist?[indexPath.row]
+        let track = queue[indexPath.row]
         
-        cell.trackTitle.text = (track?.title) ?? ""
-        let artist = track?.artist ?? ""
-        let album = track?.album ?? ""
+        cell.trackTitle.text = track.title ?? ""
+        let artist = track.artist ?? ""
+        let album = track.album ?? ""
         cell.trackArtist.text = "\(artist) - \(album)"
         
         if let position = SocketIOManager.sharedInstance.currentTrack?.position {
@@ -57,10 +63,10 @@ class QueueTableViewController: UITableViewController {
             }
         }
         
-        if track?.albumArt!.range(of:"http") != nil{
-            cell.trackImage.kf.setImage(with: URL(string: (track?.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+        if track.albumArt!.range(of:"http") != nil{
+            cell.trackImage.kf.setImage(with: URL(string: (track.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
         } else {
-            LastFmManager.sharedInstance.getAlbumArt(artist: (track?.artist!)!, album: (track?.album!)!, completionHandler: { (albumUrl) in
+            LastFmManager.sharedInstance.getAlbumArt(artist: track.artist!, album: track.album!, completionHandler: { (albumUrl) in
                 if let albumUrl = albumUrl {
                     DispatchQueue.main.async {
                         cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
@@ -82,11 +88,8 @@ class QueueTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
             SocketIOManager.sharedInstance.removeFromQueue(position: indexPath.row)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }   
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -96,25 +99,19 @@ class QueueTableViewController: UITableViewController {
         }
     }
 
+    @IBAction func editRowOrder(_ sender: UIBarButtonItem) {
+        self.isEditing = !self.isEditing
+    }
+    
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        SocketIOManager.sharedInstance.sortQueue(from: sourceIndexPath.row, to:destinationIndexPath.row)
     }
 
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

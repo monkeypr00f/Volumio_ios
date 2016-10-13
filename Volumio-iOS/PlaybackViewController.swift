@@ -16,7 +16,10 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var currentTitle: UILabel!
     @IBOutlet weak var currentArtist: UILabel!
     @IBOutlet weak var currentAlbumArt: UIImageView!
+    @IBOutlet weak var currentAddToFavourite: UIButton!
+    @IBOutlet weak var currentAddToPlaylist: UIButton!
     @IBOutlet weak var spotifyTrack: UIImageView!
+    
     @IBOutlet weak var currentProgress: UIProgressView!
     @IBOutlet weak var currentVolume: UILabel!
     @IBOutlet weak var seekValue: UILabel!
@@ -109,11 +112,24 @@ class PlaybackViewController: UIViewController {
     func getCurrentTrackInfo() {
                         
         currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
-        currentAlbum.text = currentTrackInfo.album ?? ""
-        currentTitle.text = currentTrackInfo.title ?? ""
-        currentArtist.text = currentTrackInfo.artist ?? ""
         
-        currentAlbumArt.kf.indicatorType = .activity
+        if let album = currentTrackInfo.album {
+            currentAlbum.text = album
+            currentAlbum.isHidden = false
+        }
+        
+        if let title = currentTrackInfo.title {
+            currentTitle.text = title
+            currentTitle.isHidden = false
+        }
+        
+        if let artist = currentTrackInfo.artist {
+            currentArtist.text = artist
+            currentArtist.isHidden = false
+        }
+        
+        currentAddToFavourite.isHidden = false
+        currentAddToPlaylist.isHidden = false
         
         if let volume = currentTrackInfo.volume {
             currentVolume.text = "\(volume)"
