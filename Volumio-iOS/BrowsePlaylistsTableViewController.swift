@@ -71,9 +71,9 @@ class BrowsePlaylistsTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPlaylist" {
+        if segue.identifier == "showTracks" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! PlaylistTableViewController
+                let destinationController = segue.destination as! BrowseTracksTableViewController
                 destinationController.serviceName = sourcePlaylists[indexPath.row].title
                 destinationController.serviceUri = sourcePlaylists[indexPath.row].uri
                 destinationController.serviceService = sourcePlaylists[indexPath.row].service

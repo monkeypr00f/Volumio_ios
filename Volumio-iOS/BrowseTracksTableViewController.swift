@@ -1,5 +1,5 @@
 //
-//  PlaylistTableViewController.swift
+//  BrowseTracksTableViewController.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 12/10/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class PlaylistTableViewController: UITableViewController {
+class BrowseTracksTableViewController: UITableViewController {
     
     var serviceName : String!
     var serviceUri : String!

@@ -1,5 +1,5 @@
 //
-//  BrowseTableViewController.swift
+//  BrowseSourcesTableViewController.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 01/10/16.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class BrowseTableViewController: UITableViewController {
+class BrowseSourcesTableViewController: UITableViewController {
     
-    var sourcesList : [[String:Any]] = []
+    var sourcesList : [SourceObject] = []
 
     override func viewWillAppear(_ animated: Bool) {
         SocketIOManager.sharedInstance.browseSources()
@@ -50,9 +50,21 @@ class BrowseTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "source", for: indexPath)
         let source = sourcesList[indexPath.row]
         
-        cell.textLabel?.text = source["name"] as! String?
+        cell.textLabel?.text = source.name
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let pluginName = sourcesList[indexPath.row].plugin_name {
+            switch pluginName {
+                case "mpd": performSegue(withIdentifier: "showMpd", sender: self)
+                case "last_100": performSegue(withIdentifier: "showLast100", sender: self)
+                case "webradio": performSegue(withIdentifier: "showWebRadio", sender: self)
+                case "spop": performSegue(withIdentifier: "showSpotify", sender: self)
+            default: performSegue(withIdentifier: "showFavourites", sender: self)
+            }
+        }
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
@@ -64,11 +76,19 @@ class BrowseTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "browseService" {
+        if segue.identifier == "showFavourites" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowseDetailTableViewController
-                destinationController.serviceName = sourcesList[indexPath.row]["name"] as! String
-                destinationController.serviceUri = sourcesList[indexPath.row]["uri"] as! String
+                let destinationController = segue.destination as! BrowseFavouritesTableViewController
+                destinationController.serviceName = sourcesList[indexPath.row].name
+                destinationController.serviceUri = sourcesList[indexPath.row].uri
+            }
+        }
+        
+        if segue.identifier == "showSpotify" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let destinationController = segue.destination as! BrowseSpotifyTableViewController
+                destinationController.serviceName = sourcesList[indexPath.row].name
+                destinationController.serviceUri = sourcesList[indexPath.row].uri
             }
         }
     }

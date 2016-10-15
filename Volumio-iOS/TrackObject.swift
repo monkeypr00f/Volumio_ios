@@ -19,6 +19,8 @@ class TrackObject: Mappable {
     var duration: Int?
     var uri: String?
     var status: String?
+    var repetition: String?
+    var shuffle: String?
     var service: String?
     var position: Int?
     
@@ -37,6 +39,8 @@ class TrackObject: Mappable {
         duration    <- map["duration"]
         uri         <- map["uri"]
         status      <- map["status"]
+        repetition  <- map["repeat"]
+        shuffle     <- map["random"]
         service     <- map["service"]
         position    <- map["position"]
     }

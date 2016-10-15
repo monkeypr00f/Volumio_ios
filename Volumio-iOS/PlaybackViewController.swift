@@ -19,6 +19,8 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var currentAddToFavourite: UIButton!
     @IBOutlet weak var currentAddToPlaylist: UIButton!
     @IBOutlet weak var spotifyTrack: UIImageView!
+    @IBOutlet weak var repeatButton: UIButton!
+    @IBOutlet weak var shuffleButton: UIButton!
     
     @IBOutlet weak var currentProgress: UIProgressView!
     @IBOutlet weak var currentVolume: UILabel!
@@ -109,6 +111,30 @@ class PlaybackViewController: UIViewController {
         }
     }
 
+    @IBAction func toggleRepeat(_ sender: UIButton) {
+        
+        if let repetition = currentTrackInfo.repetition {
+            switch repetition {
+            case "1":SocketIOManager.sharedInstance.toggleRepeat(value: "0")
+            case "0":SocketIOManager.sharedInstance.toggleRepeat(value: "1")
+            default:SocketIOManager.sharedInstance.toggleRepeat(value: "1")
+            }
+            getCurrentTrackInfo()
+        }
+    }
+    
+    @IBAction func toggleShuffle(_ sender: UIButton) {
+        
+        if let shuffle = currentTrackInfo.shuffle {
+            switch shuffle {
+            case "1": SocketIOManager.sharedInstance.toggleRandom(value: "0")
+            case "0":SocketIOManager.sharedInstance.toggleRandom(value: "1")
+            default:SocketIOManager.sharedInstance.toggleRandom(value: "1")
+            }
+            getCurrentTrackInfo()
+        }
+    }
+    
     func getCurrentTrackInfo() {
                         
         currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
@@ -183,6 +209,22 @@ class PlaybackViewController: UIViewController {
             default:
                 stopTimer()
                 self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+            }
+        }
+        
+        if let repetition = currentTrackInfo.repetition {
+            switch repetition {
+            case "1": self.repeatButton.setImage(UIImage(named: "repeatOn"), for: UIControlState.normal)
+            case "0": self.repeatButton.setImage(UIImage(named: "repeatOff"), for: UIControlState.normal)
+            default:self.repeatButton.setImage(UIImage(named: "repeatOff"), for: UIControlState.normal)
+            }
+        }
+        
+        if let shuffle = currentTrackInfo.shuffle {
+            switch shuffle {
+            case "1": self.shuffleButton.setImage(UIImage(named: "shuffleOn"), for: UIControlState.normal)
+            case "0": self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
+            default:self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
             }
         }
     }

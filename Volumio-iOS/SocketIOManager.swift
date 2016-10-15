@@ -23,7 +23,7 @@ class SocketIOManager: NSObject {
     
     var currentTrack : TrackObject?
     var currentPlaylist : [TrackObject]?
-    var currentSources : [[String:Any]]?
+    var currentSources : [SourceObject]?
     var currentLibrary : [LibraryObject]?
     var installedPlugins : [[String:Any]]?
     
@@ -76,22 +76,28 @@ class SocketIOManager: NSObject {
     func browseSources() {
         socket.emit("getBrowseSources")
         socket.on("pushBrowseSources") {data, ack in
-            if let json = data[0] as? [[String : Any]] {
-                self.currentSources = json
+            let json = JSON(data)
+            if let sources = json[0].arrayObject {
+                self.currentSources = Mapper<SourceObject>().mapArray(JSONObject: sources)
             }
             NotificationCenter.default.post(name: NSNotification.Name("browseSources"), object: nil)
         }
+//        socket.onAny {
+//          print($0.items)
+//        }
     }
     
     func browseLibrary(uri:String) {
         socket.emit("browseLibrary", ["uri":uri])
         socket.on("pushBrowseLibrary") {data, ack in
-            if let json = data as? [[String: Any]],
-            let navigation = json.first?["navigation"] as? [String:Any],
-                let list = navigation["list"] as? [[String: Any]]  {
-                self.currentLibrary = Mapper<LibraryObject>().mapArray(JSONObject: list)
+            let json = JSON(data)
+            if let items = json[0]["navigation"]["lists"][0]["items"].arrayObject {
+                self.currentLibrary = Mapper<LibraryObject>().mapArray(JSONObject: items)
             }
             NotificationCenter.default.post(name: NSNotification.Name("browseLibrary"), object: nil)
+        }
+        socket.onAny {
+            print($0.items)
         }
     }
     
@@ -118,14 +124,13 @@ class SocketIOManager: NSObject {
                 if json.count == 0 {
                     self.socket.emit("addToQueue", ["uri":uri, "title":title, "service":service])
                 } else {
-                self.playTrack(position: 0)
+                    self.playTrack(position: 0)
                 }
             }
         }
     }
     
     func addAndPlay(uri:String, title:String, service:String) {
-        
         if let lastPosition = currentPlaylist?.count {
             self.socket.emit("addToQueue", ["uri":uri, "title":title, "service":service])
             socket.on("pushQueue") {data, ack in
@@ -144,6 +149,14 @@ class SocketIOManager: NSObject {
     func removeFromQueue(position:Int) {
         socket.emit("removeFromQueue", ["value":"\(position)"])
         self.getQueue()
+    }
+    
+    func toggleRepeat(value:String) {
+        socket.emit("setRepeat", ["value": value])
+    }
+    
+    func toggleRandom(value:String) {
+        socket.emit("setRandom", ["value": value])
     }
     
     //manage plugins

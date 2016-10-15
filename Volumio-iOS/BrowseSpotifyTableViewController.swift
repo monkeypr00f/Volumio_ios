@@ -1,5 +1,5 @@
 //
-//  BrowseDetailTableViewController.swift
+//  BrowseSpotifyTableViewController.swift
 //  Volumio-iOS
 //
 //  Created by Federico Sintucci on 02/10/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BrowseDetailTableViewController: UITableViewController {
+class BrowseSpotifyTableViewController: UITableViewController {
     
     var serviceName : String!
     var serviceUri : String!
@@ -62,9 +62,9 @@ class BrowseDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 3:
-            performSegue(withIdentifier: "browseCategories", sender: self)
+            performSegue(withIdentifier: "showCategories", sender: self)
         default:
-            performSegue(withIdentifier: "browsePlaylist", sender: self)
+            performSegue(withIdentifier: "showPlaylists", sender: self)
         }
     }
     
@@ -77,7 +77,7 @@ class BrowseDetailTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "browseCategories" {
+        if segue.identifier == "showCategories" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! BrowseCategoryDetailTableViewController
                 destinationController.serviceName = sourceLibrary[indexPath.row].title
@@ -85,7 +85,7 @@ class BrowseDetailTableViewController: UITableViewController {
             }
         }
         
-        if segue.identifier == "browsePlaylist" {
+        if segue.identifier == "showPlaylists" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! BrowsePlaylistsTableViewController
                 destinationController.serviceName = sourceLibrary[indexPath.row].title
