@@ -10,6 +10,14 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
 
+    
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("disconnected"), object: nil, queue: nil, using: { notification in
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
+            self.present(controller, animated: true, completion: nil)
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

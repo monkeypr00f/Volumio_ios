@@ -21,7 +21,7 @@ class BrowseCategoryDetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         self.title = serviceName
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         

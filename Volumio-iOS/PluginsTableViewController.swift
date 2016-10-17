@@ -10,7 +10,7 @@ import UIKit
 
 class PluginsTableViewController: UITableViewController {
     
-    var pluginsList : [[String:Any]] = []
+    var pluginsList : [PluginObject] = []
     
     override func viewWillAppear(_ animated: Bool) {
         SocketIOManager.sharedInstance.getInstalledPlugins()
@@ -47,10 +47,15 @@ class PluginsTableViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath) as! PluginTableViewCell
         let source = pluginsList[indexPath.row]
         
-        cell.textLabel?.text = source["prettyName"] as! String?
+        cell.pluginName.text = source.prettyName
+        if source.active == 1 {
+            cell.pluginStatus.backgroundColor = UIColor.green
+        } else {
+            cell.pluginStatus.backgroundColor = UIColor.red
+        }
 
         return cell
     }
@@ -62,11 +67,7 @@ class PluginsTableViewController: UITableViewController {
         if segue.identifier == "pluginDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! PluginDetailViewController
-                destinationController.servicePrettyName = pluginsList[indexPath.row]["prettyName"] as! String
-                destinationController.serviceName = pluginsList[indexPath.row]["name"] as! String
-                destinationController.serviceCategory = pluginsList[indexPath.row]["category"] as! String
-                destinationController.serviceActive = pluginsList[indexPath.row]["active"] as! Int
-                destinationController.serviceEnabled = pluginsList[indexPath.row]["enabled"] as! Int
+                destinationController.service = pluginsList[indexPath.row]
             }
         }
     }

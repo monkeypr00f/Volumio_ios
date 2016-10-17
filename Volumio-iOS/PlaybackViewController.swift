@@ -69,72 +69,6 @@ class PlaybackViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func pressPlay(_ sender: UIButton) {
-        switch SocketIOManager.sharedInstance.currentTrack!.status! {
-        case "play":
-            SocketIOManager.sharedInstance.doAction(action: "pause")
-        case "pause":
-            SocketIOManager.sharedInstance.doAction(action: "play")
-        case "stop":
-            SocketIOManager.sharedInstance.doAction(action: "play")
-        default:
-            SocketIOManager.sharedInstance.doAction(action: "stop")
-        }
-        getPlayerStatus()
-    }
-    
-    @IBAction func pressPrevious(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "prev")
-    }
-    
-    @IBAction func pressNext(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "next")
-    }
-    
-    @IBAction func pressVolumeUp(_ sender: UIButton) {
-        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
-            if volume < 100 {
-                volume += 5
-                currentVolume.text = "\(volume)"
-                SocketIOManager.sharedInstance.setVolume(value: volume)
-            }
-        }
-    }
-    
-    @IBAction func pressVolumeDown(_ sender: UIButton) {
-        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
-            if volume > 0 {
-                volume -= 5
-                currentVolume.text = "\(volume)"
-                SocketIOManager.sharedInstance.setVolume(value: volume)
-            }
-        }
-    }
-
-    @IBAction func toggleRepeat(_ sender: UIButton) {
-        
-        if let repetition = currentTrackInfo.repetition {
-            switch repetition {
-            case "1":SocketIOManager.sharedInstance.toggleRepeat(value: "0")
-            case "0":SocketIOManager.sharedInstance.toggleRepeat(value: "1")
-            default:SocketIOManager.sharedInstance.toggleRepeat(value: "1")
-            }
-            getCurrentTrackInfo()
-        }
-    }
-    
-    @IBAction func toggleShuffle(_ sender: UIButton) {
-        
-        if let shuffle = currentTrackInfo.shuffle {
-            switch shuffle {
-            case "1": SocketIOManager.sharedInstance.toggleRandom(value: "0")
-            case "0":SocketIOManager.sharedInstance.toggleRandom(value: "1")
-            default:SocketIOManager.sharedInstance.toggleRandom(value: "1")
-            }
-            getCurrentTrackInfo()
-        }
-    }
-    
     func getCurrentTrackInfo() {
                         
         currentTrackInfo = SocketIOManager.sharedInstance.currentTrack!
@@ -215,17 +149,19 @@ class PlaybackViewController: UIViewController {
         if let repetition = currentTrackInfo.repetition {
             switch repetition {
             case "1": self.repeatButton.setImage(UIImage(named: "repeatOn"), for: UIControlState.normal)
-            case "0": self.repeatButton.setImage(UIImage(named: "repeatOff"), for: UIControlState.normal)
             default:self.repeatButton.setImage(UIImage(named: "repeatOff"), for: UIControlState.normal)
             }
+        } else {
+            self.repeatButton.setImage(UIImage(named: "repeatOff"), for: UIControlState.normal)
         }
         
         if let shuffle = currentTrackInfo.shuffle {
             switch shuffle {
             case "1": self.shuffleButton.setImage(UIImage(named: "shuffleOn"), for: UIControlState.normal)
-            case "0": self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
             default:self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
             }
+        } else {
+            self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
         }
     }
     
@@ -257,12 +193,72 @@ class PlaybackViewController: UIViewController {
         let percentage = Float(counter) / (Float(trackDuration) * 1000)
         currentProgress.setProgress(percentage, animated: true)
     }
-}
-
-extension UIView {
     
-    func makeCircle() {
-        self.layer.cornerRadius = self.frame.size.width/2
-        self.clipsToBounds = true
+    @IBAction func pressPlay(_ sender: UIButton) {
+        switch SocketIOManager.sharedInstance.currentTrack!.status! {
+        case "play":
+            SocketIOManager.sharedInstance.doAction(action: "pause")
+        case "pause":
+            SocketIOManager.sharedInstance.doAction(action: "play")
+        case "stop":
+            SocketIOManager.sharedInstance.doAction(action: "play")
+        default:
+            SocketIOManager.sharedInstance.doAction(action: "stop")
+        }
+        getPlayerStatus()
     }
+    
+    @IBAction func pressPrevious(_ sender: UIButton) {
+        SocketIOManager.sharedInstance.doAction(action: "prev")
+    }
+    
+    @IBAction func pressNext(_ sender: UIButton) {
+        SocketIOManager.sharedInstance.doAction(action: "next")
+    }
+    
+    @IBAction func pressVolumeUp(_ sender: UIButton) {
+        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
+            if volume < 100 {
+                volume += 5
+                currentVolume.text = "\(volume)"
+                SocketIOManager.sharedInstance.setVolume(value: volume)
+            }
+        }
+    }
+    
+    @IBAction func pressVolumeDown(_ sender: UIButton) {
+        if var volume = SocketIOManager.sharedInstance.currentTrack!.volume {
+            if volume > 0 {
+                volume -= 5
+                currentVolume.text = "\(volume)"
+                SocketIOManager.sharedInstance.setVolume(value: volume)
+            }
+        }
+    }
+    
+    @IBAction func toggleRepeat(_ sender: UIButton) {
+        print(currentTrackInfo.repetition)
+        if let repetition = currentTrackInfo.repetition {
+            switch repetition {
+            case "1": SocketIOManager.sharedInstance.toggleRepeat(value: 0)
+            default: SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            }
+        } else {
+            SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+        }
+    }
+    
+    @IBAction func toggleShuffle(_ sender: UIButton) {
+        print(currentTrackInfo.shuffle)
+        if let shuffle = currentTrackInfo.shuffle {
+            switch shuffle {
+            case "1": SocketIOManager.sharedInstance.toggleRandom(value: 0)
+            default: SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            }
+        }
+        else {
+            SocketIOManager.sharedInstance.toggleRandom(value: 1)
+        }
+    }
+
 }

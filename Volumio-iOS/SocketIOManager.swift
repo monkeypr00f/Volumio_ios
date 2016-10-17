@@ -25,7 +25,7 @@ class SocketIOManager: NSObject {
     var currentPlaylist : [TrackObject]?
     var currentSources : [SourceObject]?
     var currentLibrary : [LibraryObject]?
-    var installedPlugins : [[String:Any]]?
+    var installedPlugins : [PluginObject]?
     
     
     // manage connection
@@ -35,6 +35,9 @@ class SocketIOManager: NSObject {
         socket.on("connect") { data, ack in
             self.socket.emit("getState")
             NotificationCenter.default.post(name: NSNotification.Name("connected"), object: nil)
+        }
+        socket.on("reconnect") { data, ack in
+            NotificationCenter.default.post(name: NSNotification.Name("disconnected"), object: nil)
         }
     }
     
@@ -82,9 +85,6 @@ class SocketIOManager: NSObject {
             }
             NotificationCenter.default.post(name: NSNotification.Name("browseSources"), object: nil)
         }
-//        socket.onAny {
-//          print($0.items)
-//        }
     }
     
     func browseLibrary(uri:String) {
@@ -95,9 +95,6 @@ class SocketIOManager: NSObject {
                 self.currentLibrary = Mapper<LibraryObject>().mapArray(JSONObject: items)
             }
             NotificationCenter.default.post(name: NSNotification.Name("browseLibrary"), object: nil)
-        }
-        socket.onAny {
-            print($0.items)
         }
     }
     
@@ -151,12 +148,12 @@ class SocketIOManager: NSObject {
         self.getQueue()
     }
     
-    func toggleRepeat(value:String) {
-        socket.emit("setRepeat", ["value": value])
+    func toggleRepeat(value:Int) {
+        socket.emit("setRepeat", ["value": "\(value)"])
     }
     
-    func toggleRandom(value:String) {
-        socket.emit("setRandom", ["value": value])
+    func toggleRandom(value:Int) {
+        socket.emit("setRandom", ["value": "\(value)"])
     }
     
     //manage plugins
@@ -164,8 +161,9 @@ class SocketIOManager: NSObject {
     func getInstalledPlugins() {
         self.socket.emit("getInstalledPlugins")
         socket.on("pushInstalledPlugins") {data, ack in
-            if let json = data[0] as? [[String:Any]] {
-                self.installedPlugins = json
+            let json = JSON(data)
+            if let items = json[0].arrayObject {
+                self.installedPlugins = Mapper<PluginObject>().mapArray(JSONObject: items)
             }
             NotificationCenter.default.post(name: NSNotification.Name("browsePlugins"), object: nil)
         }

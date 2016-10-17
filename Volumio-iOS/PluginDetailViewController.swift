@@ -11,42 +11,31 @@ import Eureka
 
 class PluginDetailViewController: FormViewController {
 
-    var servicePrettyName : String!
-    var serviceName : String!
-    var serviceCategory : String!
-    var serviceActive : Int!
-    var serviceEnabled : Int!
+    var service : PluginObject!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = servicePrettyName
+        self.title = service.prettyName
         
         form +++ Section("")
-            <<< LabelRow("pluginStatus") {
-                $0.title = "Current Status"
-                if serviceActive == 1 {
-                    $0.value = "Active"
-                } else {
-                    $0.value = "Inactive"
-                }
+            <<< LabelRow() {
+                $0.title = "Version"
+                $0.value = service.version
             }
         
             <<< SwitchRow() {
-                $0.title = "Enabled"
-                if serviceEnabled == 1 {
+                $0.title = "Status"
+                if service.enabled == 1 {
                     $0.value = true
                 } else {
                     $0.value = false
                 }
                 }.onChange { [weak self] row in
-                    
                     if row.value ?? false {
-                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.serviceName)!, category: (self?.serviceCategory)!, action: "disable")
-                        self?.form.rowBy(tag: "pluginStatus")?.updateCell()
+                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "enable")
                     } else {
-                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.serviceName)!, category: (self?.serviceCategory)!, action: "enable")
-                        self?.form.rowBy(tag: "pluginStatus")?.updateCell()
+                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "disable")
                     }
                 }
     }

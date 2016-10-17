@@ -58,11 +58,12 @@ class BrowseSourcesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let pluginName = sourcesList[indexPath.row].plugin_name {
             switch pluginName {
-                case "mpd": performSegue(withIdentifier: "showMpd", sender: self)
-                case "last_100": performSegue(withIdentifier: "showLast100", sender: self)
-                case "webradio": performSegue(withIdentifier: "showWebRadio", sender: self)
+//                case "": performSegue(withIdentifier: "showFavourites", sender: self)
+//                case "mpd": performSegue(withIdentifier: "showMpd", sender: self)
+//                case "last_100": performSegue(withIdentifier: "showLast100", sender: self)
+//                case "webradio": performSegue(withIdentifier: "showWebRadio", sender: self)
                 case "spop": performSegue(withIdentifier: "showSpotify", sender: self)
-            default: performSegue(withIdentifier: "showFavourites", sender: self)
+                default: return
             }
         }
     }
