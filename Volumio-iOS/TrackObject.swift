@@ -11,6 +11,7 @@ import ObjectMapper
 
 class TrackObject: Mappable {
     var title: String?
+    var name: String?
     var artist: String?
     var album: String?
     var albumArt: String?
@@ -19,8 +20,8 @@ class TrackObject: Mappable {
     var duration: Int?
     var uri: String?
     var status: String?
-    var repetition: String?
-    var shuffle: String?
+    var repetition: Int?
+    var shuffle: Int?
     var service: String?
     var position: Int?
     
@@ -31,6 +32,7 @@ class TrackObject: Mappable {
     // Mappable
     func mapping(map: Map) {
         title       <- map["title"]
+        name        <- map["name"]
         artist      <- map["artist"]
         album       <- map["album"]
         albumArt    <- map["albumart"]

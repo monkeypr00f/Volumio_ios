@@ -12,24 +12,32 @@ import Kingfisher
 class QueueTableViewController: UITableViewController {
     
      var queue : [TrackObject] = []
+    
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.getState()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.pleaseWait()
 
         SocketIOManager.sharedInstance.getQueue()
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("currentPlaylist"), object: nil, queue: nil, using: { notification in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("currentQueue"), object: nil, queue: nil, using: { notification in
             if let sources = SocketIOManager.sharedInstance.currentPlaylist {
                 self.queue = sources
                 self.tableView.reloadData()
+                self.clearAllNotice()
             }
         })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
-            // da modificare, controlla quella che sta suonando
             self.tableView.reloadData()
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,30 +56,37 @@ class QueueTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
         let track = queue[indexPath.row]
         
-        cell.trackTitle.text = track.title ?? ""
+        cell.trackTitle.text = track.name ?? ""
         let artist = track.artist ?? ""
         let album = track.album ?? ""
         cell.trackArtist.text = "\(artist) - \(album)"
-        
+        cell.trackPosition.text = "\(indexPath.row + 1)"
+                
         if let position = SocketIOManager.sharedInstance.currentTrack?.position {
-            if indexPath.row == position {
+            if indexPath.row == Int(position) {
                 cell.trackPlaying.isHidden = false
+                cell.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.05)
+            } else {
+                cell.trackPlaying.isHidden = true
+                cell.backgroundColor = UIColor.white
             }
         }
         
         if track.albumArt!.range(of:"http") != nil{
             cell.trackImage.kf.setImage(with: URL(string: (track.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
         } else {
-            LastFmManager.sharedInstance.getAlbumArt(artist: track.artist!, album: track.album!, completionHandler: { (albumUrl) in
-                if let albumUrl = albumUrl {
-                    DispatchQueue.main.async {
-                        cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+            if let artist = track.artist, let album = track.album {
+                LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
+                    if let albumUrl = albumUrl {
+                        DispatchQueue.main.async {
+                            cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                        }
                     }
-                }
-            })
+                })
+            }
         }
         
         return cell
@@ -111,6 +126,11 @@ class QueueTableViewController: UITableViewController {
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        SocketIOManager.sharedInstance.getQueue()
+        refreshControl.endRefreshing()
     }
 
 }

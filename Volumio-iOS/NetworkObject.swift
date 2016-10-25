@@ -7,7 +7,29 @@
 //
 
 import UIKit
+import ObjectMapper
 
-class NetworkObject: NSObject {
-
+class NetworkObject: Mappable {
+    var ip: String?
+    var inline: String?
+    var signal: Int?
+    var speed: String?
+    var ssid: String?
+    var status: String?
+    var type: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    // Mappable
+    func mapping(map: Map) {
+        ip          <- map["ip"]
+        inline      <- map["inline"]
+        signal      <- map["signal"]
+        speed       <- map["speed"]
+        ssid        <- map["ssid"]
+        status      <- map["status"]
+        type        <- map["type"]
+    }
 }

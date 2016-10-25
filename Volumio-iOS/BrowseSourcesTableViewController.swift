@@ -21,10 +21,13 @@ class BrowseSourcesTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
+        self.pleaseWait()
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseSources"), object: nil, queue: nil, using: { notification in
             if let sources = SocketIOManager.sharedInstance.currentSources {
                 self.sourcesList = sources
                 self.tableView.reloadData()
+                self.clearAllNotice()
             }
         })
         
@@ -55,21 +58,8 @@ class BrowseSourcesTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let pluginName = sourcesList[indexPath.row].plugin_name {
-            switch pluginName {
-//                case "": performSegue(withIdentifier: "showFavourites", sender: self)
-//                case "mpd": performSegue(withIdentifier: "showMpd", sender: self)
-//                case "last_100": performSegue(withIdentifier: "showLast100", sender: self)
-//                case "webradio": performSegue(withIdentifier: "showWebRadio", sender: self)
-                case "spop": performSegue(withIdentifier: "showSpotify", sender: self)
-                default: return
-            }
-        }
-    }
-    
     func handleRefresh(refreshControl: UIRefreshControl) {
-        self.tableView.reloadData()
+        SocketIOManager.sharedInstance.browseSources()
         refreshControl.endRefreshing()
     }
     
@@ -77,17 +67,9 @@ class BrowseSourcesTableViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "showFavourites" {
+        if segue.identifier == "showFolder" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowseFavouritesTableViewController
-                destinationController.serviceName = sourcesList[indexPath.row].name
-                destinationController.serviceUri = sourcesList[indexPath.row].uri
-            }
-        }
-        
-        if segue.identifier == "showSpotify" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowseSpotifyTableViewController
+                let destinationController = segue.destination as! BrowseFolderTableViewController
                 destinationController.serviceName = sourcesList[indexPath.row].name
                 destinationController.serviceUri = sourcesList[indexPath.row].uri
             }

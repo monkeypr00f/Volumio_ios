@@ -10,9 +10,9 @@ import UIKit
 
 class LoadingViewController: UIViewController {
 
-    @IBOutlet weak var navigationBar: UINavigationItem!
-    @IBOutlet weak var powerOnAnimationView: PowerOnSwitchView!
-    @IBOutlet weak var navBarTitle: UINavigationItem!
+    @IBOutlet weak var switchOnView: UIStackView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var reloadButton: UIButton!
     
     var timer = Timer()
     
@@ -21,19 +21,18 @@ class LoadingViewController: UIViewController {
         
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
-        self.navBarTitle.titleView = imageView
+        self.navigationItem.titleView = imageView
         
-        timer = Timer(timeInterval: 5.0, target: self, selector: #selector(startAnimation), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
+        SocketIOManager.sharedInstance.closeConnection()
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("connected"), object: nil, queue: nil, using: { notification in
-            
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as! TabBarViewController
-            self.present(controller, animated: true, completion: nil)
+            if let top = UIApplication.shared.keyWindow?.rootViewController {
+                top.dismiss(animated: true, completion: nil)
+            }
         })
+        
+        timer = Timer(timeInterval: 5.0, target: self, selector: #selector(resetButton), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +40,16 @@ class LoadingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func startAnimation() {
-        powerOnAnimationView.addSwitchOnAnimation()
+    @IBAction func connectButton(_ sender: UIButton) {
+        SocketIOManager.sharedInstance.reConnect()
+        reloadButton.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func resetButton() {
+        reloadButton.isHidden = false
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
     }
 }

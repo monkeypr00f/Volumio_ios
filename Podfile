@@ -10,4 +10,6 @@ target 'Volumio-iOS' do
     pod 'SwiftyJSON'
     pod 'Kingfisher'
     pod 'Eureka', '~> 2.0.0-beta.1'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end

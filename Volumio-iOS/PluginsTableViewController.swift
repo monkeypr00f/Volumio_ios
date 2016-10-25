@@ -21,12 +21,17 @@ class PluginsTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
+        self.pleaseWait()
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browsePlugins"), object: nil, queue: nil, using: { notification in
             if let sources = SocketIOManager.sharedInstance.installedPlugins {
                 self.pluginsList = sources
                 self.tableView.reloadData()
+                self.clearAllNotice()
             }
         })
+        
+        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +63,11 @@ class PluginsTableViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        SocketIOManager.sharedInstance.getInstalledPlugins()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - Navigation
