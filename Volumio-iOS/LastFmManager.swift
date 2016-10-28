@@ -25,7 +25,7 @@ class LastFmManager: NSObject {
         let url = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=6ebfdd6251d6554e578b03c642d93ada&artist=\(artist)&album=\(album)&format=json"
         let lastFmUrl = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         Alamofire.request(lastFmUrl!).responseJSON(queue: queue, options: .allowFragments) { (response) in
-            let json = JSON(string: response.result.value)
+            let json = JSON(string: response.result.value as Any)
             var cover: String?
             if let albumCover = json["album"]["image"][2]["#text"].string {
                 cover = albumCover

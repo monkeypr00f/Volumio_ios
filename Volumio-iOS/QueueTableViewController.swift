@@ -8,10 +8,14 @@
 
 import UIKit
 import Kingfisher
+import Fabric
 
 class QueueTableViewController: UITableViewController {
     
-     var queue : [TrackObject] = []
+    var queue : [TrackObject] = []
+    var track : TrackObject!
+    
+    @IBOutlet weak var queueActionsView: UIView!
     
     override func viewWillAppear(_ animated: Bool) {
         SocketIOManager.sharedInstance.getState()
@@ -19,10 +23,11 @@ class QueueTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.pleaseWait()
 
+        self.pleaseWait()
+        
         SocketIOManager.sharedInstance.getQueue()
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentQueue"), object: nil, queue: nil, using: { notification in
@@ -34,7 +39,10 @@ class QueueTableViewController: UITableViewController {
         })
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
-            self.tableView.reloadData()
+            if let playing = SocketIOManager.sharedInstance.currentTrack {
+                self.track = playing
+                self.tableView.reloadData()
+            }
         })
         
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
@@ -45,6 +53,10 @@ class QueueTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.clearAllNotice()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -68,7 +80,7 @@ class QueueTableViewController: UITableViewController {
         if let position = SocketIOManager.sharedInstance.currentTrack?.position {
             if indexPath.row == Int(position) {
                 cell.trackPlaying.isHidden = false
-                cell.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.05)
+                cell.backgroundColor = UIColor.black.withAlphaComponent(0.05)
             } else {
                 cell.trackPlaying.isHidden = true
                 cell.backgroundColor = UIColor.white
@@ -112,20 +124,24 @@ class QueueTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
-    @IBAction func editRowOrder(_ sender: UIBarButtonItem) {
-        self.isEditing = !self.isEditing
-    }
     
     // Override to support rearranging the table view.
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         SocketIOManager.sharedInstance.sortQueue(from: sourceIndexPath.row, to:destinationIndexPath.row)
     }
-
+    
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54.0
+    }
+
+    @IBAction func editRowOrder(_ sender: UIBarButtonItem) {
+        self.isEditing = !self.isEditing
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {

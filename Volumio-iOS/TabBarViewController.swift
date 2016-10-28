@@ -17,7 +17,7 @@ class TabBarViewController: UITabBarController {
         self.tabBar.tintColor = UIColor.black
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("disconnected"), object: nil, queue: nil, using: { notification in
-            self.performSegue(withIdentifier: "segueToLoading", sender: self)
+//            self.performSegue(withIdentifier: "segueToLoading", sender: self)
         })
     }
     
@@ -25,6 +25,5 @@ class TabBarViewController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }

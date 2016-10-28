@@ -42,12 +42,12 @@ class SocketIOManager: NSObject {
             NotificationCenter.default.post(name: NSNotification.Name("disconnected"), object: nil)
         })
         
-        socket.once("reconnect") { data, ack in
+        socket.on("reconnect") { data, ack in
             self.socketConnected = false
             NotificationCenter.default.post(name: NSNotification.Name("disconnected"), object: nil)
         }
         
-        socket.once("connect") { data, ack in
+        socket.on("connect") { data, ack in
             NotificationCenter.default.post(name: NSNotification.Name("connected"), object: nil)
             self.socketConnected = true
             self.getState()
@@ -55,7 +55,6 @@ class SocketIOManager: NSObject {
     }
     
     func reConnect() {
-        
         let player = UserDefaults.standard.string(forKey: "selectedPlayer") ?? ""
         socket = SocketIOClient(socketURL: URL(string: "http://\(player).local:3000")!)
         self.establishConnection()
@@ -196,6 +195,15 @@ class SocketIOManager: NSObject {
     
     func toggleRandom(value:Int) {
         socket.emit("setRandom", ["value": value])
+    }
+    
+    func toggleConsume(value:Int) {
+        socket.emit("setConsume", ["value": value])
+    }
+    
+    func clearQueue() {
+        socket.emit("clearQueue")
+        NotificationCenter.default.post(name: NSNotification.Name("clearQueue"), object: nil)
     }
     
     

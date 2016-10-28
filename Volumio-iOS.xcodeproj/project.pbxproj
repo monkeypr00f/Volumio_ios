@@ -34,7 +34,6 @@
 		606D92431DB6301700DBD78A /* SearchVolumioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D92421DB6301700DBD78A /* SearchVolumioViewController.swift */; };
 		606D92451DB677BD00DBD78A /* SelectPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606D92441DB677BD00DBD78A /* SelectPlayerTableViewCell.swift */; };
 		6072D0321DAD31A1006D7E45 /* QCMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6072D0311DAD31A1006D7E45 /* QCMethod.swift */; };
-		6072D0351DAD3271006D7E45 /* PowerOnSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6072D0341DAD3271006D7E45 /* PowerOnSwitchView.swift */; };
 		6074D2731DBB899C000F2285 /* BrowseSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */; };
 		6074D2751DBB9273000F2285 /* SearchResultObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6074D2741DBB9273000F2285 /* SearchResultObject.swift */; };
 		6074D2771DBDFE35000F2285 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6074D2761DBDFE35000F2285 /* SwiftNotice.swift */; };
@@ -48,6 +47,9 @@
 		60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E781981DABCC9800C48A43 /* LibraryObject.swift */; };
 		60E7819F1DABE36D00C48A43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60E7819E1DABE36D00C48A43 /* Main.storyboard */; };
 		60E781A11DABE76300C48A43 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E781A01DABE76300C48A43 /* FolderTableViewCell.swift */; };
+		60EC704F1DC2014B009D0F61 /* QueueActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC704E1DC2014B009D0F61 /* QueueActionsViewController.swift */; };
+		60EC70511DC22A59009D0F61 /* SwipeLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC70501DC22A59009D0F61 /* SwipeLeft.swift */; };
+		60EC70531DC22B27009D0F61 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EC70521DC22B27009D0F61 /* TutorialViewController.swift */; };
 		60FD46DB1D928CE700E2E155 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */; };
 		F9FF5511CFAA090301EC9FD1 /* Pods_Volumio_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */; };
 /* End PBXBuildFile section */
@@ -126,7 +128,6 @@
 		606D92421DB6301700DBD78A /* SearchVolumioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVolumioViewController.swift; sourceTree = "<group>"; };
 		606D92441DB677BD00DBD78A /* SelectPlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		6072D0311DAD31A1006D7E45 /* QCMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCMethod.swift; sourceTree = "<group>"; };
-		6072D0341DAD3271006D7E45 /* PowerOnSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerOnSwitchView.swift; sourceTree = "<group>"; };
 		6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchTableViewController.swift; sourceTree = "<group>"; };
 		6074D2741DBB9273000F2285 /* SearchResultObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultObject.swift; sourceTree = "<group>"; };
 		6074D2761DBDFE35000F2285 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
@@ -142,6 +143,9 @@
 		60E781981DABCC9800C48A43 /* LibraryObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryObject.swift; sourceTree = "<group>"; };
 		60E7819E1DABE36D00C48A43 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60E781A01DABE76300C48A43 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
+		60EC704E1DC2014B009D0F61 /* QueueActionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueActionsViewController.swift; sourceTree = "<group>"; };
+		60EC70501DC22A59009D0F61 /* SwipeLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeLeft.swift; sourceTree = "<group>"; };
+		60EC70521DC22B27009D0F61 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		60FD46DA1D928CE700E2E155 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		648D65B3285B5A4FD1190811 /* Pods_Volumio_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E501DC537BB78B6FDB36A4E0 /* Pods-Volumio-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio-iOS/Pods-Volumio-iOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -195,6 +199,7 @@
 				601424781D9173A3001159B2 /* PlaybackViewController.swift */,
 				6074D27C1DBE12AC000F2285 /* Browse */,
 				6028038F1DA25CF500055D42 /* QueueTableViewController.swift */,
+				60EC704E1DC2014B009D0F61 /* QueueActionsViewController.swift */,
 				6023A9AE1DAACD9C009810EF /* SettingsViewController.swift */,
 				603FF51B1DAE3AD2007E1C50 /* PluginsTableViewController.swift */,
 				603FF51D1DAE3CBD007E1C50 /* PluginDetailViewController.swift */,
@@ -215,12 +220,12 @@
 		602803911DA27DCA00055D42 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6072D0341DAD3271006D7E45 /* PowerOnSwitchView.swift */,
 				606D92441DB677BD00DBD78A /* SelectPlayerTableViewCell.swift */,
 				602803921DA27DE500055D42 /* TrackTableViewCell.swift */,
 				607ADC6F1DBF42680090F038 /* QueueTableViewCell.swift */,
 				60E781A01DABE76300C48A43 /* FolderTableViewCell.swift */,
 				606D923C1DB4D3BA00DBD78A /* PluginTableViewCell.swift */,
+				60EC70501DC22A59009D0F61 /* SwipeLeft.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */,
 				602803891DA031E200055D42 /* BrowseSourcesTableViewController.swift */,
 				6074D2811DBE5125000F2285 /* BrowseFolderTableViewController.swift */,
+				60EC70521DC22B27009D0F61 /* TutorialViewController.swift */,
 			);
 			name = Browse;
 			sourceTree = "<group>";
@@ -401,7 +407,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Federico Sintucci";
 				TargetAttributes = {
 					602803951DA2C0CF00055D42 = {
@@ -559,8 +565,8 @@
 				6023A9AF1DAACD9C009810EF /* SettingsViewController.swift in Sources */,
 				606D92431DB6301700DBD78A /* SearchVolumioViewController.swift in Sources */,
 				6028038A1DA031E200055D42 /* BrowseSourcesTableViewController.swift in Sources */,
+				60EC70531DC22B27009D0F61 /* TutorialViewController.swift in Sources */,
 				60E781A11DABE76300C48A43 /* FolderTableViewCell.swift in Sources */,
-				6072D0351DAD3271006D7E45 /* PowerOnSwitchView.swift in Sources */,
 				602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */,
 				602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */,
 				60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */,
@@ -578,6 +584,8 @@
 				601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */,
 				6074D2731DBB899C000F2285 /* BrowseSearchTableViewController.swift in Sources */,
 				60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */,
+				60EC70511DC22A59009D0F61 /* SwipeLeft.swift in Sources */,
+				60EC704F1DC2014B009D0F61 /* QueueActionsViewController.swift in Sources */,
 				6074D2751DBB9273000F2285 /* SearchResultObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

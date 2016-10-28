@@ -15,17 +15,22 @@ class BrowseFolderTableViewController: UITableViewController {
     
     var sourceLibrary : [LibraryObject] = []
 
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let hideSwipeTutorial = UserDefaults.standard.bool(forKey: "hideSwipeTutorial")
+        if hideSwipeTutorial == false {
+            performSegue(withIdentifier: "segueToTutorial", sender: self)
+        }
+        
         self.title = serviceName
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-
         self.pleaseWait()
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseLibrary"), object: nil, queue: nil, using: { notification in
             if let sources = SocketIOManager.sharedInstance.currentLibrary {
@@ -41,6 +46,10 @@ class BrowseFolderTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.clearAllNotice()
     }
     
     // MARK: - Table view data source
@@ -93,6 +102,14 @@ class BrowseFolderTableViewController: UITableViewController {
                 cell.folderImage.image = UIImage(named: "radio")
             }
             return cell
+            
+        } else if sourceLibrary[indexPath.row].type == "title" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
+            let folder = sourceLibrary[indexPath.row]
+            
+            cell.textLabel?.text = folder.title
+
+            return cell
          
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
@@ -131,6 +148,10 @@ class BrowseFolderTableViewController: UITableViewController {
         return [more, play]
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 54.0
+    }
+    
     func handleRefresh(refreshControl: UIRefreshControl) {
         SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
         refreshControl.endRefreshing()
@@ -158,7 +179,6 @@ class BrowseFolderTableViewController: UITableViewController {
         )
         self.present(alert, animated: true, completion: nil)
     }
-
     
     // MARK: - Navigation
 

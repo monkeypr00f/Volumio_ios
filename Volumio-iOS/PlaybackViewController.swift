@@ -33,6 +33,10 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var playerViewShadow: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var currentTrackInformations: UIStackView!
+    @IBOutlet weak var currentTrackActions: UIStackView!
+    @IBOutlet weak var notificationBanner: UIView!
+    
     var counter: Int = 0
     var trackDuration: Int = 0
     var currentTrackInfo:TrackObject!
@@ -49,10 +53,18 @@ class PlaybackViewController: UIViewController {
         activityIndicator.startAnimating()
 
         NotificationCenter.default.addObserver(forName: NSNotification.Name("currentTrack"), object: nil, queue: nil, using: { notification in
-            self.getCurrentTrackInfo()
+            self.getCurrentTrackInfo(empty: false)
         })
         
         NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrackInfo), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("clearQueue"), object: nil, queue: nil, using: { notification in
+            self.getCurrentTrackInfo(empty: true )
+        })
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("disconnected"), object: nil, queue: nil, using: { notification in
+            self.notificationBanner.isHidden = false
+        })
     }
 
     override func viewWillLayoutSubviews() {
@@ -71,27 +83,20 @@ class PlaybackViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getCurrentTrackInfo() {
+    func getCurrentTrackInfo(empty:Bool) {
         
         if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
             
             if let title = currentTrackInfo.title, title != "" {
                 currentTitle.text = title
-                currentTitle.isHidden = false
-                currentAddToFavourite.isHidden = false
-                currentAddToPlaylist.isHidden = false
-                self.activityIndicator.isHidden = true
-                self.activityIndicator.stopAnimating()
             }
             
             if let album = currentTrackInfo.album {
                 currentAlbum.text = album
-                currentAlbum.isHidden = false
             }
             
             if let artist = currentTrackInfo.artist {
                 currentArtist.text = artist
-                currentArtist.isHidden = false
             }
             
             if let volume = currentTrackInfo.volume {
@@ -165,6 +170,8 @@ class PlaybackViewController: UIViewController {
                 default:self.shuffleButton.setImage(UIImage(named: "shuffleOff"), for: UIControlState.normal)
                 }
             }
+            
+            toggleInfo()
         }
     }
 
@@ -197,6 +204,24 @@ class PlaybackViewController: UIViewController {
         currentProgress.setProgress(percentage, animated: true)
     }
     
+    func toggleInfo() {
+        
+        if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
+            if let title = currentTrackInfo.title, title != "" {
+                activityIndicator.isHidden = true
+                activityIndicator.stopAnimating()
+                currentTrackInformations.isHidden = false
+                currentTrackActions.isHidden = false
+                
+            } else {
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
+                currentTrackInformations.isHidden = true
+                currentTrackActions.isHidden = true
+            }
+        }
+    }
+    
     @IBAction func pressPlay(_ sender: UIButton) {
         
         if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
@@ -210,7 +235,7 @@ class PlaybackViewController: UIViewController {
             default:
                 SocketIOManager.sharedInstance.doAction(action: "stop")
             }
-            getCurrentTrackInfo()
+            getCurrentTrackInfo(empty: false)
         }
     }
     
@@ -268,4 +293,12 @@ class PlaybackViewController: UIViewController {
         }
     }
 
+    @IBAction func tapOnNotificationBanner(_ sender: UIButton) {
+        SocketIOManager.sharedInstance.reConnect()
+        notificationBanner.isHidden = true
+        currentTrackInformations.isHidden = true
+        currentTrackActions.isHidden = true
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
 }

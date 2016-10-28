@@ -48,7 +48,12 @@ class SettingsViewController: FormViewController {
                 $0.title = $0.tag
                 }.onCellSelection { [weak self] (cell, row) in
                     self?.clearImageCache()
-        }
+            }
+            <<< ButtonRow("Clear user settings") {
+                $0.title = $0.tag
+                }.onCellSelection { [weak self] (cell, row) in
+                    self?.clearUserSettings()
+            }
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +64,10 @@ class SettingsViewController: FormViewController {
         ImageCache.default.clearDiskCache(completion: { (data) in
             ImageCache.default.clearMemoryCache()
         })
+    }
+    
+    func clearUserSettings() {
+        UserDefaults.standard.removeObject(forKey: "hideSwipeTutorial")
     }
     
     func shutdownAlert() {

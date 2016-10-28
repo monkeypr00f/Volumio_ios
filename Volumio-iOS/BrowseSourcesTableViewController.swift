@@ -19,9 +19,8 @@ class BrowseSourcesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
         self.pleaseWait()
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("browseSources"), object: nil, queue: nil, using: { notification in
             if let sources = SocketIOManager.sharedInstance.currentSources {
@@ -34,6 +33,10 @@ class BrowseSourcesTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        self.clearAllNotice()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
