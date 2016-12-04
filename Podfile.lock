@@ -1,13 +1,13 @@
 PODS:
-  - Alamofire (4.0.1)
+  - Alamofire (4.2.0)
   - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
   - Eureka (2.0.0-beta.1)
-  - Fabric (1.6.10)
-  - Kingfisher (3.1.4)
-  - ObjectMapper (2.2.0)
-  - Socket.IO-Client-Swift (8.0.2)
-  - SwiftyJSON (3.1.1)
+  - Fabric (1.6.11)
+  - Kingfisher (3.2.2)
+  - ObjectMapper (2.2.1)
+  - Socket.IO-Client-Swift (8.1.2)
+  - SwiftyJSON (3.1.3)
 
 DEPENDENCIES:
   - Alamofire
@@ -20,15 +20,15 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
-  Fabric: c73f371ee543e3f0b80608f2674750e4910d1669
-  Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
-  ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
-  Socket.IO-Client-Swift: 136598e4a81a42b0e6855e7f94a0e5a6efdc5ff8
-  SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  Kingfisher: 821466474ad7ffc375a4aecadfa05068cfed67b3
+  ObjectMapper: 41e43e1a89f8060ef5ea5d04ba852e269a621d68
+  Socket.IO-Client-Swift: 542d82e6708f9901b3f6c1d134fb60fa0d09d4d1
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
 
-PODFILE CHECKSUM: 7da58f2d0b91b04a50fbdfddb30fb3a3684166a7
+PODFILE CHECKSUM: a632b523a85da8cf1327cb92664a941880f625eb
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0.beta.1

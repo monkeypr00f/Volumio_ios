@@ -1,7 +1,7 @@
-project 'Volumio-iOS.xcodeproj'
+project 'Volumio.xcodeproj'
 # platform :ios, '10.0'
 
-target 'Volumio-iOS' do
+target 'Volumio' do
     use_frameworks!
     
     pod 'Socket.IO-Client-Swift'
