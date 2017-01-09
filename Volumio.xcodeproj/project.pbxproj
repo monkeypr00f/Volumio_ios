@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09D278C31E23D39000F5245A /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D278C21E23D39000F5245A /* Logging.swift */; };
 		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
@@ -65,7 +64,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		09D278C21E23D39000F5245A /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		17DCEBEF3691DD5604EFC3CD /* Pods_Volumio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio/Pods-Volumio.release.xcconfig"; sourceTree = "<group>"; };
 		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
 				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
 				606D923E1DB4D4FD00DBD78A /* Extensions.swift */,
-				09D278C21E23D39000F5245A /* Logging.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -455,7 +452,6 @@
 				601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */,
 				6074D2731DBB899C000F2285 /* BrowseSearchTableViewController.swift in Sources */,
 				606223871DE5B0F800DD1D20 /* QueueActions.swift in Sources */,
-				09D278C31E23D39000F5245A /* Logging.swift in Sources */,
 				60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */,
 				60EC70511DC22A59009D0F61 /* SwipeLeft.swift in Sources */,
 				6074D2751DBB9273000F2285 /* SearchResultObject.swift in Sources */,
