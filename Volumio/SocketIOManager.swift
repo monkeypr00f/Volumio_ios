@@ -52,13 +52,13 @@ class SocketIOManager: NSObject {
             self.socketConnected = true
             self.getState()
         }
-		
-		socket.on("pushState") {data, ack in
-			if let json = data[0] as? [String : Any] {
-				self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
-				NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
-			}
-		}
+
+        socket.on("pushState") {data, ack in
+            if let json = data[0] as? [String : Any] {
+                self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
+                NotificationCenter.default.post(name: .currentTrack, object: self.currentTrack)
+            }
+        }
     }
 	
     func reConnect() {
