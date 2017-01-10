@@ -52,8 +52,15 @@ class SocketIOManager: NSObject {
             self.socketConnected = true
             self.getState()
         }
+		
+		socket.on("pushState") {data, ack in
+			if let json = data[0] as? [String : Any] {
+				self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
+				NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
+			}
+		}
     }
-    
+	
     func reConnect() {
         let player = UserDefaults.standard.string(forKey: "selectedPlayer") ?? ""
         socket = SocketIOClient(socketURL: URL(string: "http://\(player).local:3000")!)
@@ -95,12 +102,6 @@ class SocketIOManager: NSObject {
     
     func getState() {
         self.socket.emit("getState")
-        socket.on("pushState") {data, ack in
-            if let json = data[0] as? [String : Any] {
-                self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
-                NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
-            }
-        }
     }
     
     
@@ -315,4 +316,3 @@ class SocketIOManager: NSObject {
 //    }
     
 }
-
