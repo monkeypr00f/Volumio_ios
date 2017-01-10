@@ -22,15 +22,15 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     var sourceLibrarySections = [LibraryObject]()
     var sourceLibraryDict = [String: [String]]()
     
-    func generateLibraryDict() {
-        for source in sourceLibrary {
-            let key = "\(source[(source.title?.startIndex)!])"
-            if var sourceValues = sourceLibraryDict[key] {
-                sourceValue
-            }
-        }
-    }
-    
+//    func generateLibraryDict() {
+//        for source in sourceLibrary {
+//            let key = "\(source[(source.title?.startIndex)!])"
+//            if var sourceValues = sourceLibraryDict[key] {
+//                sourceValue
+//            }
+//        }
+//    }
+	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
