@@ -19,6 +19,18 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     var playlistHeaderView: PlaylistActions?
     var sourceLibrary : [LibraryObject] = []
     
+    var sourceLibrarySections = [LibraryObject]()
+    var sourceLibraryDict = [String: [String]]()
+    
+    func generateLibraryDict() {
+        for source in sourceLibrary {
+            let key = "\(source[(source.title?.startIndex)!])"
+            if var sourceValues = sourceLibraryDict[key] {
+                sourceValue
+            }
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
@@ -231,7 +243,7 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let type = sourceLibrary[indexPath.row].type
-        if type == "song" {
+        if type == "song" || type == "mywebradio" || type == "webradio" {
             let item = self.sourceLibrary[indexPath.row]
             self.songActions(uri: item.uri!, title: item.title!, service: item.service!)
         }
@@ -282,7 +294,11 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     // MARK: - PlaylistActionsDelegate
     
     func playlistAddAndPlay() {
-        SocketIOManager.sharedInstance.playPlaylist(name: self.serviceName)
+        if serviceService == "mpd" {
+            SocketIOManager.sharedInstance.playPlaylist(name: self.serviceName)
+        } else {
+            SocketIOManager.sharedInstance.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        }
     }
     
     func playlistEdit() {

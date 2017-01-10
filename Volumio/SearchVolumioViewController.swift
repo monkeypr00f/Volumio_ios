@@ -82,6 +82,9 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     }
     
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
+        if !moreComing {
+            services.removeAll()
+        }
         services.append(service)
         DispatchQueue.main.async {
             self.searchResultTable.reloadData()

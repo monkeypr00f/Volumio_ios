@@ -216,6 +216,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                 destinationController.serviceName = item.title
                 destinationController.serviceUri = item.uri
                 destinationController.serviceType = item.type
+                destinationController.serviceService = item.service
             }
         }
     }

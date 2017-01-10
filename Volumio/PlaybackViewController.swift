@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Dropper
 
 class PlaybackViewController: UIViewController {
     
@@ -33,6 +34,7 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var innerRing: UIView!
     @IBOutlet weak var playerView: UIView!
     @IBOutlet weak var playerViewShadow: UIView!
+    @IBOutlet weak var dropdownSelector: UIButton!
 
     @IBOutlet weak var blurOverlay: UIVisualEffectView!
     
@@ -40,6 +42,8 @@ class PlaybackViewController: UIViewController {
     var trackDuration: Int = 0
     var currentTrack:TrackObject?
     var timer = Timer()
+    
+    let dropper = Dropper(width: 375, height: 200)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -326,5 +330,22 @@ class PlaybackViewController: UIViewController {
         self.clearAllNotice()
         SocketIOManager.sharedInstance.reConnect()
         self.pleaseWait()
+    }
+    
+    @IBAction func dropdownPressed(_ sender: UIButton) {
+        if dropper.status == .hidden {
+            dropper.delegate = self
+            dropper.items = ["Item 1", "Item 2", "Item 3", "Item 4"] // Item displayed
+            dropper.theme = Dropper.Themes.black(nil)
+            dropper.showWithAnimation(0.15, options: .center, position: .top, button: dropdownSelector)
+        } else {
+            dropper.hideWithAnimation(0.1)
+        }
+    }
+}
+
+extension PlaybackViewController: DropperDelegate {
+    func DropperSelectedRow(_ path: IndexPath, contents: String) {
+
     }
 }

@@ -208,8 +208,8 @@
 		6074D27C1DBE12AC000F2285 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
-				6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */,
 				602803891DA031E200055D42 /* BrowseSourcesTableViewController.swift */,
+				6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */,
 				6074D2811DBE5125000F2285 /* BrowseFolderTableViewController.swift */,
 				606223811DE59FBF00DD1D20 /* BrowseActions */,
 				60A7B7A31DF1BAD00095A27C /* PlaylistActions */,
@@ -569,7 +569,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C89A0FB8277543F8A492D6E8 /* Pods-Volumio.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				INFOPLIST_FILE = "$(SRCROOT)/Volumio/Info.plist";
@@ -585,7 +584,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 7VJCA99LU5;
 				INFOPLIST_FILE = "$(SRCROOT)/Volumio/Info.plist";

@@ -100,9 +100,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         let track = queue[indexPath.row]
         
         cell.trackTitle.text = track.name ?? ""
-        let artist = track.artist ?? ""
-        let album = track.album ?? ""
-        cell.trackArtist.text = "\(artist) - \(album)"
+        if let artist = track.artist,
+            let album = track.album {
+            cell.trackArtist.text = "\(artist) - \(album)"            
+        }
+        
         cell.trackPosition.text = "\(indexPath.row + 1)"
                 
         if indexPath.row == queuePointer {

@@ -256,6 +256,7 @@ class SocketIOManager: NSObject {
     func playPlaylist(name:String) {
         socket.emit("playPlaylist", ["name": name])
         socket.once("pushToastMessage") { data, ack in
+            print(data)
             NotificationCenter.default.post(name: NSNotification.Name("playlistPlaying"), object: name)
         }
     }
