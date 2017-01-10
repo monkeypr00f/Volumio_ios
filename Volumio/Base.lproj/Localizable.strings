@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Volumio
+
+  Created by Michael Baumgärtner on 10.01.17.
+  Copyright © 2017 Federico Sintucci. All rights reserved.
+*/
+
+"PLAYBACK" = "Playback";
+"QUEUE" = "Queue";
+"BROWSE" = "Browse";
+"SETTINGS" = "Settings";

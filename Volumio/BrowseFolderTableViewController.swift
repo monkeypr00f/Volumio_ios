@@ -23,12 +23,13 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     var sourceLibraryDict = [String: [String]]()
     
     func generateLibraryDict() {
-        for source in sourceLibrary {
-            let key = "\(source[(source.title?.startIndex)!])"
-            if var sourceValues = sourceLibraryDict[key] {
-                sourceValue
-            }
-        }
+// FIXME:
+//        for source in sourceLibrary {
+//            let key = "\(source[(source.title?.startIndex)!])"
+//            if var sourceValues = sourceLibraryDict[key] {
+//                sourceValue
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
