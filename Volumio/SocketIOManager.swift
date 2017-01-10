@@ -33,7 +33,7 @@ class SocketIOManager: NSObject {
     
     var socketConnected : Bool = false
     
-    // manage connection
+    // MARK: - manage connection
     
     func establishConnection() {
         
@@ -77,8 +77,7 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
-    
-    //common
+    // MARK: - emit events
     
     func doAction(action:String) {
         socket.emit(action)
@@ -88,8 +87,7 @@ class SocketIOManager: NSObject {
         socket.emit("callMethod", ["endpoint": endpoint, "method": method, "data": data])
     }
     
-    
-    //manage playback
+    // MARK: - manage playback
     
     func playTrack(position:Int) {
         socket.emit("play", ["value": position])
@@ -104,8 +102,7 @@ class SocketIOManager: NSObject {
         self.socket.emit("getState")
     }
     
-    
-    //manage sources
+    // MARK: - manage sources
     
     func browseSources() {
         socket.emit("getBrowseSources")
@@ -175,7 +172,7 @@ class SocketIOManager: NSObject {
     }
     
     
-    //manage queue
+    // MARK: - manage queue
     
     func getQueue() {
         socket.emit("getQueue")
@@ -219,8 +216,7 @@ class SocketIOManager: NSObject {
         }
     }
     
-    
-    //manage playlists
+    // MARK: - manage playlists
     
     func listPlaylist() {
         self.socket.emit("listPlaylist")
@@ -268,7 +264,7 @@ class SocketIOManager: NSObject {
         }
     }
     
-    //manage plugins
+    // MARK: - manage plugins
     
     func getInstalledPlugins() {
         self.socket.emit("getInstalledPlugins")
@@ -285,7 +281,7 @@ class SocketIOManager: NSObject {
         self.socket.emit("pluginManager", ["name": name, "category": category, "action": action])
     }
     
-    //manage network
+    // MARK: - manage network
     
     func getInfoNetwork() {
         socket.emit("getInfoNetwork")
@@ -308,36 +304,10 @@ class SocketIOManager: NSObject {
             }
         }
     }
-    
-    
-    //debug
-//    socket.onAny {
-//      print("Got event: \($0.event), with items: \($0.items)")
-//    }
-    
+
 }
 
-// Notifications posted by this module
-
-extension Notification.Name {
-    static let connected = Notification.Name("connected")
-    static let disconnected = Notification.Name("disconnected")
-    static let currentTrack = Notification.Name("currentTrack")
-    static let browseSources = Notification.Name("browseSources")
-    static let browseLibrary = Notification.Name("browseLibrary")
-    static let browseSearch = Notification.Name("browseSearch")
-    static let currentQueue = Notification.Name("currentQueue")
-    static let addedToQueue = Notification.Name("addedToQueue")
-    static let removedfromQueue = Notification.Name("removedfromQueue")
-    static let listPlaylists = Notification.Name("listPlaylists")
-    static let addedToPlaylist = Notification.Name("addedToPlaylist")
-    static let removedFromPlaylist = Notification.Name("removedFromPlaylist")
-    static let playlistPlaying = Notification.Name("playlistPlaying")
-    static let playlistDeleted = Notification.Name("playlistDeleted")
-    static let browsePlugins = Notification.Name("browsePlugins")
-    static let browseNetwork = Notification.Name("browseNetwork")
-    static let browseWifi = Notification.Name("browseWifi")
-}
+// MARK: -
 
 // Convenience extension to avoid code duplication
 
