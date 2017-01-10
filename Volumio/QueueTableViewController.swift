@@ -20,8 +20,8 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.getState()
         registerObservers()
+        SocketIOManager.sharedInstance.getState()
     }
 
     override func viewDidLoad() {
@@ -51,11 +51,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
 
     private func registerObservers() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getQueue(notification:)), name: NSNotification.Name("currentQueue"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getQueue(notification:)), name: .currentQueue, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: NSNotification.Name("currentTrack"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: .currentTrack, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(removeFromQueue(notification:)), name: NSNotification.Name("removedfromQueue"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeFromQueue(notification:)), name: .removedfromQueue, object: nil)
     }
     
     func getQueue(notification:NSNotification) {

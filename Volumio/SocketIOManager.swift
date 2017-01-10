@@ -17,7 +17,7 @@ class SocketIOManager: NSObject {
     
     override init() {
         let player = UserDefaults.standard.string(forKey: "selectedPlayer") ?? ""
-        socket = SocketIOClient(socketURL: URL(string: "http://\(player).local:3000")!)
+        socket = SocketIOClient(for: player)
         socket.reconnectWait = 5
     }
     
@@ -33,42 +33,42 @@ class SocketIOManager: NSObject {
     
     var socketConnected : Bool = false
     
-    // manage connection
+    // MARK: - manage connection
     
     func establishConnection() {
         
         socket.connect(timeoutAfter: 10, withHandler: { data in
             self.socketConnected = false
-            NotificationCenter.default.post(name: NSNotification.Name("disconnected"), object: nil)
+            NotificationCenter.default.post(name: .disconnected, object: nil)
         })
         
         socket.on("reconnect") { data, ack in
             self.socketConnected = false
-            NotificationCenter.default.post(name: NSNotification.Name("disconnected"), object: nil)
+            NotificationCenter.default.post(name: .disconnected, object: nil)
         }
         
         socket.on("connect") { data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("connected"), object: nil)
+            NotificationCenter.default.post(name: .connected, object: nil)
             self.socketConnected = true
             self.getState()
         }
-		
-		socket.on("pushState") {data, ack in
-			if let json = data[0] as? [String : Any] {
-				self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
-				NotificationCenter.default.post(name: NSNotification.Name("currentTrack"), object: self.currentTrack)
-			}
-		}
+
+        socket.on("pushState") {data, ack in
+            if let json = data[0] as? [String : Any] {
+                self.currentTrack = Mapper<TrackObject>().map(JSONObject: json)
+                NotificationCenter.default.post(name: .currentTrack, object: self.currentTrack)
+            }
+        }
     }
 	
     func reConnect() {
         let player = UserDefaults.standard.string(forKey: "selectedPlayer") ?? ""
-        socket = SocketIOClient(socketURL: URL(string: "http://\(player).local:3000")!)
+        socket = SocketIOClient(for: player)
         self.establishConnection()
     }
     
     func changeServer(server:String) {        
-        socket = SocketIOClient(socketURL: URL(string: "http://\(server).local:3000")!)
+        socket = SocketIOClient(for: server)
         self.establishConnection()
     }
     
@@ -77,8 +77,7 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
-    
-    //common
+    // MARK: - emit events
     
     func doAction(action:String) {
         socket.emit(action)
@@ -88,8 +87,7 @@ class SocketIOManager: NSObject {
         socket.emit("callMethod", ["endpoint": endpoint, "method": method, "data": data])
     }
     
-    
-    //manage playback
+    // MARK: - manage playback
     
     func playTrack(position:Int) {
         socket.emit("play", ["value": position])
@@ -104,8 +102,7 @@ class SocketIOManager: NSObject {
         self.socket.emit("getState")
     }
     
-    
-    //manage sources
+    // MARK: - manage sources
     
     func browseSources() {
         socket.emit("getBrowseSources")
@@ -113,7 +110,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let sources = json[0].arrayObject {
                 self.currentSources = Mapper<SourceObject>().mapArray(JSONObject: sources)
-                NotificationCenter.default.post(name: NSNotification.Name("browseSources"), object: self.currentSources)
+                NotificationCenter.default.post(name: .browseSources, object: self.currentSources)
             }
         }
     }
@@ -124,7 +121,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0]["navigation"]["lists"][0]["items"].arrayObject {
                 self.currentLibrary = Mapper<LibraryObject>().mapArray(JSONObject: items)
-                NotificationCenter.default.post(name: NSNotification.Name("browseLibrary"), object: self.currentLibrary)
+                NotificationCenter.default.post(name: .browseLibrary, object: self.currentLibrary)
             }
         }
     }
@@ -135,7 +132,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0]["navigation"]["lists"].arrayObject {
                 self.currentSearch = Mapper<SearchResultObject>().mapArray(JSONObject: items)
-                NotificationCenter.default.post(name: NSNotification.Name("browseSearch"), object: self.currentSearch)
+                NotificationCenter.default.post(name: .browseSearch, object: self.currentSearch)
             }
         }
     }
@@ -143,7 +140,7 @@ class SocketIOManager: NSObject {
     func addToQueue(uri:String, title:String, service:String) {
         socket.emit("addToQueue", ["uri":uri, "title":title, "service":service])
         socket.once("pushQueue") {data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("addedToQueue"), object: title)
+            NotificationCenter.default.post(name: .addedToQueue, object: title)
         }
     }
     
@@ -169,20 +166,20 @@ class SocketIOManager: NSObject {
                 self.socket.once("pushQueue") {data, ack in
                     self.playTrack(position: queryItems)
                 }
-                NotificationCenter.default.post(name: NSNotification.Name("addedToQueue"), object: title)
+                NotificationCenter.default.post(name: .addedToQueue, object: title)
             }
         }
     }
     
     
-    //manage queue
+    // MARK: - manage queue
     
     func getQueue() {
         socket.emit("getQueue")
         socket.once("pushQueue") {data, ack in
             if let json = data[0] as? [[String:Any]] {
                 self.currentQueue = Mapper<TrackObject>().mapArray(JSONObject: json)
-                NotificationCenter.default.post(name: NSNotification.Name("currentQueue"), object: self.currentQueue)
+                NotificationCenter.default.post(name: .currentQueue, object: self.currentQueue)
             }
         }
     }
@@ -195,7 +192,7 @@ class SocketIOManager: NSObject {
     func removeFromQueue(position:Int) {
         socket.emit("removeFromQueue", ["value":"\(position)"])
         socket.once("pushToastMessage") { data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("removedfromQueue"), object: nil)
+            NotificationCenter.default.post(name: .removedfromQueue, object: nil)
         }
     }
     
@@ -219,8 +216,7 @@ class SocketIOManager: NSObject {
         }
     }
     
-    
-    //manage playlists
+    // MARK: - manage playlists
     
     func listPlaylist() {
         self.socket.emit("listPlaylist")
@@ -228,7 +224,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0].arrayObject {
                 self.currentPlaylists = items
-                NotificationCenter.default.post(name: NSNotification.Name("listPlaylists"), object: self.currentPlaylists)
+                NotificationCenter.default.post(name: .listPlaylists, object: self.currentPlaylists)
             }
         }
     }
@@ -236,14 +232,14 @@ class SocketIOManager: NSObject {
     func addToPlaylist(name:String, uri:String, service:String) {
         socket.emit("addToPlaylist", ["name": name, "uri":uri, "service":service])
         socket.once("pushToastMessage") {data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("addedToPlaylist"), object: name)
+            NotificationCenter.default.post(name: .addedToPlaylist, object: name)
         }
     }
     
     func removeFromPlaylist(name:String, uri:String, service:String) {
         socket.emit("removeFromPlaylist", ["name": name, "uri":uri, "service":service])
         socket.once("pushToastMessage") {data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("removedFromPlaylist"), object: name)
+            NotificationCenter.default.post(name: .removedFromPlaylist, object: name)
         }
     }
     
@@ -257,19 +253,18 @@ class SocketIOManager: NSObject {
     func playPlaylist(name:String) {
         socket.emit("playPlaylist", ["name": name])
         socket.once("pushToastMessage") { data, ack in
-            print(data)
-            NotificationCenter.default.post(name: NSNotification.Name("playlistPlaying"), object: name)
+            NotificationCenter.default.post(name: .playlistPlaying, object: name)
         }
     }
     
     func deletePlaylist(name:String) {
         socket.emit("deletePlaylist", ["name": name])
         socket.once("pushToastMessage") { data, ack in
-            NotificationCenter.default.post(name: NSNotification.Name("playlistDeleted"), object: name)
+            NotificationCenter.default.post(name: .playlistDeleted, object: name)
         }
     }
     
-    //manage plugins
+    // MARK: - manage plugins
     
     func getInstalledPlugins() {
         self.socket.emit("getInstalledPlugins")
@@ -277,7 +272,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0].arrayObject {
                 self.installedPlugins = Mapper<PluginObject>().mapArray(JSONObject: items)
-                NotificationCenter.default.post(name: NSNotification.Name("browsePlugins"), object: self.installedPlugins)
+                NotificationCenter.default.post(name: .browsePlugins, object: self.installedPlugins)
             }
         }
     }
@@ -286,7 +281,7 @@ class SocketIOManager: NSObject {
         self.socket.emit("pluginManager", ["name": name, "category": category, "action": action])
     }
     
-    //manage network
+    // MARK: - manage network
     
     func getInfoNetwork() {
         socket.emit("getInfoNetwork")
@@ -294,7 +289,7 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0].arrayObject {
                 self.connectedNetwork = Mapper<NetworkObject>().mapArray(JSONObject: items)
-                NotificationCenter.default.post(name: NSNotification.Name("browseNetwork"), object: self.connectedNetwork)
+                NotificationCenter.default.post(name: .browseNetwork, object: self.connectedNetwork)
             }
         }
     }
@@ -305,15 +300,24 @@ class SocketIOManager: NSObject {
             let json = JSON(data)
             if let items = json[0]["available"].arrayObject {
                 self.wirelessNetwork = Mapper<NetworkObject>().mapArray(JSONObject: items)
-                NotificationCenter.default.post(name: NSNotification.Name("browseWifi"), object: self.wirelessNetwork)
+                NotificationCenter.default.post(name: .browseWifi, object: self.wirelessNetwork)
             }
         }
     }
+
+}
+
+// MARK: -
+
+// Convenience extension to avoid code duplication
+
+extension SocketIOClient {
     
-    
-    //debug
-//    socket.onAny {
-//      print("Got event: \($0.event), with items: \($0.items)")
-//    }
+    convenience init(for player: String) {
+        guard let url = URL(string: "http://\(player).local:3000") else {
+            fatalError("Unable to construct valid url for player \(player)")
+        }
+        self.init(socketURL: url)
+    }
     
 }

@@ -41,9 +41,9 @@ class NetworksTableViewController: UITableViewController {
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getNetworks(notification:)), name: NSNotification.Name("browseNetwork"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getNetworks(notification:)), name: .browseNetwork, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getWireless(notification:)), name: NSNotification.Name("browseWifi"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getWireless(notification:)), name: .browseWifi, object: nil)
     }
     
     func getNetworks(notification: NSNotification) {

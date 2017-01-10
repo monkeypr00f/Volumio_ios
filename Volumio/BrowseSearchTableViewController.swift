@@ -41,9 +41,9 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: NSNotification.Name("browseSearch"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browseSearch, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: NSNotification.Name("addedToPlaylist"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: .addedToPlaylist, object: nil)
     }
 
     func updateSources(notification: NSNotification) {

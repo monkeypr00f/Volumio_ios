@@ -40,7 +40,7 @@ class PluginsTableViewController: UITableViewController {
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: NSNotification.Name("browsePlugins"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browsePlugins, object: nil)
     }
     
     func updateSources(notification: NSNotification) {
