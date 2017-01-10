@@ -19,6 +19,9 @@ class SettingsViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // L18N
+        navigationItem.title = NSLocalizedString("SETTINGS", comment: "settings view title")
+
         form = Section("System")
             <<< ButtonRow("Installed plugins") { (row: ButtonRow) -> Void in
                 row.title = row.tag

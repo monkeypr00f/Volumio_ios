@@ -12,11 +12,22 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     
     @IBOutlet weak var searchResultTable: UITableView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var textLabel: UILabel!
+    
     let browser = NetServiceBrowser()
     var services : [NetService] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // L18N
+        titleLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TITLE",
+            comment: "search volumio view title"
+        )
+        textLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TEXT",
+            comment: "search volumio view text"
+        )
         
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)

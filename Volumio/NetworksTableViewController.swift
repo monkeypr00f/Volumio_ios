@@ -83,8 +83,14 @@ class NetworksTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "Network Info"
-        case 1: return "Wireless Networks"
+        case 0:
+            return NSLocalizedString("NETWORK_INFO",
+                comment: "network info table section title"
+            )
+        case 1:
+            return NSLocalizedString("NETWORKS_WIRELESS",
+                comment: "wireless networks table section title"
+            )
         default: return ""
         }
     }

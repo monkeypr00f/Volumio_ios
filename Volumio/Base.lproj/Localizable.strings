@@ -9,4 +9,24 @@
 "PLAYBACK" = "Playback";
 "QUEUE" = "Queue";
 "BROWSE" = "Browse";
+"BROWSE_SEARCH" = "Search";
 "SETTINGS" = "Settings";
+
+"SEARCH_VOLUMIO_TITLE" = "Select the player";
+"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings tab.";
+
+"QUEUE_REPEAT" = "Repeat!";
+"QUEUE_SHUFFLE" = "Shuffle";
+"QUEUE_CONSUME" = "Consume";
+"QUEUE_CLEAR" = "Clear";
+
+// Not sure about the wording, but I would suggest to use "Add to queue", "Add and play", "Set and play"
+"BROWSE_ADD_TO_QUEUE" = "Add all to queue";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play all";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Clear and play";
+
+"BROWSE_PLAY_PLAYLIST" = "Play";
+"BROWSE_EDIT_PLAYLIST" = "Edit";
+
+"NETWORK_INFO" = "Network Info";
+"NETWORKS_WIRELESS" = "Wireless Networks";

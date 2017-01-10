@@ -23,6 +23,11 @@ class QueueActions: UIView {
     @IBOutlet weak var repeatState: UIButton!
     @IBOutlet weak var shuffleState: UIButton!
     @IBOutlet weak var consumeState: UIButton!
+
+    @IBOutlet weak var repeatLabel: UILabel!
+    @IBOutlet weak var shuffleLabel: UILabel!
+    @IBOutlet weak var consumeLabel: UILabel!
+    @IBOutlet weak var clearLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,6 +43,20 @@ class QueueActions: UIView {
         UINib(nibName: "QueueActions", bundle: nil).instantiate(withOwner: self, options: nil)
         addSubview(view)
         view.frame = self.bounds
+        
+        // L18N
+        repeatLabel.text = NSLocalizedString("QUEUE_REPEAT",
+            comment: "queue repeat label"
+        )
+        shuffleLabel.text = NSLocalizedString("QUEUE_SHUFFLE",
+            comment: "queue shuffle label"
+        )
+        consumeLabel.text = NSLocalizedString("QUEUE_CONSUME",
+            comment: "queue consume label"
+        )
+        clearLabel.text = NSLocalizedString("QUEUE_CLEAR",
+            comment: "queue clear label"
+        )
         
         repeatState.alpha = 0.3
         shuffleState.alpha = 0.3

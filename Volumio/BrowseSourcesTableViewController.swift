@@ -21,6 +21,9 @@ class BrowseSourcesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // L18N
+        navigationItem.title = NSLocalizedString("BROWSE", comment: "browse view title")
+
         self.pleaseWait()
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         

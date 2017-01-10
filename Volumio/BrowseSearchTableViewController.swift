@@ -21,7 +21,10 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // L18N
+        navigationItem.title = NSLocalizedString("BROWSE_SEARCH", comment: "browse search view title")
+
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         searchBar.delegate = self

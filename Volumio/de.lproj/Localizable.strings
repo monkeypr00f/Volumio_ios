@@ -9,4 +9,23 @@
 "PLAYBACK" = "Wiedergabe";
 "QUEUE" = "Warteschlange";
 "BROWSE" = "Durchsuchen";
+"BROWSE_SEARCH" = "Suchen";
 "SETTINGS" = "Einstellungen";
+
+"SEARCH_VOLUMIO_TITLE" = "Abspieler auswählen";
+"SEARCH_VOLUMIO_TEXT" = "Wähle einen verfügbaren Abspieler zur Steuerung aus. Die Auswahl kann jederzeit in den Einstellungen geändert werden.";
+
+"QUEUE_REPEAT" = "Wiederholen";
+"QUEUE_SHUFFLE" = "Zufällig";
+"QUEUE_CONSUME" = "Verarbeiten";
+"QUEUE_CLEAR" = "Leeren";
+
+"BROWSE_ADD_TO_QUEUE" = "Hinzufügen";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Hinzufügen und Abspielen";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Ersetzen und Abspielen";
+
+"BROWSE_PLAY_PLAYLIST" = "Abspielen";
+"BROWSE_EDIT_PLAYLIST" = "Bearbeiten";
+
+"NETWORK_INFO" = "Netzwerkstatus";
+"NETWORKS_WIRELESS" = "WLAN Netzwerke";

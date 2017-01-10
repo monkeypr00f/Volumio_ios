@@ -27,6 +27,9 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // L18N
+        navigationItem.title = NSLocalizedString("QUEUE", comment: "queue view title")
+
         self.pleaseWait()
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         

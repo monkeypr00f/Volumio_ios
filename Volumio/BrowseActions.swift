@@ -19,6 +19,10 @@ class BrowseActions: UIView {
     @IBOutlet weak var view: UIView!
     weak var delegate: BrowseActionsDelegate?
 
+    @IBOutlet weak var addToQueueLabel: UILabel!
+    @IBOutlet weak var addAndPlayLabel: UILabel!
+    @IBOutlet weak var clearAndPlayLabel: UILabel!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -33,6 +37,17 @@ class BrowseActions: UIView {
         UINib(nibName: "BrowseActions", bundle: nil).instantiate(withOwner: self, options: nil)
         addSubview(view)
         view.frame = self.bounds
+        
+        // L18N
+        addToQueueLabel.text = NSLocalizedString("BROWSE_ADD_TO_QUEUE",
+            comment: "add to queue label"
+        )
+        addAndPlayLabel.text = NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY",
+            comment: "add to queue and play label"
+        )
+        clearAndPlayLabel.text = NSLocalizedString("BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY",
+            comment: "set as queue and play label"
+        )
     }
     
     
