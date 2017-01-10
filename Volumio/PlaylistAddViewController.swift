@@ -44,7 +44,7 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getPlaylist(notification:)), name: NSNotification.Name("listPlaylists"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getPlaylist(notification:)), name: .listPlaylists, object: nil)
     }
     
     func getPlaylist(notification: NSNotification) {

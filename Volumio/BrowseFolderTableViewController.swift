@@ -69,17 +69,17 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSourceLibrary(notification:)), name: NSNotification.Name("browseLibrary"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSourceLibrary(notification:)), name: .browseLibrary, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deletePlaylist(notification:)), name: NSNotification.Name("playlistDeleted"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deletePlaylist(notification:)), name: .playlistDeleted, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addToQueue(notification:)), name: NSNotification.Name("addedToQueue"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addToQueue(notification:)), name: .addedToQueue, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addToPlaylist(notification:)), name: NSNotification.Name("addedToPlaylist"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addToPlaylist(notification:)), name: .addedToPlaylist, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(removeFromPlaylist(notification:)), name: NSNotification.Name("removedFromPlaylist"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeFromPlaylist(notification:)), name: .removedFromPlaylist, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(playPlaylist(notification:)), name: NSNotification.Name("playlistPlaying"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playPlaylist(notification:)), name: .playlistPlaying, object: nil)
     }
     
     func updateSourceLibrary(notification: NSNotification) {

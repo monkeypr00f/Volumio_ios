@@ -39,7 +39,7 @@ class BrowseSourcesTableViewController: UITableViewController {
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: NSNotification.Name("browseSources"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browseSources, object: nil)
     }
     
     func updateSources(notification: NSNotification) {
