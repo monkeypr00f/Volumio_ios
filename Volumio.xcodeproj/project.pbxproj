@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
+		09EBB60B1E254CD90081654E /* SocketIOManagerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */; };
 		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManagerNotifications.swift; sourceTree = "<group>"; };
 		17DCEBEF3691DD5604EFC3CD /* Pods_Volumio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio/Pods-Volumio.release.xcconfig"; sourceTree = "<group>"; };
 		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */,
 				60B2261F1DCA887F00B74B57 /* SocketIOManager.swift */,
+				09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */,
 				60EC70511DC22A59009D0F61 /* SwipeLeft.swift in Sources */,
 				6074D2751DBB9273000F2285 /* SearchResultObject.swift in Sources */,
+				09EBB60B1E254CD90081654E /* SocketIOManagerNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

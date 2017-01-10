@@ -91,11 +91,11 @@ class PlaybackViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrackInfo), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(isDisconnected(notification:)), name: NSNotification.Name("disconnected"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(isDisconnected(notification:)), name: .disconnected, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: NSNotification.Name("currentTrack"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: .currentTrack, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: NSNotification.Name("addedToPlaylist"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: .addedToPlaylist, object: nil)
     }
     
     func isDisconnected(notification: NSNotification) {
