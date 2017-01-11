@@ -33,6 +33,7 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         searchResultTable.dataSource = self
         searchResultTable.tableFooterView = UIView(frame: CGRect.zero)
 
+        browser.delegate = self
         browserStartSearch()
     }
 
