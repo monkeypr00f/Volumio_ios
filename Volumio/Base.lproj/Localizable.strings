@@ -65,10 +65,10 @@
 "QUEUE_SHUFFLE" = "Shuffle";
 
 /* search volumio view text */
-"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings tab.";
+"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings.";
 
 /* search volumio view title */
-"SEARCH_VOLUMIO_TITLE" = "Select the player";
+"SEARCH_VOLUMIO_TITLE" = "Select a player";
 
 /* settings view title */
 "SETTINGS" = "Settings";
