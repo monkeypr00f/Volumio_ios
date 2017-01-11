@@ -1,54 +1,113 @@
-/* 
-  Localizable.strings
-  Volumio
-
-  Created by Michael Baumgärtner on 10.01.17.
-  Copyright © 2017 Federico Sintucci. All rights reserved.
-*/
-
-"PLAYBACK" = "Playback";
-"QUEUE" = "Queue";
+/* browse sources view title */
 "BROWSE" = "Browse";
-"BROWSE_SEARCH" = "Search";
-"SETTINGS" = "Settings";
 
-"SEARCH_VOLUMIO_TITLE" = "Select the player";
-"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings tab.";
-
-"QUEUE_REPEAT" = "Repeat!";
-"QUEUE_SHUFFLE" = "Shuffle";
-"QUEUE_CONSUME" = "Consume";
-"QUEUE_CLEAR" = "Clear";
-
+/* [trigger] add item to queue */
 "BROWSE_ADD_TO_QUEUE" = "Add to queue";
+
+/* [trigger](short) add items to queue */
 "BROWSE_ADD_TO_QUEUE_ALL" = "Add all to queue";
+
+/* [trigger] add item to queue and start playing */
 "BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play";
+
+/* [trigger](short) add items to queue and start playing */
 "BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Play all";
+
+/* [trigger] clear queue, add item and start playing */
 "BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Clear and play";
+
+/* [trigger](short) clear queue, add items and start playing */
 "BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Clear and play all";
 
-"BROWSE_PLAY_PLAYLIST" = "Play";
+/* [trigger](short) edit playlist */
 "BROWSE_EDIT_PLAYLIST" = "Edit";
 
+/* [trigger](short) play playlist */
+"BROWSE_PLAY_PLAYLIST" = "Play";
+
+/* browse search view title */
+"BROWSE_SEARCH" = "Search";
+
+/* [trigger] cancel action */
+"CANCEL" = "Cancel";
+
+/* network info title */
 "NETWORKS_NETWORK_INFO" = "Network Info";
+
+/* wireless networks title */
 "NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
 
-"SETTINGS_SECTION_SYSTEM" = "System";
-"SETTINGS_INSTALLED_PLUGINS" = "Installed plugins";
-"SETTINGS_OPEN_WEBUI" = "Open WebUI";
+/* plugin view title */
+"PLUGIN" = "Plugin";
 
-"SETTINGS_SHUTDOWN_OPTIONS" = "Shutdown";
-"SETTINGS_SHUTDOWN" = "Shutdown";
-"SETTINGS_REBOOT" = "Reboot";
-
-"SETTINGS_SECTION_DEBUG" = "Debug";
-"SETTINGS_CHANGE_PLAYER" = "Change player";
-"SETTINGS_CLEAR_CACHE" = "Clear cache";
-
+/* plugins view title */
 "PLUGINS" = "Plugins";
 
-"PLUGIN" = "Plugin";
-"PLUGIN_VERSION" = "Version";
+/* volumio player’s plugin status */
 "PLUGIN_STATUS" = "Status";
 
-"CANCEL" = "Cancel";
+/* volumio player’s plugin version */
+"PLUGIN_VERSION" = "Version";
+
+/* queue view title */
+"QUEUE" = "Queue";
+
+/* [trigger](short) queue clear */
+"QUEUE_CLEAR" = "Clear";
+
+/* [toggle](short) queue consume */
+"QUEUE_CONSUME" = "Consume";
+
+/* [toggle](short) queue repeat */
+"QUEUE_REPEAT" = "Repeat";
+
+/* [toggle](short) queue shuffle */
+"QUEUE_SHUFFLE" = "Shuffle";
+
+/* search volumio view text */
+"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings tab.";
+
+/* search volumio view title */
+"SEARCH_VOLUMIO_TITLE" = "Select the player";
+
+/* settings view title */
+"SETTINGS" = "Settings";
+
+/* [trigger] change volumio player */
+"SETTINGS_CHANGE_PLAYER" = "Change player";
+
+/* [trigger] clear cache */
+"SETTINGS_CLEAR_CACHE" = "Clear cache";
+
+/* [trigger] show installed volumio player plugins */
+"SETTINGS_INSTALLED_PLUGINS" = "Installed Plugins";
+
+/* [trigger] show volumio player web ui */
+"SETTINGS_OPEN_WEBUI" = "Open WebUI";
+
+/* [trigger] reboot volumio player */
+"SETTINGS_REBOOT" = "Reboot";
+
+/* debugging */
+"SETTINGS_SECTION_DEBUG" = "Debug";
+
+/* system */
+"SETTINGS_SECTION_SYSTEM" = "System";
+
+/* [trigger] shutdown volumio player */
+"SETTINGS_SHUTDOWN" = "Shutdown";
+
+/* [trigger] show shutdown options for volumio player */
+"SETTINGS_SHUTDOWN_OPTIONS" = "Shutdown";
+
+/* [trigger](short) show browse view */
+"TAB_BROWSE" = "Browse";
+
+/* [trigger](short) show playback view */
+"TAB_PLAYBACK" = "Playback";
+
+/* [trigger](short) show queue view */
+"TAB_QUEUE" = "Queue";
+
+/* [trigger](short) show settings view */
+"TAB_SETTINGS" = "Settings";

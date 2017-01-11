@@ -23,7 +23,7 @@
 "BROWSE_EDIT_PLAYLIST" = "Bearbeiten";
 
 /* [trigger](short) play playlist */
-"BROWSE_PLAY_PLAYLIST" = "Abspielen";
+"BROWSE_PLAY_PLAYLIST" = "Wiedergeben";
 
 /* browse search view title */
 "BROWSE_SEARCH" = "Suchen";

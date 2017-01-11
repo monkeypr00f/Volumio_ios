@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  Volumio
+
+  Created by Michael Baumgärtner on 10.01.17.
+  Copyright © 2017 Federico Sintucci. All rights reserved.
+*/
+
+"PLAYBACK" = "Playback";
+"QUEUE" = "Queue";
+"BROWSE" = "Browse";
+"BROWSE_SEARCH" = "Search";
+"SETTINGS" = "Settings";
+
+"SEARCH_VOLUMIO_TITLE" = "Select the player";
+"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings tab.";
+
+"QUEUE_REPEAT" = "Repeat!";
+"QUEUE_SHUFFLE" = "Shuffle";
+"QUEUE_CONSUME" = "Consume";
+"QUEUE_CLEAR" = "Clear";
+
+"BROWSE_ADD_TO_QUEUE" = "Add to queue";
+"BROWSE_ADD_TO_QUEUE_ALL" = "Add all to queue";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Play all";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Clear and play";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Clear and play all";
+
+"BROWSE_PLAY_PLAYLIST" = "Play";
+"BROWSE_EDIT_PLAYLIST" = "Edit";
+
+"NETWORKS_NETWORK_INFO" = "Network Info";
+"NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
+
+"SETTINGS_SECTION_SYSTEM" = "System";
+"SETTINGS_INSTALLED_PLUGINS" = "Installed plugins";
+"SETTINGS_OPEN_WEBUI" = "Open WebUI";
+
+"SETTINGS_SHUTDOWN_OPTIONS" = "Shutdown";
+"SETTINGS_SHUTDOWN" = "Shutdown";
+"SETTINGS_REBOOT" = "Reboot";
+
+"SETTINGS_SECTION_DEBUG" = "Debug";
+"SETTINGS_CHANGE_PLAYER" = "Change player";
+"SETTINGS_CLEAR_CACHE" = "Clear cache";
+
+"PLUGINS" = "Plugins";
+
+"PLUGIN" = "Plugin";
+"PLUGIN_VERSION" = "Version";
+"PLUGIN_STATUS" = "Status";
+
+"CANCEL" = "Cancel";
