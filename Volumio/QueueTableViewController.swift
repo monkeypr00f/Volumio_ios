@@ -20,20 +20,25 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         registerObservers()
+        
         SocketIOManager.sharedInstance.getState()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // L18N
-        navigationItem.title = NSLocalizedString("QUEUE", comment: "queue view title")
+        localize()
 
-        self.pleaseWait()
+        pleaseWait()
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
         
         // HeaderView
         let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 56.0)
@@ -43,38 +48,46 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+        
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     private func registerObservers() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(getQueue(notification:)), name: .currentQueue, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: .currentTrack, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(removeFromQueue(notification:)), name: .removedfromQueue, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getQueue(notification:)),
+            name: .currentQueue,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getCurrentTrack(notification:)),
+            name: .currentTrack,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(removeFromQueue(notification:)),
+            name: .removedfromQueue,
+            object: nil
+        )
     }
     
     func getQueue(notification:NSNotification) {
-        if let sources = notification.object as? [TrackObject] {
-            self.queue = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [TrackObject] else { return }
+        
+        queue = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
     
     func getCurrentTrack(notification:NSNotification) {
-        if let track = notification.object as? TrackObject,
-            let position = track.position {
-            self.track = track
-            self.queuePointer = position
-            self.headerView?.updateStatus(track: track)
+        if let currentTrack = notification.object as? TrackObject,
+           let position = currentTrack.position
+        {
+            track = currentTrack
+            queuePointer = position
+            headerView?.updateStatus(track: track)
         }
         SocketIOManager.sharedInstance.getQueue()
     }
@@ -83,6 +96,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         SocketIOManager.sharedInstance.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
+            // TODO: L18N
             self.noticeTop("Removed from queue", autoClear: true, autoClearTime: 3)
         })
         
@@ -94,11 +108,15 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return queue.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
         let track = queue[indexPath.row]
         
@@ -136,14 +154,16 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         return cell
     }
 
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+    override func tableView(_ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
         return true
     }
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             SocketIOManager.sharedInstance.removeFromQueue(position: indexPath.row)
         }   
@@ -155,15 +175,25 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     }
     
     
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        SocketIOManager.sharedInstance.sortQueue(from: sourceIndexPath.row, to:destinationIndexPath.row)
+    override func tableView(_ tableView: UITableView,
+        moveRowAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath
+    ) {
+        SocketIOManager.sharedInstance.sortQueue(
+            from: sourceIndexPath.row,
+            to:destinationIndexPath.row
+        )
     }
     
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView,
+        canMoveRowAt indexPath: IndexPath
+    ) -> Bool {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 54.0
     }
 
@@ -171,11 +201,15 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         self.isEditing = !self.isEditing
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         return headerView
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
         return 56.0
     }
     
@@ -185,6 +219,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     }
 
     // MARK: - QueueActionsDelegate
+    
     func didRepeat() {
         if let track = track, let repetition = track.repetition {
             switch repetition {
@@ -222,4 +257,16 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         SocketIOManager.sharedInstance.clearQueue()
     }
 
+}
+
+// MARK: - Localization
+
+extension QueueTableViewController {
+    
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("QUEUE",
+            comment: "queue view title"
+        )
+    }
+    
 }

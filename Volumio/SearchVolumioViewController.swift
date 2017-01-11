@@ -21,13 +21,7 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // L18N
-        titleLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TITLE",
-            comment: "search volumio view title"
-        )
-        textLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TEXT",
-            comment: "search volumio view text"
-        )
+        localize()
         
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
@@ -35,12 +29,11 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         
         SocketIOManager.sharedInstance.closeConnection()
 
-        browser.searchForServices(ofType: "_Volumio._tcp", inDomain: "local.")
-        browser.delegate = self
-        
         searchResultTable.delegate = self
         searchResultTable.dataSource = self
         searchResultTable.tableFooterView = UIView(frame: CGRect.zero)
+
+        browserStartSearch()
     }
 
     @IBAction func refreshBrowser(_ sender: UIBarButtonItem) {
@@ -48,16 +41,15 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         browserStartSearch()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return services.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "service", for: indexPath) as! SelectPlayerTableViewCell
         let service = services[indexPath.row]
         
@@ -89,10 +81,15 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
     }
     
-    func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
+    func netServiceBrowser(_ browser: NetServiceBrowser,
+        didNotSearch errorDict: [String : NSNumber]
+    ) {
     }
     
-    func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
+    func netServiceBrowser(_ browser: NetServiceBrowser,
+        didFind service: NetService,
+        moreComing: Bool
+    ) {
         if !moreComing {
             services.removeAll()
         }
@@ -105,4 +102,19 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     @IBAction func closeButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: - Localization
+
+extension SearchVolumioViewController {
+    
+    fileprivate func localize() {
+        titleLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TITLE",
+            comment: "search volumio view title"
+        )
+        textLabel.text = NSLocalizedString("SEARCH_VOLUMIO_TEXT",
+            comment: "search volumio view text"
+        )
+    }
+    
 }

@@ -20,13 +20,35 @@
 "QUEUE_CONSUME" = "Consume";
 "QUEUE_CLEAR" = "Clear";
 
-// Not sure about the wording, but I would suggest to use "Add to queue", "Add and play", "Set and play"
-"BROWSE_ADD_TO_QUEUE" = "Add all to queue";
-"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play all";
+"BROWSE_ADD_TO_QUEUE" = "Add to queue";
+"BROWSE_ADD_TO_QUEUE_ALL" = "Add all to queue";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Play all";
 "BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Clear and play";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Clear and play all";
 
 "BROWSE_PLAY_PLAYLIST" = "Play";
 "BROWSE_EDIT_PLAYLIST" = "Edit";
 
-"NETWORK_INFO" = "Network Info";
-"NETWORKS_WIRELESS" = "Wireless Networks";
+"NETWORKS_NETWORK_INFO" = "Network Info";
+"NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
+
+"SETTINGS_SECTION_SYSTEM" = "System";
+"SETTINGS_INSTALLED_PLUGINS" = "Installed plugins";
+"SETTINGS_OPEN_WEBUI" = "Open WebUI";
+
+"SETTINGS_SHUTDOWN_OPTIONS" = "Shutdown";
+"SETTINGS_SHUTDOWN" = "Shutdown";
+"SETTINGS_REBOOT" = "Reboot";
+
+"SETTINGS_SECTION_DEBUG" = "Debug";
+"SETTINGS_CHANGE_PLAYER" = "Change player";
+"SETTINGS_CLEAR_CACHE" = "Clear cache";
+
+"PLUGINS" = "Plugins";
+
+"PLUGIN" = "Plugin";
+"PLUGIN_VERSION" = "Version";
+"PLUGIN_STATUS" = "Status";
+
+"CANCEL" = "Cancel";

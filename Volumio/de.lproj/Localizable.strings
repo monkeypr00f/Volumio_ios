@@ -20,12 +20,17 @@
 "QUEUE_CONSUME" = "Verarbeiten";
 "QUEUE_CLEAR" = "Leeren";
 
-"BROWSE_ADD_TO_QUEUE" = "Hinzufügen";
-"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Hinzufügen und Abspielen";
-"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Ersetzen und Abspielen";
+"BROWSE_ADD_TO_QUEUE" = "Hinzufügen und wiedergeben";
+"BROWSE_ADD_TO_QUEUE_ALL" = "Hinzufügen und wiedergeben";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Wiedergeben";
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Alle wiedergeben";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Ersetzen und wiedergeben";
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Ersetzen und wiedergeben";
 
 "BROWSE_PLAY_PLAYLIST" = "Abspielen";
 "BROWSE_EDIT_PLAYLIST" = "Bearbeiten";
 
-"NETWORK_INFO" = "Netzwerkstatus";
-"NETWORKS_WIRELESS" = "WLAN Netzwerke";
+"NETWORKS_NETWORK_INFO" = "Netzwerkstatus";
+"NETWORKS_WIRELESS_NETWORKS" = "WLAN Netzwerke";
+
+"CANCEL" = "Abbrechen";
