@@ -79,6 +79,11 @@ class BrowseFolderTableViewController: UITableViewController,
             object: nil
         )
         NotificationCenter.default.addObserver(self,
+            selector: #selector(playPlaylist(notification:)),
+            name: .playlistPlaying,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
             selector: #selector(deletePlaylist(notification:)),
             name: .playlistDeleted,
             object: nil
@@ -98,11 +103,6 @@ class BrowseFolderTableViewController: UITableViewController,
             name: .removedFromPlaylist,
             object: nil
         )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(playPlaylist(notification:)),
-            name: .playlistPlaying,
-            object: nil
-        )
     }
     
     func updateSourceLibrary(notification: NSNotification) {
@@ -113,6 +113,16 @@ class BrowseFolderTableViewController: UITableViewController,
         clearAllNotice()
     }
     
+    func playPlaylist(notification: NSNotification) {
+        guard let object = notification.object else { return }
+
+        noticeTop(
+            localizedPlaylistPlaying(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
+    }
+    
     func deletePlaylist(notification: NSNotification) {
         guard let object = notification.object else { return }
         
@@ -120,26 +130,32 @@ class BrowseFolderTableViewController: UITableViewController,
         
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop("\(object) playlist removed", autoClear: true, autoClearTime: 3)
+            self.noticeTop(
+                self.localizedPlaylistDeleted(name: String(describing: object)),
+                autoClear: true,
+                autoClearTime: 3
+            )
         })
-    }
-    
-    func playPlaylist(notification: NSNotification) {
-        guard let object = notification.object else { return }
-
-        noticeTop("\(object) playing", autoClear: true, autoClearTime: 3)
     }
     
     func addToQueue(notification: NSNotification) {
         guard let object = notification.object else { return }
 
-        noticeTop("\(object) added to queue", autoClear: true, autoClearTime: 3)
+        noticeTop(
+            localizedAddedItemToQueueNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     func addToPlaylist(notification: NSNotification) {
         guard let object = notification.object else { return }
         
-        noticeTop("Added to \(object)", autoClear: true, autoClearTime: 3)
+        noticeTop(
+            localizedAddedItemToPlaylistNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     func removeFromPlaylist(notification: NSNotification) {
@@ -149,7 +165,11 @@ class BrowseFolderTableViewController: UITableViewController,
         
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop("Removed from \(object)", autoClear: true, autoClearTime: 3)
+            self.noticeTop(
+                self.localizedRemovedItemFromPlaylistNotice(name: String(describing: object)),
+                autoClear: true,
+                autoClearTime: 3
+            )
         })
     }
     
@@ -292,7 +312,6 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     func songActions(uri: String, title: String, service: String) {
-        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: localizedAddAndPlayTitle, style: .default) {
@@ -416,5 +435,65 @@ extension BrowseFolderTableViewController {
             comment: "[trigger] clear queue, add item and start playing"
         )
     }
-    
+
+    fileprivate func localizedPlaylistPlaying(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedPlaylistPlaying,
+            name
+        )
+    }
+    fileprivate var localizedPlaylistPlaying: String {
+        return NSLocalizedString("PLAYLIST_PLAYING",
+            comment: "[hint](format) started playing playlist(%@)"
+        )
+    }
+
+    fileprivate func localizedPlaylistDeleted(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedPlaylistDeleted,
+            name
+        )
+    }
+    fileprivate var localizedPlaylistDeleted: String {
+        return NSLocalizedString("PLAYLIST_DELETED",
+            comment: "[hint](format) deleted playlist(%@)"
+        )
+    }
+
+    fileprivate func localizedAddedItemToQueueNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToQueueNotice,
+            name
+        )
+    }
+    fileprivate var localizedAddedItemToQueueNotice: String {
+        return NSLocalizedString("QUEUE_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to queue"
+        )
+    }
+
+    fileprivate func localizedAddedItemToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToPlaylistNotice,
+            name
+        )
+    }
+    fileprivate var localizedAddedItemToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to playlist"
+        )
+    }
+
+    fileprivate func localizedRemovedItemFromPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedRemovedItemFromPlaylistNotice,
+            name
+        )
+    }
+    fileprivate var localizedRemovedItemFromPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_REMOVED_ITEM",
+            comment: "[hint](format) removed item(%@) from playlist"
+        )
+    }
+
 }

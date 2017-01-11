@@ -31,11 +31,32 @@
 /* [trigger] cancel action */
 "CANCEL" = "Cancel";
 
+/* [trigger] more actions */
+"MORE" = "More";
+
 /* network info title */
 "NETWORKS_NETWORK_INFO" = "Network Info";
 
 /* wireless networks title */
 "NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
+
+/* [trigger] play anything */
+"PLAY" = "Wiedergeben";
+
+/* [hint] playback queue is empty */
+"PLAYBACK_QUEUE_IS_EMPTY" = "Queue is empty";
+
+/* [hint](format) added item to playlist(%@) */
+"PLAYLIST_ADDED_ITEM" = "Added to %@";
+
+/* [hint](format) deleted playlist(%@) */
+"PLAYLIST_DELETED" = "%@ deleted";
+
+/* [hint](format) started playing playlist(%@) */
+"PLAYLIST_PLAYING" = "%@ playing";
+
+/* [hint](format) removed item(%@) from playlist */
+"PLAYLIST_REMOVED_ITEM" = "%@ removed";
 
 /* plugin view title */
 "PLUGIN" = "Plugin";
@@ -52,11 +73,17 @@
 /* queue view title */
 "QUEUE" = "Queue";
 
+/* [hint](format) added item(%@) to queue */
+"QUEUE_ADDED_ITEM" = "%@ added";
+
 /* [trigger](short) queue clear */
 "QUEUE_CLEAR" = "Clear";
 
 /* [toggle](short) queue consume */
 "QUEUE_CONSUME" = "Consume";
+
+/* removed item from queue */
+"QUEUE_REMOVED_ITEM" = "%@ removed";
 
 /* [toggle](short) queue repeat */
 "QUEUE_REPEAT" = "Repeat";

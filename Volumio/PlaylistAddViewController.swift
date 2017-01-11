@@ -24,11 +24,11 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.pleaseWait()
+        pleaseWait()
         
         SocketIOManager.sharedInstance.listPlaylist()
         if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
-            self.track = currentTrackInfo
+            track = currentTrackInfo
         }
         
         tableView.delegate = self
@@ -40,19 +40,24 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         NotificationCenter.default.removeObserver(self)
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getPlaylist(notification:)), name: .listPlaylists, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getPlaylist(notification:)),
+            name: .listPlaylists,
+            object: nil
+        )
     }
     
     func getPlaylist(notification: NSNotification) {
-        if let sources = notification.object as? [Any] {
-            self.playlists = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [Any] else { return }
+        
+        playlists = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -95,14 +100,9 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
         return true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func closeButton(_ sender: UIButton) {
-        self.clearAllNotice()
-        self.dismiss(animated: true, completion: nil)
+        clearAllNotice()
+        dismiss(animated: true, completion: nil)
     }
 
 }

@@ -48,6 +48,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             name: .browseSearch,
             object: nil
         )
+        // FIXME: dead code?
         NotificationCenter.default.addObserver(self,
             selector: #selector(isOnPlaylist(notification:)),
             name: .addedToPlaylist,
@@ -68,7 +69,11 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         
         guard let object = notification.object else { return }
         
-        noticeTop("Added to \(object)", autoClear: true, autoClearTime: 3)
+        noticeTop(
+            localizedAddedItemToPlaylistNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     // MARK: - Table view data source
@@ -169,15 +174,19 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
         
-        // TODO: L18N
-        let play = UITableViewRowAction(style: .normal, title: "Play") { action, index in
+        let play = UITableViewRowAction(
+            style: .normal,
+            title: localizedPlayTitle
+        ) { action, index in
             SocketIOManager.sharedInstance.addAndPlay(uri:item.uri!, title: item.title!, service: item.service! )
             tableView.setEditing(false, animated: true)
         }
         play.backgroundColor = UIColor(red: 74.0/255.0, green: 190.0/255.0, blue: 134.0/255.0, alpha: 1)
         
-        // TODO: L18N
-        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
+        let more = UITableViewRowAction(
+            style: .normal,
+            title: localizedMoreTitle
+        ) { action, index in
             self.playlistActions(item: item)
             tableView.setEditing(false, animated: true)
         }
@@ -201,31 +210,43 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         refreshControl.endRefreshing()
     }
     
-    func playlistActions(item:LibraryObject) {
+    func playlistActions(item: LibraryObject) {
+        guard let itemUri = item.uri,
+              let itemTitle = item.title,
+              let itemService = item.service
+            else { return }
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        // TODO: L18N
+
         alert.addAction(
-            UIAlertAction(title: "Play", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.addAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
-        // TODO: L18N
+            UIAlertAction(title: localizedPlayTitle, style: .default) {
+                (action) in
+                    SocketIOManager.sharedInstance.addAndPlay(
+                        uri: itemUri,
+                        title: itemTitle, service: itemService
+                    )
+        })
         alert.addAction(
-            UIAlertAction(title: "Add to queue", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.addToQueue(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
-        // TODO: L18N
+            UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
+                (action) in
+                    SocketIOManager.sharedInstance.addToQueue(
+                        uri: itemUri,
+                        title: itemTitle,
+                        service: itemService
+                    )
+        })
         alert.addAction(
-            UIAlertAction(title: "Clear and Play", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.clearAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
-        // TODO: L18N
-        alert.addAction(
-            UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        )
-        self.present(alert, animated: true, completion: nil)
+            UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
+                (action) in
+                    SocketIOManager.sharedInstance.clearAndPlay(
+                        uri: itemUri,
+                        title: itemTitle,
+                        service: itemService
+                    )
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -259,6 +280,49 @@ extension BrowseSearchTableViewController {
     fileprivate func localize() {
         navigationItem.title = NSLocalizedString("BROWSE_SEARCH",
             comment: "browse search view title"
+        )
+    }
+
+    fileprivate var localizedMoreTitle: String {
+        return NSLocalizedString("MORE", comment: "[trigger] more actions")
+    }
+    
+    fileprivate var localizedCancelTitle: String {
+        return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
+    }
+    
+    fileprivate var localizedPlayTitle: String {
+        return NSLocalizedString("PLAY", comment: "[trigger] play anything")
+    }
+    
+    fileprivate var localizedAddAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] add item to queue and start playing"
+        )
+    }
+    
+    fileprivate var localizedAddToQueueTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE",
+            comment: "[trigger] add item to queue"
+        )
+    }
+
+    fileprivate var localizedClearAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] clear queue, add item and start playing"
+        )
+    }
+
+    fileprivate func localizedAddedItemToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToPlaylistNotice,
+            name
+        )
+    }
+    
+    fileprivate var localizedAddedItemToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to playlist"
         )
     }
 

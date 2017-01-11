@@ -73,7 +73,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         )
     }
     
-    func getQueue(notification:NSNotification) {
+    func getQueue(notification: NSNotification) {
         guard let sources = notification.object as? [TrackObject] else { return }
         
         queue = sources
@@ -81,7 +81,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         clearAllNotice()
     }
     
-    func getCurrentTrack(notification:NSNotification) {
+    func getCurrentTrack(notification: NSNotification) {
         if let currentTrack = notification.object as? TrackObject,
            let position = currentTrack.position
         {
@@ -92,12 +92,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         SocketIOManager.sharedInstance.getQueue()
     }
     
-    func removeFromQueue(notification:NSNotification) {
+    func removeFromQueue(notification: NSNotification) {
         SocketIOManager.sharedInstance.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            // TODO: L18N
-            self.noticeTop("Removed from queue", autoClear: true, autoClearTime: 3)
+            self.noticeTop(self.localizedRemovedNotice, autoClear: true, autoClearTime: 3)
         })
         
     }
@@ -269,4 +268,10 @@ extension QueueTableViewController {
         )
     }
     
+    fileprivate var localizedRemovedNotice: String {
+        return NSLocalizedString("QUEUE_REMOVED_ITEM",
+            comment: "removed item from queue"
+        )
+    }
+
 }

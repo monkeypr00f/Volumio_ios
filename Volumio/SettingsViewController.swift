@@ -13,7 +13,7 @@ import Kingfisher
 class SettingsViewController: FormViewController {
     
     override func viewDidAppear(_ animated: Bool) {
-        self.clearAllNotice()
+        clearAllNotice()
     }
     
     override func viewDidLoad() {
