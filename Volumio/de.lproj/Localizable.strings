@@ -1,36 +1,114 @@
-/* 
-  Localizable.strings
-  Volumio
-
-  Created by Michael Baumgärtner on 10.01.17.
-  Copyright © 2017 Federico Sintucci. All rights reserved.
-*/
-
-"PLAYBACK" = "Wiedergabe";
-"QUEUE" = "Warteschlange";
+/* browse sources view title */
 "BROWSE" = "Durchsuchen";
-"BROWSE_SEARCH" = "Suchen";
-"SETTINGS" = "Einstellungen";
 
-"SEARCH_VOLUMIO_TITLE" = "Abspieler auswählen";
-"SEARCH_VOLUMIO_TEXT" = "Wähle einen verfügbaren Abspieler zur Steuerung aus. Die Auswahl kann jederzeit in den Einstellungen geändert werden.";
+/* [trigger] add item to queue */
+"BROWSE_ADD_TO_QUEUE" = "Hinzufügen";
 
-"QUEUE_REPEAT" = "Wiederholen";
-"QUEUE_SHUFFLE" = "Zufällig";
-"QUEUE_CONSUME" = "Verarbeiten";
-"QUEUE_CLEAR" = "Leeren";
+/* [trigger](short) add items to queue */
+"BROWSE_ADD_TO_QUEUE_ALL" = "Alle hinzufügen";
 
-"BROWSE_ADD_TO_QUEUE" = "Hinzufügen und wiedergeben";
-"BROWSE_ADD_TO_QUEUE_ALL" = "Hinzufügen und wiedergeben";
+/* [trigger] add item to queue and start playing */
 "BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Wiedergeben";
-"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Alle wiedergeben";
-"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Ersetzen und wiedergeben";
-"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Ersetzen und wiedergeben";
 
-"BROWSE_PLAY_PLAYLIST" = "Abspielen";
+/* [trigger](short) add items to queue and start playing */
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Alle wiedergeben";
+
+/* [trigger] clear queue, add item and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Ersetzen und wiedergeben";
+
+/* [trigger](short) clear queue, add items and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Alle ersetzen und wiedergeben";
+
+/* [trigger](short) edit playlist */
 "BROWSE_EDIT_PLAYLIST" = "Bearbeiten";
 
+/* [trigger](short) play playlist */
+"BROWSE_PLAY_PLAYLIST" = "Abspielen";
+
+/* browse search view title */
+"BROWSE_SEARCH" = "Suchen";
+
+/* [trigger] cancel action */
+"CANCEL" = "Abbrechen";
+
+/* network info title */
 "NETWORKS_NETWORK_INFO" = "Netzwerkstatus";
+
+/* wireless networks title */
 "NETWORKS_WIRELESS_NETWORKS" = "WLAN Netzwerke";
 
-"CANCEL" = "Abbrechen";
+/* plugin view title */
+"PLUGIN" = "Erweiterung";
+
+/* plugins view title */
+"PLUGINS" = "Erweiterungen";
+
+/* volumio player’s plugin status */
+"PLUGIN_STATUS" = "Status";
+
+/* volumio player’s plugin version */
+"PLUGIN_VERSION" = "Version";
+
+/* queue view title */
+"QUEUE" = "Warteschlange";
+
+/* [trigger](short) queue clear */
+"QUEUE_CLEAR" = "Leeren";
+
+/* [toggle](short) queue consume */
+"QUEUE_CONSUME" = "Verarbeiten";
+
+/* [toggle](short) queue repeat */
+"QUEUE_REPEAT" = "Wiederholen";
+
+/* [toggle](short) queue shuffle */
+"QUEUE_SHUFFLE" = "Zufällig";
+
+/* search volumio view text */
+"SEARCH_VOLUMIO_TEXT" = "Wähle einen verfügbaren Abspieler zur Steuerung aus. Die Auswahl kann jederzeit in den Einstellungen geändert werden.";
+
+/* search volumio view title */
+"SEARCH_VOLUMIO_TITLE" = "Abspieler auswählen";
+
+/* settings view title */
+"SETTINGS" = "Einstellungen";
+
+/* [trigger] change volumio player */
+"SETTINGS_CHANGE_PLAYER" = "Abspieler ändern";
+
+/* [trigger] clear cache */
+"SETTINGS_CLEAR_CACHE" = "Cache löschen";
+
+/* [trigger] show installed volumio player plugins */
+"SETTINGS_INSTALLED_PLUGINS" = "Installierte Erweiterungen";
+
+/* [trigger] show volumio player web ui */
+"SETTINGS_OPEN_WEBUI" = "Weboberfläche öffnen";
+
+/* [trigger] reboot volumio player */
+"SETTINGS_REBOOT" = "Neu starten";
+
+/* debugging */
+"SETTINGS_SECTION_DEBUG" = "Debugging";
+
+/* system */
+"SETTINGS_SECTION_SYSTEM" = "System";
+
+/* [trigger] shutdown volumio player */
+"SETTINGS_SHUTDOWN" = "Herunterfahren";
+
+/* [trigger] show shutdown options for volumio player */
+"SETTINGS_SHUTDOWN_OPTIONS" = "Herunterfahren";
+
+/* [trigger](short) show browse view */
+"TAB_BROWSE" = "Durchsuchen";
+
+/* [trigger](short) show playback view */
+"TAB_PLAYBACK" = "Wiedergabe";
+
+/* [trigger](short) show queue view */
+"TAB_QUEUE" = "Warteschlange";
+
+/* [trigger](short) show settings view */
+"TAB_SETTINGS" = "Einstellungen";
+

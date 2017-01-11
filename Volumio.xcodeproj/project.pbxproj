@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB60B1E254CD90081654E /* SocketIOManagerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */; };
+		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
@@ -35,7 +36,6 @@
 		607ADC701DBF42680090F038 /* QueueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607ADC6F1DBF42680090F038 /* QueueTableViewCell.swift */; };
 		608275711DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608275701DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift */; };
 		6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */; };
-		6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */; };
 		60A7B7A01DF1BAB50095A27C /* PlaylistActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A7B79F1DF1BAB50095A27C /* PlaylistActions.swift */; };
 		60A7B7A21DF1BACA0095A27C /* PlaylistActions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A7B7A11DF1BACA0095A27C /* PlaylistActions.xib */; };
 		60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */; };
@@ -69,6 +69,7 @@
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManagerNotifications.swift; sourceTree = "<group>"; };
+		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17DCEBEF3691DD5604EFC3CD /* Pods_Volumio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio/Pods-Volumio.release.xcconfig"; sourceTree = "<group>"; };
 		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		608275701DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToPlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		6086E2A71D9133A50067A8B5 /* Volumio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volumio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6086E2B61D9133A50067A8B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6086E2B81D9133A50067A8B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60A7B79F1DF1BAB50095A27C /* PlaylistActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistActions.swift; sourceTree = "<group>"; };
 		60A7B7A11DF1BACA0095A27C /* PlaylistActions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistActions.xib; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 				602803911DA27DCA00055D42 /* Views */,
 				6072D0331DAD31A5006D7E45 /* Utility */,
 				60E7819E1DABE36D00C48A43 /* Main.storyboard */,
-				6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */,
+				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
 				601424761D916F0C001159B2 /* Assets.xcassets */,
 				6086E2B81D9133A50067A8B5 /* Info.plist */,
 				09EBB6081E24FF180081654E /* Localizable.strings */,
@@ -356,8 +356,8 @@
 				6062237E1DE59F9600DD1D20 /* BrowseActions.xib in Resources */,
 				606223851DE5B0E400DD1D20 /* QueueActions.xib in Resources */,
 				09EBB6061E24FF180081654E /* Localizable.strings in Resources */,
+				09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */,
 				60A7B7A21DF1BACA0095A27C /* PlaylistActions.xib in Resources */,
-				6086E2B71D9133A50067A8B5 /* LaunchScreen.storyboard in Resources */,
 				601424771D916F0C001159B2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,14 +478,6 @@
 				09EBB6091E24FF250081654E /* de */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		6086E2B51D9133A50067A8B5 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6086E2B61D9133A50067A8B5 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

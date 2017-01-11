@@ -960,7 +960,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="folder" id="LGE-kx-2l9" customClass="FolderTableViewCell" customModule="Volumio" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="163.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="164" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LGE-kx-2l9" id="b7z-cA-HfM">
                                     <frame key="frameInset" width="342" height="43"/>
@@ -1007,7 +1007,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="radio" id="6h7-BH-6gJ" customClass="FolderTableViewCell" customModule="Volumio" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="207.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6h7-BH-6gJ" id="qg0-zq-CTW">
                                     <frame key="frameInset" width="375" height="43"/>
@@ -1053,7 +1053,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="track" id="epK-f1-svM" customClass="TrackTableViewCell" customModule="Volumio" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="251.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="252" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="epK-f1-svM" id="fQH-RK-iiJ">
                                     <frame key="frameInset" width="375" height="43"/>
