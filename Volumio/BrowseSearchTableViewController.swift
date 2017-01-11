@@ -150,7 +150,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let item = itemList.items![indexPath.row] as LibraryObject
         
         let play = UITableViewRowAction(style: .normal, title: "Play") { action, index in
-            SocketIOManager.sharedInstance.addAndPlay(uri:item.uri!, title: item.title!, service: item.service! )
+            VolumioIOManager.shared.addAndPlay(uri:item.uri!, title: item.title!, service: item.service! )
             tableView.setEditing(false, animated: true)
         }
         play.backgroundColor = UIColor(red: 74.0/255.0, green: 190.0/255.0, blue: 134.0/255.0, alpha: 1)
@@ -169,7 +169,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.browseSearch(text: searchBar.text!)
+        VolumioIOManager.shared.browseSearch(text: searchBar.text!)
         refreshControl.endRefreshing()
     }
     
@@ -177,17 +177,17 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(
             UIAlertAction(title: "Play", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.addAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
+                VolumioIOManager.shared.addAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
             })
         )
         alert.addAction(
             UIAlertAction(title: "Add to queue", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.addToQueue(uri: item.uri!, title: item.title!, service: item.service!)
+                VolumioIOManager.shared.addToQueue(uri: item.uri!, title: item.title!, service: item.service!)
             })
         )
         alert.addAction(
             UIAlertAction(title: "Clear and Play", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.clearAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
+                VolumioIOManager.shared.clearAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
             })
         )
         alert.addAction(
@@ -198,7 +198,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.pleaseWait()
-        SocketIOManager.sharedInstance.browseSearch(text: searchBar.text!)
+        VolumioIOManager.shared.browseSearch(text: searchBar.text!)
         searchBar.resignFirstResponder()
     }
     

@@ -14,7 +14,7 @@ class BrowseSourcesTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.browseSources()
+        VolumioIOManager.shared.browseSources()
         registerObservers()
     }
     
@@ -69,7 +69,7 @@ class BrowseSourcesTableViewController: UITableViewController {
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.browseSources()
+        VolumioIOManager.shared.browseSources()
         refreshControl.endRefreshing()
     }
     

@@ -33,9 +33,9 @@ class PluginDetailViewController: FormViewController {
                 }
                 }.onChange { [weak self] row in
                     if row.value ?? false {
-                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "enable")
+                        VolumioIOManager.shared.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "enable")
                     } else {
-                        SocketIOManager.sharedInstance.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "disable")
+                        VolumioIOManager.shared.togglePlugin(name: (self?.service.name)!, category: (self?.service.category)!, action: "disable")
                     }
                 }
     }

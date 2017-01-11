@@ -33,7 +33,7 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
 	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: serviceUri)
         registerObservers()
     }
     
@@ -91,7 +91,7 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     }
     
     func deletePlaylist(notification: NSNotification) {
-        SocketIOManager.sharedInstance.browseLibrary(uri: self.serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
             if let notificationObject = notification.object {
@@ -119,7 +119,7 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     }
     
     func removeFromPlaylist(notification: NSNotification) {
-        SocketIOManager.sharedInstance.browseLibrary(uri: self.serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
             if let notificationObject = notification.object {
@@ -209,7 +209,7 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let track = sourceLibrary[indexPath.row]
-            SocketIOManager.sharedInstance.removeFromPlaylist(name: serviceName, uri: track.uri!, service: track.service!)
+            VolumioIOManager.shared.removeFromPlaylist(name: serviceName, uri: track.uri!, service: track.service!)
         }
     }
     
@@ -253,15 +253,15 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         let playAction = UIAlertAction(title: "Play", style: .default) { (action) in
-            SocketIOManager.sharedInstance.addAndPlay(uri: uri, title: title, service: service)
+            VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
         }
         alert.addAction(playAction)
         let addToQueue = UIAlertAction(title: "Add to queue", style: .default) { (action) in
-            SocketIOManager.sharedInstance.addToQueue(uri: uri, title: title, service: service)
+            VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
         }
         alert.addAction(addToQueue)
         let clearAndPlay = UIAlertAction(title: "Clear and Play", style: .default) { (action) in
-            SocketIOManager.sharedInstance.clearAndPlay(uri: uri, title: title, service: service)
+            VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
         }
         alert.addAction(clearAndPlay)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel)
@@ -273,31 +273,31 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: serviceUri)
         refreshControl.endRefreshing()
     }
     
     // MARK: - BrowseActionsDelegate
     
     func browseAddAndPlay() {
-        SocketIOManager.sharedInstance.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
     }
     
     func browseAddToQueue() {
-        SocketIOManager.sharedInstance.addToQueue(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.addToQueue(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
     }
     
     func browseClearAndPlay() {
-        SocketIOManager.sharedInstance.clearAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.clearAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
     }
     
     // MARK: - PlaylistActionsDelegate
     
     func playlistAddAndPlay() {
         if serviceService == "mpd" {
-            SocketIOManager.sharedInstance.playPlaylist(name: self.serviceName)
+            VolumioIOManager.shared.playPlaylist(name: self.serviceName)
         } else {
-            SocketIOManager.sharedInstance.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+            VolumioIOManager.shared.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
         }
     }
     

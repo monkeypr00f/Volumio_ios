@@ -21,7 +21,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerObservers()
-        SocketIOManager.sharedInstance.getState()
+        VolumioIOManager.shared.getState()
     }
 
     override func viewDidLoad() {
@@ -73,11 +73,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
             self.queuePointer = position
             self.headerView?.updateStatus(track: track)
         }
-        SocketIOManager.sharedInstance.getQueue()
+        VolumioIOManager.shared.getQueue()
     }
     
     func removeFromQueue(notification:NSNotification) {
-        SocketIOManager.sharedInstance.getQueue()
+        VolumioIOManager.shared.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
             self.noticeTop("Removed from queue", autoClear: true, autoClearTime: 3)
@@ -142,18 +142,18 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            SocketIOManager.sharedInstance.removeFromQueue(position: indexPath.row)
+            VolumioIOManager.shared.removeFromQueue(position: indexPath.row)
         }   
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        SocketIOManager.sharedInstance.playTrack(position: indexPath.row)
-        SocketIOManager.sharedInstance.getState()
+        VolumioIOManager.shared.playTrack(position: indexPath.row)
+        VolumioIOManager.shared.getState()
     }
     
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        SocketIOManager.sharedInstance.sortQueue(from: sourceIndexPath.row, to:destinationIndexPath.row)
+        VolumioIOManager.shared.sortQueue(from: sourceIndexPath.row, to:destinationIndexPath.row)
     }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -177,7 +177,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.getQueue()
+        VolumioIOManager.shared.getQueue()
         refreshControl.endRefreshing()
     }
 
@@ -185,38 +185,38 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     func didRepeat() {
         if let track = track, let repetition = track.repetition {
             switch repetition {
-            case 0: SocketIOManager.sharedInstance.toggleRepeat(value: 1)
-            default: SocketIOManager.sharedInstance.toggleRepeat(value: 0)
+            case 0: VolumioIOManager.shared.toggleRepeat(value: 1)
+            default: VolumioIOManager.shared.toggleRepeat(value: 0)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            VolumioIOManager.shared.toggleRepeat(value: 1)
         }
     }
     
     func didShuffle() {
         if let track = track, let shuffle = track.shuffle {
             switch shuffle {
-            case 0: SocketIOManager.sharedInstance.toggleRandom(value: 1)
-            default: SocketIOManager.sharedInstance.toggleRandom(value: 0)
+            case 0: VolumioIOManager.shared.toggleRandom(value: 1)
+            default: VolumioIOManager.shared.toggleRandom(value: 0)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            VolumioIOManager.shared.toggleRandom(value: 1)
         }
     }
     
     func didConsume() {
         if let track = track, let consume = track.consume {
             switch consume {
-            case 0: SocketIOManager.sharedInstance.toggleConsume(value: 1)
-            default: SocketIOManager.sharedInstance.toggleConsume(value: 0)
+            case 0: VolumioIOManager.shared.toggleConsume(value: 1)
+            default: VolumioIOManager.shared.toggleConsume(value: 0)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleConsume(value: 1)
+            VolumioIOManager.shared.toggleConsume(value: 1)
         }
     }
     
     func didClear() {
-        SocketIOManager.sharedInstance.clearQueue()
+        VolumioIOManager.shared.clearQueue()
     }
 
 }

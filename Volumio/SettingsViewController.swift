@@ -80,12 +80,12 @@ class SettingsViewController: FormViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         alert.addAction(
             UIAlertAction(title: "Shutdown", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "shutdown")
+                VolumioIOManager.shared.shutdown()
             })
         )
         alert.addAction(
             UIAlertAction(title: "Reboot", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "reboot")
+                VolumioIOManager.shared.reboot()
             })
         )
         alert.addAction(

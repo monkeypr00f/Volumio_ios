@@ -21,8 +21,8 @@ class NetworksTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SocketIOManager.sharedInstance.getInfoNetwork()
-        SocketIOManager.sharedInstance.getWirelessNetworks()
+        VolumioIOManager.shared.getInfoNetwork()
+        VolumioIOManager.shared.getWirelessNetworks()
         
         self.pleaseWait()
         
@@ -94,8 +94,8 @@ class NetworksTableViewController: UITableViewController {
         networksData.removeAll()
         tableView.reloadData()
         
-        SocketIOManager.sharedInstance.getInfoNetwork()
-        SocketIOManager.sharedInstance.getWirelessNetworks()
+        VolumioIOManager.shared.getInfoNetwork()
+        VolumioIOManager.shared.getWirelessNetworks()
 
         refreshControl.endRefreshing()
     }

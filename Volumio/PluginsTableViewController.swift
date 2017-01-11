@@ -14,7 +14,7 @@ class PluginsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.getInstalledPlugins()
+        VolumioIOManager.shared.getInstalledPlugins()
         registerObservers()
     }
 
@@ -78,7 +78,7 @@ class PluginsTableViewController: UITableViewController {
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.getInstalledPlugins()
+        VolumioIOManager.shared.getInstalledPlugins()
         refreshControl.endRefreshing()
     }
     
