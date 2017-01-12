@@ -20,34 +20,41 @@ class BrowseSourcesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        localize()
+
+        pleaseWait()
         
-        self.pleaseWait()
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+        
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browseSources, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(updateSources(notification:)),
+            name: .browseSources,
+            object: nil
+        )
     }
     
     func updateSources(notification: NSNotification) {
-        if let sources = notification.object as? [SourceObject] {
-            self.sourcesList = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [SourceObject] else { return }
+        
+        sourcesList = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
 
     // MARK: - Table view data source
@@ -56,11 +63,15 @@ class BrowseSourcesTableViewController: UITableViewController {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return sourcesList.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "source", for: indexPath)
         let source = sourcesList[indexPath.row]
         
@@ -76,15 +87,26 @@ class BrowseSourcesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "showFolder" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowseFolderTableViewController
-                destinationController.serviceName = sourcesList[indexPath.row].name
-                destinationController.serviceUri = sourcesList[indexPath.row].uri
-                destinationController.serviceType = sourcesList[indexPath.row].plugin_type
-            }
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+            
+            let destinationController = segue.destination as! BrowseFolderTableViewController
+            destinationController.serviceName = sourcesList[indexPath.row].name
+            destinationController.serviceUri = sourcesList[indexPath.row].uri
+            destinationController.serviceType = sourcesList[indexPath.row].plugin_type
         }
     }
 
+}
+
+// MARK: - Localization
+
+extension BrowseSourcesTableViewController {
+    
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("BROWSE",
+            comment: "browse sources view title"
+        )
+    }
+    
 }

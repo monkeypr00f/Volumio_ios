@@ -14,7 +14,9 @@ class NetworksTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         networksData.removeAll()
+        
         registerObservers()
     }
 
@@ -24,41 +26,48 @@ class NetworksTableViewController: UITableViewController {
         SocketIOManager.sharedInstance.getInfoNetwork()
         SocketIOManager.sharedInstance.getWirelessNetworks()
         
-        self.pleaseWait()
+        pleaseWait()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+        
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getNetworks(notification:)), name: .browseNetwork, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getWireless(notification:)), name: .browseWifi, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getNetworks(notification:)),
+            name: .browseNetwork,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getWireless(notification:)),
+            name: .browseWifi,
+            object: nil
+        )
     }
     
     func getNetworks(notification: NSNotification) {
-        if let sources = notification.object as? [NetworkObject] {
-            self.networksData.append(sources)
-            self.tableView.reloadData()
-        }
+        guard let sources = notification.object as? [NetworkObject] else { return }
+        
+        networksData.append(sources)
+        tableView.reloadData()
     }
 
     func getWireless(notification: NSNotification) {
-        if let sources = notification.object as? [NetworkObject] {
-            self.networksData.append(sources)
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [NetworkObject] else { return }
+        
+        networksData.append(sources)
+        tableView.reloadData()
+        clearAllNotice()
     }
     
     // MARK: - Table view data source
@@ -67,11 +76,15 @@ class NetworksTableViewController: UITableViewController {
         return networksData.count
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return networksData[section].count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "connection", for: indexPath)
         let type = networksData[indexPath.section]
         let source = type[indexPath.row]
@@ -81,10 +94,12 @@ class NetworksTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView,
+        titleForHeaderInSection section: Int
+    ) -> String? {
         switch section {
-        case 0: return "Network Info"
-        case 1: return "Wireless Networks"
+        case 0: return localizedNetworkInfoTitle
+        case 1: return localizedWirelessNetworksTitle
         default: return ""
         }
     }
@@ -98,6 +113,24 @@ class NetworksTableViewController: UITableViewController {
         SocketIOManager.sharedInstance.getWirelessNetworks()
 
         refreshControl.endRefreshing()
+    }
+
+}
+
+// MARK: - Localization
+
+extension NetworksTableViewController {
+    
+    fileprivate var localizedNetworkInfoTitle: String {
+        return NSLocalizedString("NETWORKS_NETWORK_INFO",
+            comment: "network info title"
+        )
+    }
+    
+    fileprivate var localizedWirelessNetworksTitle: String {
+        return NSLocalizedString("NETWORKS_WIRELESS_NETWORKS",
+            comment: "wireless networks title"
+        )
     }
 
 }

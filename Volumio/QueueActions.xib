@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueActions" customModule="Volumio" customModuleProvider="target">
             <connections>
+                <outlet property="clearLabel" destination="RIu-ty-Wkw" id="9U8-aW-y0n"/>
+                <outlet property="consumeLabel" destination="Zmn-ri-ZQw" id="27T-Q7-Yxe"/>
                 <outlet property="consumeState" destination="YuQ-MJ-eJ5" id="t5o-nK-1hh"/>
+                <outlet property="repeatLabel" destination="c59-lA-Rj3" id="HEN-0h-EmE"/>
                 <outlet property="repeatState" destination="HLh-he-49U" id="bS9-7K-hUy"/>
+                <outlet property="shuffleLabel" destination="i7I-3f-X6H" id="bYy-el-Wlk"/>
                 <outlet property="shuffleState" destination="Ijw-cp-XgX" id="T6h-uH-fkF"/>
                 <outlet property="view" destination="iN0-l3-epB" id="J3F-cy-WvI"/>
             </connections>
@@ -23,20 +24,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xu8-pa-mKF">
-                    <rect key="frame" x="20" y="9" width="335" height="38.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vBo-0j-BGV">
-                            <rect key="frame" x="0.0" y="0.0" width="84" height="38.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HLh-he-49U">
-                                    <rect key="frame" x="0.0" y="0.0" width="84" height="24"/>
                                     <state key="normal" image="repeat"/>
                                     <connections>
                                         <action selector="didPressRepeat:" destination="-1" eventType="touchUpInside" id="S8a-q9-oiM"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c59-lA-Rj3">
-                                    <rect key="frame" x="0.0" y="24" width="84" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -49,17 +46,14 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yez-cR-Evb">
-                            <rect key="frame" x="84" y="0.0" width="83.5" height="38.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ijw-cp-XgX">
-                                    <rect key="frame" x="0.0" y="0.0" width="83.5" height="24"/>
                                     <state key="normal" image="shuffle"/>
                                     <connections>
                                         <action selector="didPressShuffle:" destination="-1" eventType="touchUpInside" id="xgZ-VA-tKV"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shuffle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7I-3f-X6H">
-                                    <rect key="frame" x="0.0" y="24" width="83.5" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -72,17 +66,14 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xFU-LW-fxK">
-                            <rect key="frame" x="167.5" y="0.0" width="84" height="38.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YuQ-MJ-eJ5">
-                                    <rect key="frame" x="0.0" y="0.0" width="84" height="24"/>
                                     <state key="normal" image="consume"/>
                                     <connections>
                                         <action selector="didPressConsume:" destination="-1" eventType="touchUpInside" id="mD7-96-BWq"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmn-ri-ZQw">
-                                    <rect key="frame" x="0.0" y="24" width="84" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -95,17 +86,14 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bAR-ec-0Ob">
-                            <rect key="frame" x="251.5" y="0.0" width="83.5" height="38.5"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVF-yn-Q5h">
-                                    <rect key="frame" x="0.0" y="0.0" width="83.5" height="24"/>
                                     <state key="normal" image="clear"/>
                                     <connections>
                                         <action selector="didPressClear:" destination="-1" eventType="touchUpInside" id="D8z-it-gLM"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIu-ty-Wkw">
-                                    <rect key="frame" x="0.0" y="24" width="83.5" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -120,7 +108,6 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rDG-eq-Yf2">
-                    <rect key="frame" x="0.0" y="55" width="375" height="1"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="QcJ-YF-ArL"/>
