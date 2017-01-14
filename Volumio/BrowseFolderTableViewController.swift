@@ -8,7 +8,9 @@
 
 import UIKit
 
-class BrowseFolderTableViewController: UITableViewController, BrowseActionsDelegate, PlaylistActionsDelegate {
+class BrowseFolderTableViewController: UITableViewController,
+    BrowseActionsDelegate, PlaylistActionsDelegate
+{
     
     var serviceName : String!
     var serviceUri : String!
@@ -40,11 +42,16 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = serviceName
-        self.pleaseWait()
+        title = serviceName
+        
+        pleaseWait()
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
         
         // browseHeaderView
         let browseHeaderViewFrame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 56.0)
@@ -57,74 +64,112 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
         playlistHeaderView?.delegate = self
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+        
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
     }
     
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSourceLibrary(notification:)), name: .browseLibrary, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(deletePlaylist(notification:)), name: .playlistDeleted, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(addToQueue(notification:)), name: .addedToQueue, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(addToPlaylist(notification:)), name: .addedToPlaylist, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(removeFromPlaylist(notification:)), name: .removedFromPlaylist, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(playPlaylist(notification:)), name: .playlistPlaying, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(updateSourceLibrary(notification:)),
+            name: .browseLibrary,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(playPlaylist(notification:)),
+            name: .playlistPlaying,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(deletePlaylist(notification:)),
+            name: .playlistDeleted,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(addToQueue(notification:)),
+            name: .addedToQueue,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(addToPlaylist(notification:)),
+            name: .addedToPlaylist,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(removeFromPlaylist(notification:)),
+            name: .removedFromPlaylist,
+            object: nil
+        )
     }
     
     func updateSourceLibrary(notification: NSNotification) {
-        if let sources = notification.object as? [LibraryObject] {
-            self.sourceLibrary = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
-    }
-    
-    func deletePlaylist(notification: NSNotification) {
-        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
-        let waitTime = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            if let notificationObject = notification.object {
-                self.noticeTop("\(notificationObject) playlist removed", autoClear: true, autoClearTime: 3)
-            }
-        })
+        guard let sources = notification.object as? [LibraryObject] else { return }
+        
+        sourceLibrary = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
     
     func playPlaylist(notification: NSNotification) {
-        if let notificationObject = notification.object {
-            self.noticeTop("\(notificationObject) playing", autoClear: true, autoClearTime: 3)
-        }
+        guard let object = notification.object else { return }
+
+        noticeTop(
+            localizedPlaylistPlaying(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
+    }
+    
+    func deletePlaylist(notification: NSNotification) {
+        guard let object = notification.object else { return }
+        
+        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
+        
+        let waitTime = DispatchTime.now() + .milliseconds(500)
+        DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
+            self.noticeTop(
+                self.localizedPlaylistDeleted(name: String(describing: object)),
+                autoClear: true,
+                autoClearTime: 3
+            )
+        })
     }
     
     func addToQueue(notification: NSNotification) {
-        if let notificationObject = notification.object {
-            self.noticeTop("\(notificationObject) added to queue", autoClear: true, autoClearTime: 3)
-        }
+        guard let object = notification.object else { return }
+
+        noticeTop(
+            localizedAddedItemToQueueNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     func addToPlaylist(notification: NSNotification) {
-        if let notificationObject = notification.object {
-            self.noticeTop("Added to \(notificationObject)", autoClear: true, autoClearTime: 3)
-        }
+        guard let object = notification.object else { return }
+        
+        noticeTop(
+            localizedAddedItemToPlaylistNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     func removeFromPlaylist(notification: NSNotification) {
+        guard let object = notification.object else { return }
+        
         VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
+        
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            if let notificationObject = notification.object {
-                self.noticeTop("Removed from \(notificationObject)", autoClear: true, autoClearTime: 3)
-            }
+            self.noticeTop(
+                self.localizedRemovedItemFromPlaylistNotice(name: String(describing: object)),
+                autoClear: true,
+                autoClearTime: 3
+            )
         })
     }
     
@@ -134,12 +179,15 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return sourceLibrary.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         if sourceLibrary[indexPath.row].type == "song" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             let track = sourceLibrary[indexPath.row]
@@ -202,38 +250,52 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 54.0
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         if editingStyle == .delete {
             let track = sourceLibrary[indexPath.row]
-            VolumioIOManager.shared.removeFromPlaylist(name: serviceName, uri: track.uri!, service: track.service!)
+            
+            guard let uri = track.uri, let service = track.service else { return }
+
+            VolumioIOManager.shared.removeFromPlaylist(
+                name: serviceName,
+                uri: uri,
+                service: service
+            )
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
         let type = sourceLibrary[indexPath.row].type
-        if type == "song" || serviceType == "playlist" {
-            return true
-        } else{
-            return false
-        }
+        return type == "song" || serviceType == "playlist"
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         if serviceType == "folder" {
             return browseHeaderView
         } else if serviceType == "playlist" {
             return playlistHeaderView
-        }else {
+        } else {
             let emptyView = UIView()
             return emptyView
         }
     }
 
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
         if serviceType == "folder" || serviceType == "playlist" {
             return 56.0
         } else {
@@ -245,27 +307,25 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
         let type = sourceLibrary[indexPath.row].type
         if type == "song" || type == "mywebradio" || type == "webradio" {
             let item = self.sourceLibrary[indexPath.row]
-            self.songActions(uri: item.uri!, title: item.title!, service: item.service!)
+            songActions(uri: item.uri!, title: item.title!, service: item.service!)
         }
     }
     
-    func songActions(uri:String, title:String, service: String) {
-        
+    func songActions(uri: String, title: String, service: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        let playAction = UIAlertAction(title: "Play", style: .default) { (action) in
-            VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
-        }
-        alert.addAction(playAction)
-        let addToQueue = UIAlertAction(title: "Add to queue", style: .default) { (action) in
-            VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
-        }
-        alert.addAction(addToQueue)
-        let clearAndPlay = UIAlertAction(title: "Clear and Play", style: .default) { (action) in
-            VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
-        }
-        alert.addAction(clearAndPlay)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-        alert.addAction(cancel)
+        alert.addAction(UIAlertAction(title: localizedAddAndPlayTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
+        })
+        alert.addAction(UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
+        })
+        alert.addAction(UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
@@ -280,24 +340,40 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     // MARK: - BrowseActionsDelegate
     
     func browseAddAndPlay() {
-        VolumioIOManager.shared.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.addAndPlay(
+            uri: serviceUri,
+            title: serviceName,
+            service: serviceService
+        )
     }
     
     func browseAddToQueue() {
-        VolumioIOManager.shared.addToQueue(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.addToQueue(
+            uri: serviceUri,
+            title: serviceName,
+            service: serviceService
+        )
     }
     
     func browseClearAndPlay() {
-        VolumioIOManager.shared.clearAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+        VolumioIOManager.shared.clearAndPlay(
+            uri: serviceUri,
+            title: serviceName,
+            service: serviceService
+        )
     }
     
     // MARK: - PlaylistActionsDelegate
     
     func playlistAddAndPlay() {
         if serviceService == "mpd" {
-            VolumioIOManager.shared.playPlaylist(name: self.serviceName)
+            VolumioIOManager.shared.playPlaylist(name: serviceName)
         } else {
-            VolumioIOManager.shared.addAndPlay(uri: self.serviceUri, title: self.serviceName, service: self.serviceService)
+            VolumioIOManager.shared.addAndPlay(
+                uri: serviceUri,
+                title: serviceName,
+                service: serviceService
+            )
         }
     }
     
@@ -306,16 +382,105 @@ class BrowseFolderTableViewController: UITableViewController, BrowseActionsDeleg
     }
     
     // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "segueFolder" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! BrowseFolderTableViewController
-                destinationController.serviceName = sourceLibrary[indexPath.row].title
-                destinationController.serviceUri = sourceLibrary[indexPath.row].uri
-                destinationController.serviceType = sourceLibrary[indexPath.row].type
-                destinationController.serviceService = sourceLibrary[indexPath.row].service
-            }
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+            
+            let destinationController = segue.destination as! BrowseFolderTableViewController
+            destinationController.serviceName = sourceLibrary[indexPath.row].title
+            destinationController.serviceUri = sourceLibrary[indexPath.row].uri
+            destinationController.serviceType = sourceLibrary[indexPath.row].type
+            destinationController.serviceService = sourceLibrary[indexPath.row].service
         }
     }
+    
+}
+
+// MARK: - Localization
+
+extension BrowseFolderTableViewController {
+    
+    fileprivate var localizedCancelTitle: String {
+        return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
+    }
+    
+    fileprivate var localizedAddAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] add item to queue and start playing"
+        )
+    }
+    
+    fileprivate var localizedAddToQueueTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE",
+            comment: "[trigger] add item to queue"
+        )
+    }
+
+    fileprivate var localizedClearAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] clear queue, add item and start playing"
+        )
+    }
+
+    fileprivate func localizedPlaylistPlaying(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedPlaylistPlaying,
+            name
+        )
+    }
+    fileprivate var localizedPlaylistPlaying: String {
+        return NSLocalizedString("PLAYLIST_PLAYING",
+            comment: "[hint](format) started playing playlist(%@)"
+        )
+    }
+
+    fileprivate func localizedPlaylistDeleted(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedPlaylistDeleted,
+            name
+        )
+    }
+    fileprivate var localizedPlaylistDeleted: String {
+        return NSLocalizedString("PLAYLIST_DELETED",
+            comment: "[hint](format) deleted playlist(%@)"
+        )
+    }
+
+    fileprivate func localizedAddedItemToQueueNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToQueueNotice,
+            name
+        )
+    }
+    fileprivate var localizedAddedItemToQueueNotice: String {
+        return NSLocalizedString("QUEUE_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to queue"
+        )
+    }
+
+    fileprivate func localizedAddedItemToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToPlaylistNotice,
+            name
+        )
+    }
+    fileprivate var localizedAddedItemToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to playlist"
+        )
+    }
+
+    fileprivate func localizedRemovedItemFromPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedRemovedItemFromPlaylistNotice,
+            name
+        )
+    }
+    fileprivate var localizedRemovedItemFromPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_REMOVED_ITEM",
+            comment: "[hint](format) removed item(%@) from playlist"
+        )
+    }
+
 }

@@ -21,44 +21,59 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        localize()
+
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         searchBar.delegate = self
 
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+        
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browseSearch, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: .addedToPlaylist, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(updateSources(notification:)),
+            name: .browseSearch,
+            object: nil
+        )
+        // FIXME: dead code?
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(isOnPlaylist(notification:)),
+            name: .addedToPlaylist,
+            object: nil
+        )
     }
 
     func updateSources(notification: NSNotification) {
-        if let sources = notification.object as? [SearchResultObject] {
-            self.sourcesList = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [SearchResultObject] else { return }
+        
+        sourcesList = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
     
     func isOnPlaylist(notification:NSNotification) {
         self.clearAllNotice()
-        if let notificationObject = notification.object {
-            self.noticeTop("Added to \(notificationObject)", autoClear: true, autoClearTime: 3)
-        }
+        
+        guard let object = notification.object else { return }
+        
+        noticeTop(
+            localizedAddedItemToPlaylistNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     // MARK: - Table view data source
@@ -67,7 +82,9 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         return sourcesList.count
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         let sections = sourcesList[section]
         if let items = sections.items {
             return items.count
@@ -75,7 +92,9 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
@@ -136,26 +155,40 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView,
+        titleForHeaderInSection section: Int
+    ) -> String? {
         return sourcesList[section].title
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
+    override func tableView(_ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView,
+        editActionsForRowAt indexPath: IndexPath
+    ) -> [UITableViewRowAction]? {
         
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
         
-        let play = UITableViewRowAction(style: .normal, title: "Play") { action, index in
-            VolumioIOManager.shared.addAndPlay(uri:item.uri!, title: item.title!, service: item.service! )
+        let play = UITableViewRowAction(
+            style: .normal,
+            title: localizedPlayTitle
+        ) { (action, index) in
+            guard let uri = item.uri, let title = item.title, let service = item.service
+                else { return }
+            VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
             tableView.setEditing(false, animated: true)
         }
         play.backgroundColor = UIColor(red: 74.0/255.0, green: 190.0/255.0, blue: 134.0/255.0, alpha: 1)
         
-        let more = UITableViewRowAction(style: .normal, title: "More") { action, index in
+        let more = UITableViewRowAction(
+            style: .normal,
+            title: localizedMoreTitle
+        ) { (action, index) in
             self.playlistActions(item: item)
             tableView.setEditing(false, animated: true)
         }
@@ -164,36 +197,57 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         return [more, play]
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 54.0
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        VolumioIOManager.shared.browseSearch(text: searchBar.text!)
+        if let text = searchBar.text {
+            VolumioIOManager.shared.browseSearch(text: text)
+        }
         refreshControl.endRefreshing()
     }
     
-    func playlistActions(item:LibraryObject) {
+    func playlistActions(item: LibraryObject) {
+        guard let itemUri = item.uri,
+              let itemTitle = item.title,
+              let itemService = item.service
+            else { return }
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
         alert.addAction(
-            UIAlertAction(title: "Play", style: .default, handler: { (action) in
-                VolumioIOManager.shared.addAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
+            UIAlertAction(title: localizedPlayTitle, style: .default) {
+                (action) in
+                    VolumioIOManager.shared.addAndPlay(
+                        uri: itemUri,
+                        title: itemTitle,
+                        service: itemService
+                    )
+        })
         alert.addAction(
-            UIAlertAction(title: "Add to queue", style: .default, handler: { (action) in
-                VolumioIOManager.shared.addToQueue(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
+            UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
+                (action) in
+                    VolumioIOManager.shared.addToQueue(
+                        uri: itemUri,
+                        title: itemTitle,
+                        service: itemService
+                    )
+        })
         alert.addAction(
-            UIAlertAction(title: "Clear and Play", style: .default, handler: { (action) in
-                VolumioIOManager.shared.clearAndPlay(uri: item.uri!, title: item.title!, service: item.service!)
-            })
-        )
-        alert.addAction(
-            UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        )
-        self.present(alert, animated: true, completion: nil)
+            UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
+                (action) in
+                    VolumioIOManager.shared.clearAndPlay(
+                        uri: itemUri,
+                        title: itemTitle,
+                        service: itemService
+                    )
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -205,19 +259,72 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "browseFolder" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
                 
-                let itemList = sourcesList[indexPath.section]
-                let item = itemList.items![indexPath.row] as LibraryObject
-                
-                let destinationController = segue.destination as! BrowseFolderTableViewController
-                destinationController.serviceName = item.title
-                destinationController.serviceUri = item.uri
-                destinationController.serviceType = item.type
-                destinationController.serviceService = item.service
-            }
+            let itemList = sourcesList[indexPath.section]
+            let item = itemList.items![indexPath.row] as LibraryObject
+            
+            let destinationController = segue.destination as! BrowseFolderTableViewController
+            destinationController.serviceName = item.title
+            destinationController.serviceUri = item.uri
+            destinationController.serviceType = item.type
+            destinationController.serviceService = item.service
         }
     }
+}
+
+// MARK: - Localization
+
+extension BrowseSearchTableViewController {
+    
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("BROWSE_SEARCH",
+            comment: "browse search view title"
+        )
+    }
+
+    fileprivate var localizedMoreTitle: String {
+        return NSLocalizedString("MORE", comment: "[trigger] more actions")
+    }
+    
+    fileprivate var localizedCancelTitle: String {
+        return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
+    }
+    
+    fileprivate var localizedPlayTitle: String {
+        return NSLocalizedString("PLAY", comment: "[trigger] play anything")
+    }
+    
+    fileprivate var localizedAddAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] add item to queue and start playing"
+        )
+    }
+    
+    fileprivate var localizedAddToQueueTitle: String {
+        return NSLocalizedString("BROWSE_ADD_TO_QUEUE",
+            comment: "[trigger] add item to queue"
+        )
+    }
+
+    fileprivate var localizedClearAndPlayTitle: String {
+        return NSLocalizedString("BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY",
+            comment: "[trigger] clear queue, add item and start playing"
+        )
+    }
+
+    fileprivate func localizedAddedItemToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedItemToPlaylistNotice,
+            name
+        )
+    }
+    
+    fileprivate var localizedAddedItemToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+            comment: "[hint](format) added item(%@) to playlist"
+        )
+    }
+
 }

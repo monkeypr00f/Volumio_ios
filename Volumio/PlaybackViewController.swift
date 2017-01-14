@@ -29,7 +29,7 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var seekValue: UILabel!
     @IBOutlet weak var currentDuration: UILabel!
 
-    //graphic block
+    // graphic block
     @IBOutlet weak var outerRing: UIView!
     @IBOutlet weak var innerRing: UIView!
     @IBOutlet weak var playerView: UIView!
@@ -55,10 +55,11 @@ class PlaybackViewController: UIViewController {
         
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
+        navigationItem.titleView = imageView
         
         registerObservers()
-        self.pleaseWait()
+        
+        pleaseWait()
         
         repeatButton.alpha = 0.3
         shuffleButton.alpha = 0.3
@@ -79,43 +80,55 @@ class PlaybackViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        clearAllNotice()
     }
     
     private func registerObservers() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrackInfo), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(isDisconnected(notification:)), name: .disconnected, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: .currentTrack, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: .addedToPlaylist, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getCurrentTrackInfo),
+            name: .UIApplicationWillEnterForeground,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(isDisconnected(notification:)),
+            name: .disconnected,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(getCurrentTrack(notification:)),
+            name: .currentTrack,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(isOnPlaylist(notification:)),
+            name: .addedToPlaylist,
+            object: nil
+        )
     }
     
     func isDisconnected(notification: NSNotification) {
-        self.clearAllNotice()
+        clearAllNotice()
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
         self.present(controller, animated: true, completion: nil)
     }
     
     func getCurrentTrack(notification:NSNotification) {
-        self.clearAllNotice()
-        self.blurOverlay.isHidden = true
+        clearAllNotice()
+        blurOverlay.isHidden = true
         currentTrack = notification.object as? TrackObject
-        self.getCurrentTrackInfo()
+        getCurrentTrackInfo()
     }
     
     func isOnPlaylist(notification:NSNotification) {
-        self.clearAllNotice()
-        if let notificationObject = notification.object {
-            self.noticeTop("Added to \(notificationObject)", autoClear: true, autoClearTime: 3)
-        }
+        clearAllNotice()
+        
+        guard let object = notification.object else { return }
+        
+        noticeTop(
+            localizedAddedToPlaylistNotice(name: String(describing: object)),
+            autoClear: true,
+            autoClearTime: 3
+        )
     }
     
     func getCurrentTrackInfo() {
@@ -181,40 +194,41 @@ class PlaybackViewController: UIViewController {
                     switch status {
                     case "play":
                         startTimer()
-                        self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
+                        playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
                     case "pause":
                         stopTimer()
-                        self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+                        playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
                     case "stop":
                         stopTimer()
-                        self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+                        playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
                     default:
                         stopTimer()
-                        self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+                        playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
                     }
                 }
                 
                 if let repetition = currentTrackInfo.repetition {
                     switch repetition {
-                    case 1: self.repeatButton.alpha = 1
-                    default: self.repeatButton.alpha = 0.3
+                    case 1: repeatButton.alpha = 1
+                    default: repeatButton.alpha = 0.3
                     }
                 } else {
-                    self.repeatButton.alpha = 0.3
+                    repeatButton.alpha = 0.3
                 }
                 
                 if let shuffle = currentTrackInfo.shuffle {
                     switch shuffle {
-                    case 1: self.shuffleButton.alpha = 1
-                    default:self.shuffleButton.alpha = 0.3
+                    case 1: shuffleButton.alpha = 1
+                    default: shuffleButton.alpha = 0.3
                     }
                 } else {
-                    self.shuffleButton.alpha = 0.3
+                    shuffleButton.alpha = 0.3
                 }
             
             } else {
-                self.blurOverlay.isHidden = false
-                self.noticeTop("Volumio's queue is empty, choose a track to play")
+                blurOverlay.isHidden = false
+                
+                noticeTop(localizedQueueIsEmptyNotice)
             }
         }
     }
@@ -223,6 +237,7 @@ class PlaybackViewController: UIViewController {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
         let hours: Int = totalSeconds / 3600
+        
         if hours == 0 {
             return String(format: "%02d:%02d", minutes, seconds)
         } else {
@@ -232,7 +247,13 @@ class PlaybackViewController: UIViewController {
     
     func startTimer() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSeek), userInfo:nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(updateSeek),
+            userInfo:nil,
+            repeats: true
+        )
     }
     
     func stopTimer() {
@@ -300,24 +321,18 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func volumeDown(_ sender: UIButton) {
-        if let currentTrackInfo = currentTrack {
-            if var volume = currentTrackInfo.volume {
-                if volume > 0 {
-                    volume -= 1
-                    VolumioIOManager.shared.setVolume(value: volume)
-                }
-            }
+        guard let volume = currentTrack?.volume else { return }
+
+        if volume > 0 {
+            VolumioIOManager.shared.setVolume(value: volume - 1)
         }
     }
     
     @IBAction func volumeUp(_ sender: UIButton) {
-        if let currentTrackInfo = currentTrack {
-            if var volume = currentTrackInfo.volume {
-                if volume < 100 {
-                    volume += 1
-                    VolumioIOManager.shared.setVolume(value: volume)
-                }
-            }
+        guard let volume = currentTrack?.volume else { return }
+        
+        if volume < 100 {
+            VolumioIOManager.shared.setVolume(value: volume + 1)
         }
     }
     
@@ -327,9 +342,9 @@ class PlaybackViewController: UIViewController {
     }
     
     @IBAction func reloadButton(_ sender: UIBarButtonItem) {
-        self.clearAllNotice()
+        clearAllNotice()
         VolumioIOManager.shared.reconnect()
-        self.pleaseWait()
+        pleaseWait()
     }
     
     @IBAction func dropdownPressed(_ sender: UIButton) {
@@ -348,4 +363,28 @@ extension PlaybackViewController: DropperDelegate {
     func DropperSelectedRow(_ path: IndexPath, contents: String) {
 
     }
+}
+
+// MARK: - Localization
+
+extension PlaybackViewController {
+    
+    fileprivate func localizedAddedToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedToPlaylistNotice,
+            name
+        )
+    }
+    
+    fileprivate var localizedAddedToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+                comment: "[hint](format) added item to playlist(%@)"
+        )
+    }
+    
+    fileprivate var localizedQueueIsEmptyNotice: String {
+        return NSLocalizedString("PLAYBACK_QUEUE_IS_EMPTY",
+                comment: "[hint] playback queue is empty")
+    }
+    
 }

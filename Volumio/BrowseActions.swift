@@ -17,16 +17,23 @@ protocol BrowseActionsDelegate: class {
 class BrowseActions: UIView {
     
     @IBOutlet weak var view: UIView!
+    
     weak var delegate: BrowseActionsDelegate?
+
+    @IBOutlet weak var addAndPlayLabel: UILabel!
+    @IBOutlet weak var addToQueueLabel: UILabel!
+    @IBOutlet weak var clearAndPlayLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
+        localize()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
+        localize()
     }
     
     private func initialize() {
@@ -34,7 +41,6 @@ class BrowseActions: UIView {
         addSubview(view)
         view.frame = self.bounds
     }
-    
     
     @IBAction func didAddAndPlay(_ sender: Any) {
         delegate?.browseAddAndPlay()
@@ -48,4 +54,22 @@ class BrowseActions: UIView {
         delegate?.browseClearAndPlay()
     }
     
+}
+
+// MARK: - Localization
+
+extension BrowseActions {
+
+    fileprivate func localize() {
+        addAndPlayLabel.text = NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL",
+            comment: "[trigger](short) add items to queue and start playing"
+        )
+        addToQueueLabel.text = NSLocalizedString("BROWSE_ADD_TO_QUEUE_ALL",
+            comment: "[trigger](short) add items to queue"
+        )
+        clearAndPlayLabel.text = NSLocalizedString("BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL",
+            comment: "[trigger](short) clear queue, add items and start playing"
+        )
+    }
+
 }

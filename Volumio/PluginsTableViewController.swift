@@ -14,41 +14,49 @@ class PluginsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         VolumioIOManager.shared.getInstalledPlugins()
+        
         registerObservers()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        localize()
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        self.pleaseWait()
+        pleaseWait()
         
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+
+        clearAllNotice()
+        
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: .browsePlugins, object: nil)
+        NotificationCenter.default.addObserver(self,
+            selector: #selector(updateSources(notification:)),
+            name: .browsePlugins,
+            object: nil
+        )
     }
     
     func updateSources(notification: NSNotification) {
-        if let sources = notification.object as? [PluginObject] {
-            self.pluginsList = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+        guard let sources = notification.object as? [PluginObject] else { return }
+        
+        pluginsList = sources
+        tableView.reloadData()
+        clearAllNotice()
     }
 
     // MARK: - Table view data source
@@ -85,13 +93,24 @@ class PluginsTableViewController: UITableViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "pluginDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! PluginDetailViewController
-                destinationController.service = pluginsList[indexPath.row]
-            }
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            
+            let destinationController = segue.destination as! PluginDetailViewController
+            destinationController.plugin = pluginsList[indexPath.row]
         }
+    }
+
+}
+
+// MARK: - Localization
+
+extension PluginsTableViewController {
+    
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("PLUGINS",
+            comment: "plugins view title"
+        )
     }
 
 }

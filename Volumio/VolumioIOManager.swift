@@ -38,8 +38,6 @@ class VolumioIOManager: NSObject {
     
     /**
         Establishes a connection to the player.
- 
-        - Note: Must not called before `connect` or `reconnect`.
     */
     func establishConnection() {
 
