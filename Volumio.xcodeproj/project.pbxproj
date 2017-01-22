@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213A1E310DB60073D7C8 /* UserDefaults.swift */; };
+		0961213D1E3120B70073D7C8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213C1E3120B70073D7C8 /* Player.swift */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
@@ -67,6 +69,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0961213A1E310DB60073D7C8 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		0961213C1E3120B70073D7C8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -131,15 +135,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0961213E1E3121140073D7C8 /* VolumioIO */ = {
+			isa = PBXGroup;
+			children = (
+				60E781981DABCC9800C48A43 /* LibraryObject.swift */,
+				60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */,
+				606D923A1DB4C80300DBD78A /* PluginObject.swift */,
+				6074D2741DBB9273000F2285 /* SearchResultObject.swift */,
+				605743A81DB143A10087F363 /* SourceObject.swift */,
+				6005E4EA1D9916A5000B80AE /* TrackObject.swift */,
+			);
+			name = VolumioIO;
+			sourceTree = "<group>";
+		};
 		6005E4E91D99168A000B80AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				605743A81DB143A10087F363 /* SourceObject.swift */,
-				60E781981DABCC9800C48A43 /* LibraryObject.swift */,
-				6005E4EA1D9916A5000B80AE /* TrackObject.swift */,
-				606D923A1DB4C80300DBD78A /* PluginObject.swift */,
-				60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */,
-				6074D2741DBB9273000F2285 /* SearchResultObject.swift */,
+				0961213E1E3121140073D7C8 /* VolumioIO */,
+				0961213C1E3120B70073D7C8 /* Player.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -208,6 +221,7 @@
 		6072D0331DAD31A5006D7E45 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
 				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
 				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
 				606D923E1DB4D4FD00DBD78A /* Extensions.swift */,
@@ -451,11 +465,13 @@
 				606223831DE5A02400DD1D20 /* BrowseActions.swift in Sources */,
 				60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */,
 				605743A91DB143A10087F363 /* SourceObject.swift in Sources */,
+				0961213D1E3120B70073D7C8 /* Player.swift in Sources */,
 				6074D2821DBE5125000F2285 /* BrowseFolderTableViewController.swift in Sources */,
 				606D923D1DB4D3BA00DBD78A /* PluginTableViewCell.swift in Sources */,
 				60A7B7A01DF1BAB50095A27C /* PlaylistActions.swift in Sources */,
 				606D923B1DB4C80300DBD78A /* PluginObject.swift in Sources */,
 				60E377941DF2F73C00123663 /* SearchVolumioViewController.swift in Sources */,
+				0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */,
 				607ADC701DBF42680090F038 /* QueueTableViewCell.swift in Sources */,
 				4C20174B1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift in Sources */,
 				606D923F1DB4D4FD00DBD78A /* Extensions.swift in Sources */,

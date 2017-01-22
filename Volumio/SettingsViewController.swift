@@ -32,12 +32,9 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedOpenWebUITitle) {
                 $0.title = $0.tag
                 }.onCellSelection {(cell, row) in
-                    UIApplication.shared.open(
-                        // FIXME: use actual player url, different players have different urls 
-                        URL(string: "http://volumio.local")!,
-                        options: [:],
-                        completionHandler: nil
-                    )
+                    guard let playerURL = VolumioIOManager.shared.currentPlayer?.url
+                        else { return }
+                    UIApplication.shared.open(playerURL, options: [:], completionHandler: nil)
                 }
             
 //            <<< ButtonRow("Network") { (row: ButtonRow) -> Void in
@@ -58,7 +55,8 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedChangePlayerTitle) {
                 $0.title = $0.tag
                 }.onCellSelection{ [weak self] (cell, row) in
-                    UserDefaults.standard.removeObject(forKey: "selectedPlayer")
+                    // FIXME: handling of default should be centralized (move to manager?)
+                    Defaults.remove(.selectedPlayer)
                     let controller = self?.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
                     self?.present(controller, animated: true, completion: nil)
             }
