@@ -58,7 +58,8 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedChangePlayerTitle) {
                 $0.title = $0.tag
                 }.onCellSelection{ [weak self] (cell, row) in
-                    UserDefaults.standard.removeObject(forKey: "selectedPlayer")
+                    // FIXME: handling of default should be centralized (move to manager?)
+                    Defaults.remove(.selectedPlayer)
                     let controller = self?.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
                     self?.present(controller, animated: true, completion: nil)
             }

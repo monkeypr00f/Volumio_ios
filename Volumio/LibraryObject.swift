@@ -6,7 +6,6 @@
 //  Copyright © 2016 Federico Sintucci. All rights reserved.
 //
 
-import UIKit
 import ObjectMapper
 
 class LibraryObject: Mappable {

@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
 //        WatchManager.sharedInstance.setupWatchConnectivity()
 //        WatchManager.sharedInstance.setNotificationCenter()
@@ -26,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.black
         
         Fabric.with([Crashlytics.self])
+        
+        VolumioIOManager.shared.connectDefault()
         
         return true
     }
@@ -55,3 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
+
+extension DefaultsKeys {
+    static let selectedPlayer = DefaultsKey<Player?>("selectedPlayer")
+}
+

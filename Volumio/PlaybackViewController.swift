@@ -47,6 +47,7 @@ class PlaybackViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         VolumioIOManager.shared.getState()
     }
 
@@ -343,8 +344,8 @@ class PlaybackViewController: UIViewController {
     
     @IBAction func reloadButton(_ sender: UIBarButtonItem) {
         clearAllNotice()
-        VolumioIOManager.shared.reconnect()
         pleaseWait()
+        VolumioIOManager.shared.connectDefault()
     }
     
     @IBAction func dropdownPressed(_ sender: UIButton) {
