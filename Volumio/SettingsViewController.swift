@@ -81,19 +81,16 @@ class SettingsViewController: FormViewController {
     
     func shutdownAlert() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(title: localizedShutdownTitle, style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "shutdown")
-            })
-        )
-        alert.addAction(
-            UIAlertAction(title: localizedRebootTitle, style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "reboot")
-            })
-        )
-        alert.addAction(
-            UIAlertAction(title: localizedCancelTitle, style: .cancel, handler: nil)
-        )
+        alert.addAction(UIAlertAction(title: localizedShutdownTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.shutdown()
+        })
+        alert.addAction(UIAlertAction(title: localizedRebootTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.reboot()
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel, handler: nil))
+        
         present(alert, animated: true, completion: nil)
     }
 

@@ -26,8 +26,8 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
         
         pleaseWait()
         
-        SocketIOManager.sharedInstance.listPlaylist()
-        if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
+        VolumioIOManager.shared.listPlaylist()
+        if let currentTrackInfo = VolumioIOManager.shared.currentTrack {
             track = currentTrackInfo
         }
         
@@ -81,7 +81,7 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
         let selectedPlaylist = playlists[indexPath.row] as! String
         if let currentTrackUri = track.uri,
             let currentTrackService = track.service {
-            SocketIOManager.sharedInstance.addToPlaylist(name: selectedPlaylist, uri: currentTrackUri, service: currentTrackService)
+            VolumioIOManager.shared.addToPlaylist(name: selectedPlaylist, uri: currentTrackUri, service: currentTrackService)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -92,7 +92,7 @@ class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableV
                 let currentTrackUri = track.uri,
                 let currentTrackService = track.service {
                 
-                SocketIOManager.sharedInstance.createPlaylist(name: name, title:currentTrackTitle, uri:currentTrackUri, service:currentTrackService)
+                VolumioIOManager.shared.createPlaylist(name: name, title:currentTrackTitle, uri:currentTrackUri, service:currentTrackService)
                 self.dismiss(animated: true, completion: nil)
                 inputPlaylist.resignFirstResponder()
             }

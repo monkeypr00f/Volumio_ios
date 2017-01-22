@@ -27,7 +27,7 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
-        SocketIOManager.sharedInstance.closeConnection()
+        VolumioIOManager.shared.closeConnection()
 
         searchResultTable.delegate = self
         searchResultTable.dataSource = self
@@ -62,10 +62,10 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         browser.stop()
         
-        let selectedPlayer = services[indexPath.row]
-        UserDefaults.standard.set(selectedPlayer.name, forKey: "selectedPlayer")
+        let player = services[indexPath.row].name
         
-        SocketIOManager.sharedInstance.changeServer(server: selectedPlayer.name)
+        VolumioIOManager.shared.connect(to: player, setDefault: true)
+        
         if let top = UIApplication.shared.keyWindow?.rootViewController {
             top.dismiss(animated: true, completion: nil)
         }

@@ -35,7 +35,7 @@ class BrowseFolderTableViewController: UITableViewController,
 	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: serviceUri)
         registerObservers()
     }
     
@@ -126,7 +126,7 @@ class BrowseFolderTableViewController: UITableViewController,
     func deletePlaylist(notification: NSNotification) {
         guard let object = notification.object else { return }
         
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
         
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
@@ -161,7 +161,7 @@ class BrowseFolderTableViewController: UITableViewController,
     func removeFromPlaylist(notification: NSNotification) {
         guard let object = notification.object else { return }
         
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
         
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
@@ -265,7 +265,7 @@ class BrowseFolderTableViewController: UITableViewController,
             
             guard let uri = track.uri, let service = track.service else { return }
 
-            SocketIOManager.sharedInstance.removeFromPlaylist(
+            VolumioIOManager.shared.removeFromPlaylist(
                 name: serviceName,
                 uri: uri,
                 service: service
@@ -313,30 +313,17 @@ class BrowseFolderTableViewController: UITableViewController,
     
     func songActions(uri: String, title: String, service: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title: localizedAddAndPlayTitle, style: .default) {
             (action) in
-                SocketIOManager.sharedInstance.addAndPlay(
-                    uri: uri,
-                    title: title,
-                    service: service
-                )
+                VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
         })
         alert.addAction(UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
             (action) in
-                SocketIOManager.sharedInstance.addToQueue(
-                    uri: uri,
-                    title: title,
-                    service: service
-                )
+                VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
         })
         alert.addAction(UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
             (action) in
-                SocketIOManager.sharedInstance.clearAndPlay(
-                    uri: uri,
-                    title: title,
-                    service: service
-                )
+                VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
         })
         alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
         
@@ -346,14 +333,14 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.browseLibrary(uri: serviceUri)
+        VolumioIOManager.shared.browseLibrary(uri: serviceUri)
         refreshControl.endRefreshing()
     }
     
     // MARK: - BrowseActionsDelegate
     
     func browseAddAndPlay() {
-        SocketIOManager.sharedInstance.addAndPlay(
+        VolumioIOManager.shared.addAndPlay(
             uri: serviceUri,
             title: serviceName,
             service: serviceService
@@ -361,7 +348,7 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     func browseAddToQueue() {
-        SocketIOManager.sharedInstance.addToQueue(
+        VolumioIOManager.shared.addToQueue(
             uri: serviceUri,
             title: serviceName,
             service: serviceService
@@ -369,7 +356,7 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     func browseClearAndPlay() {
-        SocketIOManager.sharedInstance.clearAndPlay(
+        VolumioIOManager.shared.clearAndPlay(
             uri: serviceUri,
             title: serviceName,
             service: serviceService
@@ -380,9 +367,9 @@ class BrowseFolderTableViewController: UITableViewController,
     
     func playlistAddAndPlay() {
         if serviceService == "mpd" {
-            SocketIOManager.sharedInstance.playPlaylist(name: serviceName)
+            VolumioIOManager.shared.playPlaylist(name: serviceName)
         } else {
-            SocketIOManager.sharedInstance.addAndPlay(
+            VolumioIOManager.shared.addAndPlay(
                 uri: serviceUri,
                 title: serviceName,
                 service: serviceService

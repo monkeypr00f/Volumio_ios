@@ -47,7 +47,7 @@ class PlaybackViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.getState()
+        VolumioIOManager.shared.getState()
     }
 
     override func viewDidLoad() {
@@ -149,7 +149,7 @@ class PlaybackViewController: UIViewController {
                 if let volume = currentTrackInfo.volume {
                     sliderVolume.value = Float(volume)
                 } else {
-                    SocketIOManager.sharedInstance.setVolume(value: 5)
+                    VolumioIOManager.shared.setVolume(value: 5)
                 }
                 
                 if let duration = currentTrackInfo.duration {
@@ -275,48 +275,48 @@ class PlaybackViewController: UIViewController {
     
     @IBAction func pressPlay(_ sender: UIButton) {
         
-        if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
+        if let currentTrackInfo = VolumioIOManager.shared.currentTrack {
             switch currentTrackInfo.status! {
             case "play":
-                SocketIOManager.sharedInstance.doAction(action: "pause")
+                VolumioIOManager.shared.pause()
             case "pause":
-                SocketIOManager.sharedInstance.doAction(action: "play")
+                VolumioIOManager.shared.play()
             case "stop":
-                SocketIOManager.sharedInstance.doAction(action: "play")
+                VolumioIOManager.shared.play()
             default:
-                SocketIOManager.sharedInstance.doAction(action: "stop")
+                VolumioIOManager.shared.stop()
             }
             getCurrentTrackInfo()
         }
     }
     
     @IBAction func pressPrevious(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "prev")
+        VolumioIOManager.shared.playPrevious()
     }
     
     @IBAction func pressNext(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "next")
+        VolumioIOManager.shared.playNext()
     }
     
     @IBAction func toggleRepeat(_ sender: UIButton) {
-        if let repetition = SocketIOManager.sharedInstance.currentTrack?.repetition {
+        if let repetition = VolumioIOManager.shared.currentTrack?.repetition {
             switch repetition {
-            case 1: SocketIOManager.sharedInstance.toggleRepeat(value: 0)
-            default: SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            case 1: VolumioIOManager.shared.toggleRepeat(value: 0)
+            default: VolumioIOManager.shared.toggleRepeat(value: 1)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            VolumioIOManager.shared.toggleRepeat(value: 1)
         }
     }
     
     @IBAction func toggleShuffle(_ sender: UIButton) {
-        if let shuffle = SocketIOManager.sharedInstance.currentTrack?.shuffle {
+        if let shuffle = VolumioIOManager.shared.currentTrack?.shuffle {
             switch shuffle {
-            case 1: SocketIOManager.sharedInstance.toggleRandom(value: 0)
-            default: SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            case 1: VolumioIOManager.shared.toggleRandom(value: 0)
+            default: VolumioIOManager.shared.toggleRandom(value: 1)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            VolumioIOManager.shared.toggleRandom(value: 1)
         }
     }
     
@@ -324,7 +324,7 @@ class PlaybackViewController: UIViewController {
         guard let volume = currentTrack?.volume else { return }
 
         if volume > 0 {
-            SocketIOManager.sharedInstance.setVolume(value: volume - 1)
+            VolumioIOManager.shared.setVolume(value: volume - 1)
         }
     }
     
@@ -332,18 +332,18 @@ class PlaybackViewController: UIViewController {
         guard let volume = currentTrack?.volume else { return }
         
         if volume < 100 {
-            SocketIOManager.sharedInstance.setVolume(value: volume + 1)
+            VolumioIOManager.shared.setVolume(value: volume + 1)
         }
     }
     
     @IBAction func sliderVolume(_ sender: UISlider) {
         let volume = Int(sender.value)
-        SocketIOManager.sharedInstance.setVolume(value: volume)
+        VolumioIOManager.shared.setVolume(value: volume)
     }
     
     @IBAction func reloadButton(_ sender: UIBarButtonItem) {
         clearAllNotice()
-        SocketIOManager.sharedInstance.reConnect()
+        VolumioIOManager.shared.reconnect()
         pleaseWait()
     }
     
