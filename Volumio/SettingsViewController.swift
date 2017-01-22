@@ -32,12 +32,9 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedOpenWebUITitle) {
                 $0.title = $0.tag
                 }.onCellSelection {(cell, row) in
-                    UIApplication.shared.open(
-                        // FIXME: use actual player url, different players have different urls 
-                        URL(string: "http://volumio.local")!,
-                        options: [:],
-                        completionHandler: nil
-                    )
+                    guard let playerURL = VolumioIOManager.shared.currentPlayer?.url
+                        else { return }
+                    UIApplication.shared.open(playerURL, options: [:], completionHandler: nil)
                 }
             
 //            <<< ButtonRow("Network") { (row: ButtonRow) -> Void in

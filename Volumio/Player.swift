@@ -6,10 +6,21 @@
 //  Copyright © 2017 Federico Sintucci. All rights reserved.
 //
 
+import Foundation
+
+/**
+ This represents a Volumio player. It is defined by its name, host and port.
+*/
 struct Player {
     var name: String
     var host: String
     var port: Int
+
+    /// Returns the player’s url for web ui
+    var url: URL? {
+        return URL(string: "http://\(host)")
+    }
+
 }
 
 extension SafeUserDefaults {

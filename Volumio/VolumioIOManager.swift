@@ -14,7 +14,9 @@ class VolumioIOManager: NSObject {
     
     static let shared = VolumioIOManager()
     
-    var socket: SocketIOClient? = nil
+    private var socket: SocketIOClient? = nil
+    
+    var currentPlayer: Player?
     
     var currentTrack: TrackObject?
     var currentQueue: [TrackObject]?
@@ -22,7 +24,9 @@ class VolumioIOManager: NSObject {
     var currentLibrary: [LibraryObject]?
     var currentSearch: [SearchResultObject]?
     var currentPlaylists: [Any]?
+    
     var installedPlugins: [PluginObject]?
+    
     var connectedNetwork: [NetworkObject]?
     var wirelessNetwork: [NetworkObject]?
     
@@ -73,6 +77,7 @@ class VolumioIOManager: NSObject {
             Defaults[.selectedPlayer] = player
         }
 
+        currentPlayer = player
         socket = SocketIOClient(for: player)
         establishConnection()
     }
@@ -100,6 +105,7 @@ class VolumioIOManager: NSObject {
 
             self.socket = nil
         }
+        currentPlayer = nil
     }
     
     func isDisconnected() {
