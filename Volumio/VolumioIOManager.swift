@@ -26,8 +26,8 @@ class VolumioIOManager: NSObject {
     var connectedNetwork: [NetworkObject]?
     var wirelessNetwork: [NetworkObject]?
     
-    var socketConnected: Bool {
-        return socket == nil || socket!.status != .connected
+    var isConnected: Bool {
+        return socket != nil && socket!.status == .connected
     }
     
     // MARK: - manage connection
@@ -63,16 +63,17 @@ class VolumioIOManager: NSObject {
     /**
         Connects to the player with the specified name.
      
-        - parameter player: Name for the player to connect to.
+        - parameter player: Player to connect to.
         - parameter setDefault: If `true`, stores the specified player as default. Defaults to `false`.
     */
     func connect(to player: Player, setDefault: Bool = false) {
+        closeConnection()
+        
         if setDefault {
             Defaults[.selectedPlayer] = player
         }
 
         socket = SocketIOClient(for: player)
-        
         establishConnection()
     }
     
@@ -80,9 +81,8 @@ class VolumioIOManager: NSObject {
         Connects to the default player.
     */
     func connectDefault() {
-        if socketConnected {
-            closeConnection()
-        }
+        closeConnection()
+
         if let player = Defaults[.selectedPlayer] {
             connect(to: player)
         }
