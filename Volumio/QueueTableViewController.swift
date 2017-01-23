@@ -96,7 +96,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         VolumioIOManager.shared.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop(self.localizedRemovedNotice, autoClear: true, autoClearTime: 3)
+            self.noticeTop(
+                self.localizedRemovedNotice,
+                autoClear: true,
+                autoClearTime: 3
+            )
         })
         
     }
