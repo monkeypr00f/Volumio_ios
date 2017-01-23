@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, UITableViewDelegate, UITableViewDataSource {
+class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
+    NetServiceBrowserDelegate, NetServiceDelegate
+{
     
     @IBOutlet weak var searchResultTable: UITableView!
     
@@ -16,6 +18,7 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     @IBOutlet weak var textLabel: UILabel!
     
     let browser = NetServiceBrowser()
+
     var services : [NetService] = []
     
     override func viewDidLoad() {
@@ -27,7 +30,7 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
-        SocketIOManager.sharedInstance.closeConnection()
+        VolumioIOManager.shared.closeConnection()
 
         searchResultTable.delegate = self
         searchResultTable.dataSource = self
@@ -52,8 +55,8 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "service", for: indexPath) as! SelectPlayerTableViewCell
-        let service = services[indexPath.row]
         
+        let service = services[indexPath.row]
         cell.playerName.text = service.name
         
         return cell
@@ -61,18 +64,17 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         browser.stop()
+
+        pleaseWait()
         
-        let selectedPlayer = services[indexPath.row]
-        UserDefaults.standard.set(selectedPlayer.name, forKey: "selectedPlayer")
-        
-        SocketIOManager.sharedInstance.changeServer(server: selectedPlayer.name)
-        if let top = UIApplication.shared.keyWindow?.rootViewController {
-            top.dismiss(animated: true, completion: nil)
-        }
+        let service = services[indexPath.row]
+        service.delegate = self
+        service.resolve(withTimeout: 5);
     }
     
     func browserStartSearch() {
         services.removeAll()
+        
         browser.searchForServices(ofType: "_Volumio._tcp", inDomain: "local.")
     }
     
@@ -95,14 +97,43 @@ class SearchVolumioViewController: UIViewController, NetServiceBrowserDelegate, 
             services.removeAll()
         }
         services.append(service)
+
         DispatchQueue.main.async {
             self.searchResultTable.reloadData()
         }
     }
     
-    @IBAction func closeButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+    func netServiceDidResolveAddress(_ service: NetService) {
+        setPlayer(service)
+        clearAllNotice()
     }
+    
+    func netService(_ service: NetService, didNotResolve errorDict: [String : NSNumber]){
+        clearAllNotice()
+        browserStartSearch()
+    }
+    
+    func netServiceDidStop(_ service: NetService) {
+        service.delegate = nil
+    }
+    
+    @IBAction func closeButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func setPlayer(_ service: NetService) {
+        let name = service.name
+        let port = service.port
+        guard let host = service.hostName else { return }
+        
+        let player = Player(name: name, host: host, port: port)
+        VolumioIOManager.shared.connect(to: player, setDefault: true)
+        
+        if let top = UIApplication.shared.keyWindow?.rootViewController {
+            top.dismiss(animated: true, completion: nil)
+        }
+    }
+    
 }
 
 // MARK: - Localization

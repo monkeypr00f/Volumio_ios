@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213A1E310DB60073D7C8 /* UserDefaults.swift */; };
+		0961213D1E3120B70073D7C8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213C1E3120B70073D7C8 /* Player.swift */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
-		09EBB60B1E254CD90081654E /* SocketIOManagerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
+		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
+		4C20174B1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C20174A1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift */; };
 		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
@@ -40,7 +43,7 @@
 		60A7B7A21DF1BACA0095A27C /* PlaylistActions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A7B7A11DF1BACA0095A27C /* PlaylistActions.xib */; };
 		60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */; };
 		60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */; };
-		60B226201DCA887F00B74B57 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B2261F1DCA887F00B74B57 /* SocketIOManager.swift */; };
+		60B226201DCA887F00B74B57 /* VolumioIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */; };
 		60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */; };
 		60E1D5D91DD0D10D00DAED54 /* PlaylistAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E1D5D81DD0D10D00DAED54 /* PlaylistAddViewController.swift */; };
 		60E377921DF2F70700123663 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E377911DF2F70700123663 /* TabBarViewController.swift */; };
@@ -66,21 +69,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0961213A1E310DB60073D7C8 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		0961213C1E3120B70073D7C8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManagerNotifications.swift; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17DCEBEF3691DD5604EFC3CD /* Pods_Volumio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Volumio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Volumio.release.xcconfig"; path = "Pods/Target Support Files/Pods-Volumio/Pods-Volumio.release.xcconfig"; sourceTree = "<group>"; };
+		4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumioIOEvents.swift; sourceTree = "<group>"; };
+		4C20174A1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumioIOManagerNotifications.swift; sourceTree = "<group>"; };
 		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
 		601424761D916F0C001159B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		601424781D9173A3001159B2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
-		6023A9AE1DAACD9C009810EF /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		602803891DA031E200055D42 /* BrowseSourcesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSourcesTableViewController.swift; sourceTree = "<group>"; };
-		6028038F1DA25CF500055D42 /* QueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTableViewController.swift; sourceTree = "<group>"; };
+		601424781D9173A3001159B2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaybackViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6023A9AE1DAACD9C009810EF /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SettingsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		602803891DA031E200055D42 /* BrowseSourcesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BrowseSourcesTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		6028038F1DA25CF500055D42 /* QueueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = QueueTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		602803921DA27DE500055D42 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
-		603FF51B1DAE3AD2007E1C50 /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginsTableViewController.swift; sourceTree = "<group>"; };
-		603FF51D1DAE3CBD007E1C50 /* PluginDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginDetailViewController.swift; sourceTree = "<group>"; };
+		603FF51B1DAE3AD2007E1C50 /* PluginsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PluginsTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		603FF51D1DAE3CBD007E1C50 /* PluginDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PluginDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		605743A81DB143A10087F363 /* SourceObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceObject.swift; sourceTree = "<group>"; };
 		6062237D1DE59F9600DD1D20 /* BrowseActions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseActions.xib; sourceTree = "<group>"; };
 		606223821DE5A02400DD1D20 /* BrowseActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseActions.swift; sourceTree = "<group>"; };
@@ -91,10 +97,10 @@
 		606D923E1DB4D4FD00DBD78A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		606D92441DB677BD00DBD78A /* SelectPlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		6072D0311DAD31A1006D7E45 /* QCMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QCMethod.swift; sourceTree = "<group>"; };
-		6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSearchTableViewController.swift; sourceTree = "<group>"; };
+		6074D2721DBB899C000F2285 /* BrowseSearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BrowseSearchTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6074D2741DBB9273000F2285 /* SearchResultObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultObject.swift; sourceTree = "<group>"; };
 		6074D2761DBDFE35000F2285 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
-		6074D2811DBE5125000F2285 /* BrowseFolderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseFolderTableViewController.swift; sourceTree = "<group>"; };
+		6074D2811DBE5125000F2285 /* BrowseFolderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BrowseFolderTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		607ADC6F1DBF42680090F038 /* QueueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueTableViewCell.swift; sourceTree = "<group>"; };
 		608275701DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToPlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		6086E2A71D9133A50067A8B5 /* Volumio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Volumio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,13 +108,13 @@
 		6086E2B81D9133A50067A8B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60A7B79F1DF1BAB50095A27C /* PlaylistActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistActions.swift; sourceTree = "<group>"; };
 		60A7B7A11DF1BACA0095A27C /* PlaylistActions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistActions.xib; sourceTree = "<group>"; };
-		60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworksTableViewController.swift; sourceTree = "<group>"; };
+		60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworksTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObject.swift; sourceTree = "<group>"; };
-		60B2261F1DCA887F00B74B57 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumioIOManager.swift; sourceTree = "<group>"; };
 		60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFmManager.swift; sourceTree = "<group>"; };
-		60E1D5D81DD0D10D00DAED54 /* PlaylistAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistAddViewController.swift; sourceTree = "<group>"; };
+		60E1D5D81DD0D10D00DAED54 /* PlaylistAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaylistAddViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60E377911DF2F70700123663 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		60E377931DF2F73C00123663 /* SearchVolumioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVolumioViewController.swift; sourceTree = "<group>"; };
+		60E377931DF2F73C00123663 /* SearchVolumioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SearchVolumioViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60E781981DABCC9800C48A43 /* LibraryObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryObject.swift; sourceTree = "<group>"; };
 		60E7819E1DABE36D00C48A43 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		60E781A01DABE76300C48A43 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,15 +135,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0961213E1E3121140073D7C8 /* VolumioIO */ = {
+			isa = PBXGroup;
+			children = (
+				60E781981DABCC9800C48A43 /* LibraryObject.swift */,
+				60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */,
+				606D923A1DB4C80300DBD78A /* PluginObject.swift */,
+				6074D2741DBB9273000F2285 /* SearchResultObject.swift */,
+				605743A81DB143A10087F363 /* SourceObject.swift */,
+				6005E4EA1D9916A5000B80AE /* TrackObject.swift */,
+			);
+			name = VolumioIO;
+			sourceTree = "<group>";
+		};
 		6005E4E91D99168A000B80AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				605743A81DB143A10087F363 /* SourceObject.swift */,
-				60E781981DABCC9800C48A43 /* LibraryObject.swift */,
-				6005E4EA1D9916A5000B80AE /* TrackObject.swift */,
-				606D923A1DB4C80300DBD78A /* PluginObject.swift */,
-				60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */,
-				6074D2741DBB9273000F2285 /* SearchResultObject.swift */,
+				0961213E1E3121140073D7C8 /* VolumioIO */,
+				0961213C1E3120B70073D7C8 /* Player.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -164,8 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */,
-				60B2261F1DCA887F00B74B57 /* SocketIOManager.swift */,
-				09EBB60A1E254CD90081654E /* SocketIOManagerNotifications.swift */,
+				4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */,
+				60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */,
+				4C20174A1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -205,6 +221,7 @@
 		6072D0331DAD31A5006D7E45 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
 				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
 				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
 				606D923E1DB4D4FD00DBD78A /* Extensions.swift */,
@@ -323,7 +340,7 @@
 				TargetAttributes = {
 					6086E2A61D9133A50067A8B5 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7VJCA99LU5;
+						DevelopmentTeam = 4PF93A4DYX;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -441,19 +458,22 @@
 				6074D2771DBDFE35000F2285 /* SwiftNotice.swift in Sources */,
 				6023A9AF1DAACD9C009810EF /* SettingsViewController.swift in Sources */,
 				6028038A1DA031E200055D42 /* BrowseSourcesTableViewController.swift in Sources */,
-				60B226201DCA887F00B74B57 /* SocketIOManager.swift in Sources */,
+				60B226201DCA887F00B74B57 /* VolumioIOManager.swift in Sources */,
 				60E781A11DABE76300C48A43 /* FolderTableViewCell.swift in Sources */,
 				602803901DA25CF500055D42 /* QueueTableViewController.swift in Sources */,
 				602803931DA27DE500055D42 /* TrackTableViewCell.swift in Sources */,
 				606223831DE5A02400DD1D20 /* BrowseActions.swift in Sources */,
 				60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */,
 				605743A91DB143A10087F363 /* SourceObject.swift in Sources */,
+				0961213D1E3120B70073D7C8 /* Player.swift in Sources */,
 				6074D2821DBE5125000F2285 /* BrowseFolderTableViewController.swift in Sources */,
 				606D923D1DB4D3BA00DBD78A /* PluginTableViewCell.swift in Sources */,
 				60A7B7A01DF1BAB50095A27C /* PlaylistActions.swift in Sources */,
 				606D923B1DB4C80300DBD78A /* PluginObject.swift in Sources */,
 				60E377941DF2F73C00123663 /* SearchVolumioViewController.swift in Sources */,
+				0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */,
 				607ADC701DBF42680090F038 /* QueueTableViewCell.swift in Sources */,
+				4C20174B1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift in Sources */,
 				606D923F1DB4D4FD00DBD78A /* Extensions.swift in Sources */,
 				60E1D5D91DD0D10D00DAED54 /* PlaylistAddViewController.swift in Sources */,
 				60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */,
@@ -464,9 +484,9 @@
 				6074D2731DBB899C000F2285 /* BrowseSearchTableViewController.swift in Sources */,
 				606223871DE5B0F800DD1D20 /* QueueActions.swift in Sources */,
 				60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */,
+				4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */,
 				60EC70511DC22A59009D0F61 /* SwipeLeft.swift in Sources */,
 				6074D2751DBB9273000F2285 /* SearchResultObject.swift in Sources */,
-				09EBB60B1E254CD90081654E /* SocketIOManagerNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,7 +606,7 @@
 			baseConfigurationReference = C89A0FB8277543F8A492D6E8 /* Pods-Volumio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				DEVELOPMENT_TEAM = 4PF93A4DYX;
 				INFOPLIST_FILE = "$(SRCROOT)/Volumio/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -602,7 +622,7 @@
 			baseConfigurationReference = 2C8907F5DE990FDB9081F117 /* Pods-Volumio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7VJCA99LU5;
+				DEVELOPMENT_TEAM = 4PF93A4DYX;
 				INFOPLIST_FILE = "$(SRCROOT)/Volumio/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

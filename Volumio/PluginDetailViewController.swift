@@ -28,12 +28,12 @@ class PluginDetailViewController: FormViewController {
                 $0.title = localizedStatusTitle
                 $0.value = plugin.enabled == 1
                 }.onChange { [weak self] row in
-                    guard let plugin = self?.plugin,
-                          let name = plugin.name,
-                          let category = plugin.category
+                    guard let plugin = self?.plugin
+                        else { return }
+                    guard let name = plugin.name, let category = plugin.category
                         else { return }
                     
-                    SocketIOManager.sharedInstance.togglePlugin(
+                    VolumioIOManager.shared.togglePlugin(
                         name: name,
                         category: category,
                         action: (row.value ?? false) ? "enable" : "disable"

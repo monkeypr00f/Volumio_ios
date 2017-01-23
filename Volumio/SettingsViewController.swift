@@ -32,12 +32,9 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedOpenWebUITitle) {
                 $0.title = $0.tag
                 }.onCellSelection {(cell, row) in
-                    UIApplication.shared.open(
-                        // FIXME: use actual player url, different players have different urls 
-                        URL(string: "http://volumio.local")!,
-                        options: [:],
-                        completionHandler: nil
-                    )
+                    guard let playerURL = VolumioIOManager.shared.currentPlayer?.url
+                        else { return }
+                    UIApplication.shared.open(playerURL, options: [:], completionHandler: nil)
                 }
             
 //            <<< ButtonRow("Network") { (row: ButtonRow) -> Void in
@@ -58,7 +55,8 @@ class SettingsViewController: FormViewController {
             <<< ButtonRow(localizedChangePlayerTitle) {
                 $0.title = $0.tag
                 }.onCellSelection{ [weak self] (cell, row) in
-                    UserDefaults.standard.removeObject(forKey: "selectedPlayer")
+                    // FIXME: handling of default should be centralized (move to manager?)
+                    Defaults.remove(.selectedPlayer)
                     let controller = self?.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
                     self?.present(controller, animated: true, completion: nil)
             }
@@ -81,19 +79,16 @@ class SettingsViewController: FormViewController {
     
     func shutdownAlert() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(title: localizedShutdownTitle, style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "shutdown")
-            })
-        )
-        alert.addAction(
-            UIAlertAction(title: localizedRebootTitle, style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "reboot")
-            })
-        )
-        alert.addAction(
-            UIAlertAction(title: localizedCancelTitle, style: .cancel, handler: nil)
-        )
+        alert.addAction(UIAlertAction(title: localizedShutdownTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.shutdown()
+        })
+        alert.addAction(UIAlertAction(title: localizedRebootTitle, style: .default) {
+            (action) in
+                VolumioIOManager.shared.reboot()
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel, handler: nil))
+        
         present(alert, animated: true, completion: nil)
     }
 

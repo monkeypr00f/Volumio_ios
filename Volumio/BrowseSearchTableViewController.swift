@@ -177,8 +177,10 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let play = UITableViewRowAction(
             style: .normal,
             title: localizedPlayTitle
-        ) { action, index in
-            SocketIOManager.sharedInstance.addAndPlay(uri:item.uri!, title: item.title!, service: item.service! )
+        ) { (action, index) in
+            guard let uri = item.uri, let title = item.title, let service = item.service
+                else { return }
+            VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
             tableView.setEditing(false, animated: true)
         }
         play.backgroundColor = UIColor(red: 74.0/255.0, green: 190.0/255.0, blue: 134.0/255.0, alpha: 1)
@@ -186,7 +188,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let more = UITableViewRowAction(
             style: .normal,
             title: localizedMoreTitle
-        ) { action, index in
+        ) { (action, index) in
             self.playlistActions(item: item)
             tableView.setEditing(false, animated: true)
         }
@@ -202,11 +204,9 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
-        guard let text = searchBar.text else {
-            refreshControl.endRefreshing()
-            return
+        if let text = searchBar.text {
+            VolumioIOManager.shared.browseSearch(text: text)
         }
-        SocketIOManager.sharedInstance.browseSearch(text: text)
         refreshControl.endRefreshing()
     }
     
@@ -221,15 +221,16 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         alert.addAction(
             UIAlertAction(title: localizedPlayTitle, style: .default) {
                 (action) in
-                    SocketIOManager.sharedInstance.addAndPlay(
+                    VolumioIOManager.shared.addAndPlay(
                         uri: itemUri,
-                        title: itemTitle, service: itemService
+                        title: itemTitle,
+                        service: itemService
                     )
         })
         alert.addAction(
             UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
                 (action) in
-                    SocketIOManager.sharedInstance.addToQueue(
+                    VolumioIOManager.shared.addToQueue(
                         uri: itemUri,
                         title: itemTitle,
                         service: itemService
@@ -238,7 +239,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         alert.addAction(
             UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
                 (action) in
-                    SocketIOManager.sharedInstance.clearAndPlay(
+                    VolumioIOManager.shared.clearAndPlay(
                         uri: itemUri,
                         title: itemTitle,
                         service: itemService
@@ -251,7 +252,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.pleaseWait()
-        SocketIOManager.sharedInstance.browseSearch(text: searchBar.text!)
+        VolumioIOManager.shared.browseSearch(text: searchBar.text!)
         searchBar.resignFirstResponder()
     }
     

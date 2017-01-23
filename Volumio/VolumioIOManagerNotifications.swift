@@ -1,5 +1,5 @@
 //
-//  SocketIOManagerNotifications.swift
+//  VolumioIOManagerNotifications.swift
 //  Volumio
 //
 //  Created by Michael Baumgärtner on 10.01.17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Notifications posted by SocketIOManager
+// Notifications posted by VolumioIOManager
 
 extension Notification.Name {
     static let connected = Notification.Name("connected")
