@@ -39,8 +39,15 @@ class PlaybackViewController: UIViewController {
     @IBOutlet weak var blurOverlay: UIVisualEffectView!
     
     var counter: Int = 0
+    
     var trackDuration: Int = 0
-    var currentTrack:TrackObject?
+    
+    var currentTrack: TrackObject? {
+        didSet {
+            updateCurrentTrackInfo()
+        }
+    }
+    
     var timer = Timer()
     
     let dropper = Dropper(width: 375, height: 200)
@@ -86,7 +93,7 @@ class PlaybackViewController: UIViewController {
     
     private func registerObservers() {
         NotificationCenter.default.addObserver(self,
-            selector: #selector(getCurrentTrackInfo),
+            selector: #selector(updateCurrentTrackInfo),
             name: .UIApplicationWillEnterForeground,
             object: nil
         )
@@ -117,7 +124,6 @@ class PlaybackViewController: UIViewController {
         clearAllNotice()
         blurOverlay.isHidden = true
         currentTrack = notification.object as? TrackObject
-        getCurrentTrackInfo()
     }
     
     func isOnPlaylist(notification:NSNotification) {
@@ -132,105 +138,99 @@ class PlaybackViewController: UIViewController {
         )
     }
     
-    func getCurrentTrackInfo() {
+    func updateCurrentTrackInfo() {
+        guard let currentTrack = currentTrack else { return }
+
+        // FIXME: Update only ui elements which content has changed
+
+        currentTitle.text = currentTrack.localizedTitle
+        currentArtist.text = currentTrack.localizedArtist
+        currentAlbum.text = currentTrack.localizedAlbum
         
-        if let currentTrackInfo = currentTrack {
+        if let title = currentTrack.title, !title.isEmpty {
             
-            if let title = currentTrackInfo.title, title != "" {
-                currentTitle.text = title
-                
-                if let album = currentTrackInfo.album {
-                    currentAlbum.text = album
-                }
-                
-                if let artist = currentTrackInfo.artist {
-                    currentArtist.text = artist
-                }
-                
-                if let volume = currentTrackInfo.volume {
-                    sliderVolume.value = Float(volume)
-                } else {
-                    VolumioIOManager.shared.setVolume(value: 5)
-                }
-                
-                if let duration = currentTrackInfo.duration {
-                    trackDuration = duration
-                    currentDuration.text = timeFormatted(totalSeconds: duration)
-                    if let seek = currentTrackInfo.seek {
-                        counter = seek
-                        seekValue.text = timeFormatted(totalSeconds: counter/1000)
-                        
-                        let percentage = Float(counter) / (Float(trackDuration) * 1000)
-                        currentProgress.setProgress(percentage, animated: true)
-                    }
-                }
-                
-                if let albumArt = currentTrackInfo.albumArt {
-                
-                    if albumArt.range(of:"http") != nil{
-                        currentAlbumArt.kf.setImage(with: URL(string: albumArt), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                    } else {
-                        if let artist = currentTrackInfo.artist, let album = currentTrackInfo.album {
-                            LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
-                                if let albumUrl = albumUrl {
-                                    DispatchQueue.main.async {
-                                        self.currentAlbumArt.kf.setImage(with:albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                                    }
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    currentAlbumArt.image = UIImage(named: "background")
-                }
-                
-                if let service = currentTrackInfo.service {
-                    
-                    if service == "spop" {
-                        spotifyTrack.isHidden = false
-                    }
-                }
-                
-                if let status = currentTrackInfo.status {
-                    switch status {
-                    case "play":
-                        startTimer()
-                        playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
-                    case "pause":
-                        stopTimer()
-                        playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-                    case "stop":
-                        stopTimer()
-                        playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-                    default:
-                        stopTimer()
-                        playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
-                    }
-                }
-                
-                if let repetition = currentTrackInfo.repetition {
-                    switch repetition {
-                    case 1: repeatButton.alpha = 1
-                    default: repeatButton.alpha = 0.3
-                    }
-                } else {
-                    repeatButton.alpha = 0.3
-                }
-                
-                if let shuffle = currentTrackInfo.shuffle {
-                    switch shuffle {
-                    case 1: shuffleButton.alpha = 1
-                    default: shuffleButton.alpha = 0.3
-                    }
-                } else {
-                    shuffleButton.alpha = 0.3
-                }
-            
+            if let volume = currentTrack.volume {
+                sliderVolume.value = Float(volume)
             } else {
-                blurOverlay.isHidden = false
-                
-                noticeTop(localizedQueueIsEmptyNotice)
+                VolumioIOManager.shared.setVolume(value: 5)
             }
+            
+            if let duration = currentTrack.duration {
+                trackDuration = duration
+                currentDuration.text = timeFormatted(totalSeconds: duration)
+                if let seek = currentTrack.seek {
+                    counter = seek
+                    seekValue.text = timeFormatted(totalSeconds: counter/1000)
+                    
+                    let percentage = Float(counter) / (Float(trackDuration) * 1000)
+                    currentProgress.setProgress(percentage, animated: true)
+                }
+            }
+            
+            if let albumArt = currentTrack.albumArt {
+            
+                if albumArt.range(of:"http") != nil{
+                    currentAlbumArt.kf.setImage(with: URL(string: albumArt), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                } else {
+                    if let artist = currentTrack.artist, let album = currentTrack.album {
+                        // FIXME: this is hammering last.fm because this method is called on every state change of Volumio
+                        LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
+                            DispatchQueue.main.async {
+                                self.currentAlbumArt.kf.setImage(with:albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                            }
+                        })
+                    }
+                }
+            } else {
+                currentAlbumArt.image = UIImage(named: "background")
+            }
+            
+            if let service = currentTrack.service {
+                
+                if service == "spop" {
+                    spotifyTrack.isHidden = false
+                }
+            }
+            
+            if let status = currentTrack.status {
+                switch status {
+                case "play":
+                    startTimer()
+                    playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
+                case "pause":
+                    stopTimer()
+                    playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+                case "stop":
+                    stopTimer()
+                    playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+                default:
+                    stopTimer()
+                    playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+                }
+            }
+            
+            if let repetition = currentTrack.repetition {
+                switch repetition {
+                case 1: repeatButton.alpha = 1
+                default: repeatButton.alpha = 0.3
+                }
+            } else {
+                repeatButton.alpha = 0.3
+            }
+            
+            if let shuffle = currentTrack.shuffle {
+                switch shuffle {
+                case 1: shuffleButton.alpha = 1
+                default: shuffleButton.alpha = 0.3
+                }
+            } else {
+                shuffleButton.alpha = 0.3
+            }
+        
+        } else {
+            blurOverlay.isHidden = false
+            
+            noticeTop(localizedQueueIsEmptyNotice)
         }
     }
 
@@ -270,24 +270,18 @@ class PlaybackViewController: UIViewController {
         currentProgress.setProgress(percentage, animated: true)
     }
     
-    func sliderValueDidChanged(slider: UISlider) {
-        print(slider.value)
-    }
-    
     @IBAction func pressPlay(_ sender: UIButton) {
+        guard let currentTrack = VolumioIOManager.shared.currentTrack else { return }
         
-        if let currentTrackInfo = VolumioIOManager.shared.currentTrack {
-            switch currentTrackInfo.status! {
-            case "play":
-                VolumioIOManager.shared.pause()
-            case "pause":
-                VolumioIOManager.shared.play()
-            case "stop":
-                VolumioIOManager.shared.play()
-            default:
-                VolumioIOManager.shared.stop()
-            }
-            getCurrentTrackInfo()
+        switch currentTrack.status {
+        case .some("play"):
+            VolumioIOManager.shared.pause()
+        case .some("pause"):
+            VolumioIOManager.shared.play()
+        case .some("stop"):
+            VolumioIOManager.shared.play()
+        default:
+            VolumioIOManager.shared.stop()
         }
     }
     

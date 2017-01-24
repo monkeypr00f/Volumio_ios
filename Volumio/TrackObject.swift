@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class TrackObject: Mappable {
+class TrackObject: Mappable, Item {
     var type: ItemType = .track
 
     var title: String?
@@ -16,15 +16,17 @@ class TrackObject: Mappable {
     var artist: String?
     var album: String?
     var albumArt: String?
+    
+    var uri: String?
+    var service: String?
+
     var volume: Int?
     var seek: Int?
     var duration: Int?
-    var uri: String?
     var status: String?
     var repetition: Int?
     var shuffle: Int?
     var consume: Int?
-    var service: String?
     var position: Int?
     
     required init?(map: Map) {

@@ -101,10 +101,8 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         if item.type == .song {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             
-            cell.trackTitle.text = item.title ?? ""
-            let artist = item.artist ?? ""
-            let album = item.album ?? ""
-            cell.trackArtist.text = "\(artist) - \(album)"
+            cell.trackTitle.text = item.localizedTitle
+            cell.trackArtist.text = item.localizedArtistAndAlbum
             
             cell.trackImage.image = nil // TODO: quickfix for cell reuse
 

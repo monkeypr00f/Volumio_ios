@@ -8,13 +8,15 @@
 
 import ObjectMapper
 
-class LibraryObject: Mappable {
+class LibraryObject: Mappable, Item {
     var type: ItemType = .unknown
     
     var title: String?
+    var name: String?
     var artist: String?
     var album: String?
     var albumArt: String?
+    
     var uri: String?
     var service: String?
     

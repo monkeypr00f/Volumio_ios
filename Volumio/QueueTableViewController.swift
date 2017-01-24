@@ -123,14 +123,8 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
         let track = queue[indexPath.row]
         
-        cell.trackArtist.text = "" // TODO: quickfix for cell reuse
-
-        cell.trackTitle.text = track.name ?? ""
-        if let artist = track.artist,
-            let album = track.album {
-            // TODO: refactor string formatting to avoid code duplication
-            cell.trackArtist.text = "\(artist) - \(album)"            
-        }
+        cell.trackTitle.text = track.localizedTitle
+        cell.trackArtist.text = track.localizedArtistAndAlbum
         
         cell.trackPosition.text = "\(indexPath.row + 1)"
                 

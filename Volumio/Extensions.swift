@@ -11,6 +11,16 @@ import UIKit
 class Extensions: NSObject {
 }
 
+// MARK: - Swift
+
+extension String {
+    
+    /// Returns true if the specified string contains only whitespace characters or is empty.
+    var isBlank: Bool {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty
+    }
+}
+
 // MARK: - Foundation
 
 extension Collection where Indices.Iterator.Element == Index {

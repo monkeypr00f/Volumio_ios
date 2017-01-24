@@ -192,10 +192,8 @@ class BrowseFolderTableViewController: UITableViewController,
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             let track = sourceLibrary[indexPath.row]
             
-            cell.trackTitle.text = track.title ?? ""
-            let artist = track.artist ?? ""
-            let album = track.album ?? ""
-            cell.trackArtist.text = "\(artist) - \(album)"
+            cell.trackTitle.text = track.localizedTitle
+            cell.trackArtist.text = track.localizedArtistAndAlbum
             
             cell.trackImage.image = nil // TODO: quickfix for cell reuse
             
