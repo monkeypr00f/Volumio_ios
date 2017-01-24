@@ -171,10 +171,10 @@ class PlaybackViewController: UIViewController {
                         currentAlbumArt.kf.setImage(with: URL(string: albumArt), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                     } else {
                         if let artist = currentTrackInfo.artist, let album = currentTrackInfo.album {
-                            LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
+                            LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
                                 if let albumUrl = albumUrl {
                                     DispatchQueue.main.async {
-                                        self.currentAlbumArt.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                                        self.currentAlbumArt.kf.setImage(with:albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                                     }
                                 }
                             })

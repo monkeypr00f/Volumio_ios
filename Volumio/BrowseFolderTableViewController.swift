@@ -201,11 +201,11 @@ class BrowseFolderTableViewController: UITableViewController,
                 cell.trackImage.contentMode = .scaleAspectFill
                 cell.trackImage.kf.setImage(with: URL(string: track.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
             } else {
-                LastFmManager.sharedInstance.getAlbumArt(artist: track.artist!, album: track.album!, completionHandler: { (albumUrl) in
+                LastFMService.shared.albumGetImageURL(artist: track.artist!, album: track.album!, completion: { (albumUrl) in
                     if let albumUrl = albumUrl {
                         DispatchQueue.main.async {
                             cell.trackImage.contentMode = .scaleAspectFill
-                            cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                            cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                         }
                     }
                 })

@@ -113,11 +113,11 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             } else {
                 
                 if let artist = item.artist, let album = item.album {
-                    LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
+                    LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
                         if let albumUrl = albumUrl {
                             DispatchQueue.main.async {
                                 cell.trackImage.contentMode = .scaleAspectFill
-                                cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                                cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                             }
                         }
                     })
