@@ -2,6 +2,7 @@
 //  UserDefaults.swift
 //
 //  Created by Michael Baumgärtner on 25.11.16.
+//  Copyright © 2016 Michael Baumgärtner. All rights reserved.
 //  Based on https://github.com/radex/SwiftyUserDefaults.
 //
 
