@@ -12,9 +12,9 @@ class BrowseFolderTableViewController: UITableViewController,
     BrowseActionsDelegate, PlaylistActionsDelegate
 {
     
+    var serviceType : ServiceType!
     var serviceName : String!
     var serviceUri : String!
-    var serviceType : String!
     var serviceService : String!
     
     var browseHeaderView: BrowseActions?
@@ -188,7 +188,7 @@ class BrowseFolderTableViewController: UITableViewController,
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        if sourceLibrary[indexPath.row].type == "song" {
+        if sourceLibrary[indexPath.row].type == .song {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             let track = sourceLibrary[indexPath.row]
             
@@ -203,6 +203,7 @@ class BrowseFolderTableViewController: UITableViewController,
                 cell.trackImage.contentMode = .scaleAspectFill
                 cell.trackImage.kf.setImage(with: URL(string: track.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
             } else {
+                // FIXME: this will fail for songs without artist or album field
                 LastFMService.shared.albumGetImageURL(artist: track.artist!, album: track.album!, completion: { (albumUrl) in
                     if let albumUrl = albumUrl {
                         DispatchQueue.main.async {
@@ -214,7 +215,7 @@ class BrowseFolderTableViewController: UITableViewController,
             }
             return cell
          
-        } else if sourceLibrary[indexPath.row].type == "mywebradio" || sourceLibrary[indexPath.row].type == "webradio" {
+        } else if sourceLibrary[indexPath.row].type.isRadio {
             let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
             let folder = sourceLibrary[indexPath.row]
             
@@ -228,7 +229,7 @@ class BrowseFolderTableViewController: UITableViewController,
             }
             return cell
             
-        } else if sourceLibrary[indexPath.row].type == "title" {
+        } else if sourceLibrary[indexPath.row].type == .title {
             let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
             let folder = sourceLibrary[indexPath.row]
             
@@ -279,15 +280,15 @@ class BrowseFolderTableViewController: UITableViewController,
         canEditRowAt indexPath: IndexPath
     ) -> Bool {
         let type = sourceLibrary[indexPath.row].type
-        return type == "song" || serviceType == "playlist"
+        return type == .song || serviceType == .playlist
     }
     
     override func tableView(_ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        if serviceType == "folder" {
+        if serviceType == .folder {
             return browseHeaderView
-        } else if serviceType == "playlist" {
+        } else if serviceType == .playlist {
             return playlistHeaderView
         } else {
             let emptyView = UIView()
@@ -298,7 +299,7 @@ class BrowseFolderTableViewController: UITableViewController,
     override func tableView(_ tableView: UITableView,
         heightForHeaderInSection section: Int
     ) -> CGFloat {
-        if serviceType == "folder" || serviceType == "playlist" {
+        if serviceType == .folder || serviceType == .playlist {
             return 56.0
         } else {
             return 0
@@ -307,7 +308,7 @@ class BrowseFolderTableViewController: UITableViewController,
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let type = sourceLibrary[indexPath.row].type
-        if type == "song" || type == "mywebradio" || type == "webradio" {
+        if type == .song || type.isRadio {
             let item = self.sourceLibrary[indexPath.row]
             songActions(uri: item.uri!, title: item.title!, service: item.service!)
         }
@@ -358,6 +359,7 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     func browseClearAndPlay() {
+        // FIXME: this will fail for "last 100" playlist, because serviceService is nil
         VolumioIOManager.shared.clearAndPlay(
             uri: serviceUri,
             title: serviceName,
@@ -389,11 +391,21 @@ class BrowseFolderTableViewController: UITableViewController,
         if segue.identifier == "segueFolder" {
             guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
             
+            let item = sourceLibrary[indexPath.row] as LibraryObject
+
             let destinationController = segue.destination as! BrowseFolderTableViewController
-            destinationController.serviceName = sourceLibrary[indexPath.row].title
-            destinationController.serviceUri = sourceLibrary[indexPath.row].uri
-            destinationController.serviceType = sourceLibrary[indexPath.row].type
-            destinationController.serviceService = sourceLibrary[indexPath.row].service
+
+            switch item.type {
+            case .folder:
+                destinationController.serviceType = .folder
+            case .playlist:
+                destinationController.serviceType = .playlist
+            default:
+                destinationController.serviceType = .generic
+            }
+            destinationController.serviceName = item.title
+            destinationController.serviceUri = item.uri
+            destinationController.serviceService = item.service
         }
     }
     

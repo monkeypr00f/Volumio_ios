@@ -17,7 +17,6 @@ class PluginObject: Mappable {
     var category: String?
     
     required init?(map: Map) {
-        
     }
     
     // Mappable

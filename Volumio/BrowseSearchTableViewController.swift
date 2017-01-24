@@ -48,7 +48,6 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             name: .browseSearch,
             object: nil
         )
-        // FIXME: dead code?
         NotificationCenter.default.addObserver(self,
             selector: #selector(isOnPlaylist(notification:)),
             name: .addedToPlaylist,
@@ -99,7 +98,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
         
-        if item.type == "song" {
+        if item.type == .song {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             
             cell.trackTitle.text = item.title ?? ""
@@ -128,7 +127,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             
             return cell
             
-        } else if item.type == "webradio" || item.type == "mywebradio" {
+        } else if item.type.isRadio {
             let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
             
             cell.folderTitle.text = item.title ?? ""
@@ -262,16 +261,27 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "browseFolder" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
                 
             let itemList = sourcesList[indexPath.section]
-            let item = itemList.items![indexPath.row] as LibraryObject
+            let items = itemList.items
+            if let items = items {
+                let item = items[indexPath.row] as LibraryObject
             
-            let destinationController = segue.destination as! BrowseFolderTableViewController
-            destinationController.serviceName = item.title
-            destinationController.serviceUri = item.uri
-            destinationController.serviceType = item.type
-            destinationController.serviceService = item.service
+                let destinationController = segue.destination as! BrowseFolderTableViewController
+
+                switch item.type {
+                case .folder:
+                    destinationController.serviceType = .folder
+                case .playlist:
+                    destinationController.serviceType = .playlist
+                default:
+                    destinationController.serviceType = .generic
+                }
+                destinationController.serviceName = item.title
+                destinationController.serviceUri = item.uri
+                destinationController.serviceService = item.service
+            }
         }
     }
 }

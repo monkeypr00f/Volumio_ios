@@ -9,6 +9,8 @@
 import ObjectMapper
 
 class TrackObject: Mappable {
+    var type: ItemType = .track
+
     var title: String?
     var name: String?
     var artist: String?
@@ -26,7 +28,6 @@ class TrackObject: Mappable {
     var position: Int?
     
     required init?(map: Map) {
-        
     }
     
     // Mappable
