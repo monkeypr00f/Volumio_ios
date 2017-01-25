@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213A1E310DB60073D7C8 /* UserDefaults.swift */; };
 		0961213D1E3120B70073D7C8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213C1E3120B70073D7C8 /* Player.swift */; };
+		097522D01E38A9D100A94A7A /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522CF1E38A9D100A94A7A /* Logging.swift */; };
+		097522D71E38AA2600A94A7A /* BundleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522D61E38AA2600A94A7A /* BundleInfo.swift */; };
+		097522DE1E38AC9F00A94A7A /* Application.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DB1E38AC9F00A94A7A /* Application.xcconfig */; };
+		097522DF1E38AC9F00A94A7A /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DC1E38AC9F00A94A7A /* Debug.xcconfig */; };
+		097522E01E38AC9F00A94A7A /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DD1E38AC9F00A94A7A /* Release.xcconfig */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
@@ -71,6 +76,11 @@
 /* Begin PBXFileReference section */
 		0961213A1E310DB60073D7C8 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		0961213C1E3120B70073D7C8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		097522CF1E38A9D100A94A7A /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		097522D61E38AA2600A94A7A /* BundleInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleInfo.swift; sourceTree = "<group>"; };
+		097522DB1E38AC9F00A94A7A /* Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Application.xcconfig; path = VolumioConfigs/Application.xcconfig; sourceTree = "<group>"; };
+		097522DC1E38AC9F00A94A7A /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = VolumioConfigs/Debug.xcconfig; sourceTree = "<group>"; };
+		097522DD1E38AC9F00A94A7A /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = VolumioConfigs/Release.xcconfig; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -148,6 +158,16 @@
 			name = VolumioIO;
 			sourceTree = "<group>";
 		};
+		097522DA1E38AC6600A94A7A /* VolumioConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				097522DB1E38AC9F00A94A7A /* Application.xcconfig */,
+				097522DC1E38AC9F00A94A7A /* Debug.xcconfig */,
+				097522DD1E38AC9F00A94A7A /* Release.xcconfig */,
+			);
+			name = VolumioConfigs;
+			sourceTree = "<group>";
+		};
 		6005E4E91D99168A000B80AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,10 +241,12 @@
 		6072D0331DAD31A5006D7E45 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
-				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
-				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
+				097522D61E38AA2600A94A7A /* BundleInfo.swift */,
 				606D923E1DB4D4FD00DBD78A /* Extensions.swift */,
+				097522CF1E38A9D100A94A7A /* Logging.swift */,
+				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
+				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
+				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -245,9 +267,10 @@
 			isa = PBXGroup;
 			children = (
 				6086E2A91D9133A50067A8B5 /* Volumio */,
-				6086E2A81D9133A50067A8B5 /* Products */,
-				B86260B29102044B72DD60D9 /* Pods */,
+				097522DA1E38AC6600A94A7A /* VolumioConfigs */,
 				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
+				B86260B29102044B72DD60D9 /* Pods */,
+				6086E2A81D9133A50067A8B5 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -375,9 +398,12 @@
 				6062237E1DE59F9600DD1D20 /* BrowseActions.xib in Resources */,
 				606223851DE5B0E400DD1D20 /* QueueActions.xib in Resources */,
 				09EBB6061E24FF180081654E /* Localizable.strings in Resources */,
+				097522E01E38AC9F00A94A7A /* Release.xcconfig in Resources */,
 				09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */,
 				60A7B7A21DF1BACA0095A27C /* PlaylistActions.xib in Resources */,
 				601424771D916F0C001159B2 /* Assets.xcassets in Resources */,
+				097522DE1E38AC9F00A94A7A /* Application.xcconfig in Resources */,
+				097522DF1E38AC9F00A94A7A /* Debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +476,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */,
+				097522D71E38AA2600A94A7A /* BundleInfo.swift in Sources */,
+				097522D01E38A9D100A94A7A /* Logging.swift in Sources */,
 				603FF51C1DAE3AD2007E1C50 /* PluginsTableViewController.swift in Sources */,
 				606D92451DB677BD00DBD78A /* SelectPlayerTableViewCell.swift in Sources */,
 				60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */,
@@ -508,6 +536,7 @@
 /* Begin XCBuildConfiguration section */
 		6086E2B91D9133A50067A8B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 097522DC1E38AC9F00A94A7A /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -559,6 +588,7 @@
 		};
 		6086E2BA1D9133A50067A8B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 097522DD1E38AC9F00A94A7A /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

@@ -83,7 +83,7 @@
 "QUEUE_CONSUME" = "Consume";
 
 /* removed item from queue */
-"QUEUE_REMOVED_ITEM" = "%@ removed";
+"QUEUE_REMOVED_ITEM" = "Removed";
 
 /* [toggle](short) queue repeat */
 "QUEUE_REPEAT" = "Repeat";
