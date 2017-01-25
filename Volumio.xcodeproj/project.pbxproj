@@ -14,6 +14,7 @@
 		097522DE1E38AC9F00A94A7A /* Application.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DB1E38AC9F00A94A7A /* Application.xcconfig */; };
 		097522DF1E38AC9F00A94A7A /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DC1E38AC9F00A94A7A /* Debug.xcconfig */; };
 		097522E01E38AC9F00A94A7A /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DD1E38AC9F00A94A7A /* Release.xcconfig */; };
+		097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E21E38CEA100A94A7A /* LastFMService.swift */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
@@ -49,7 +50,6 @@
 		60AE8C7D1DBA4C5900B1E0C8 /* NetworksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */; };
 		60AE8C7F1DBA4F0900B1E0C8 /* NetworkObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */; };
 		60B226201DCA887F00B74B57 /* VolumioIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */; };
-		60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */; };
 		60E1D5D91DD0D10D00DAED54 /* PlaylistAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E1D5D81DD0D10D00DAED54 /* PlaylistAddViewController.swift */; };
 		60E377921DF2F70700123663 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E377911DF2F70700123663 /* TabBarViewController.swift */; };
 		60E377941DF2F73C00123663 /* SearchVolumioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E377931DF2F73C00123663 /* SearchVolumioViewController.swift */; };
@@ -81,6 +81,7 @@
 		097522DB1E38AC9F00A94A7A /* Application.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Application.xcconfig; path = VolumioConfigs/Application.xcconfig; sourceTree = "<group>"; };
 		097522DC1E38AC9F00A94A7A /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = VolumioConfigs/Debug.xcconfig; sourceTree = "<group>"; };
 		097522DD1E38AC9F00A94A7A /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = VolumioConfigs/Release.xcconfig; sourceTree = "<group>"; };
+		097522E21E38CEA100A94A7A /* LastFMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMService.swift; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -121,7 +122,6 @@
 		60AE8C7C1DBA4C5900B1E0C8 /* NetworksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NetworksTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60AE8C7E1DBA4F0900B1E0C8 /* NetworkObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkObject.swift; sourceTree = "<group>"; };
 		60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolumioIOManager.swift; sourceTree = "<group>"; };
-		60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFmManager.swift; sourceTree = "<group>"; };
 		60E1D5D81DD0D10D00DAED54 /* PlaylistAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaylistAddViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		60E377911DF2F70700123663 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		60E377931DF2F73C00123663 /* SearchVolumioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SearchVolumioViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -168,6 +168,14 @@
 			name = VolumioConfigs;
 			sourceTree = "<group>";
 		};
+		097522E11E38CE9600A94A7A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				097522E21E38CEA100A94A7A /* LastFMService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		6005E4E91D99168A000B80AE /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,7 +206,7 @@
 		6014247B1D9173C4001159B2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				60BC9ED71D9D148D00AEBBFF /* LastFmManager.swift */,
+				097522E11E38CE9600A94A7A /* Services */,
 				4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */,
 				60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */,
 				4C20174A1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift */,
@@ -479,8 +487,8 @@
 				097522D71E38AA2600A94A7A /* BundleInfo.swift in Sources */,
 				097522D01E38A9D100A94A7A /* Logging.swift in Sources */,
 				603FF51C1DAE3AD2007E1C50 /* PluginsTableViewController.swift in Sources */,
+				097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */,
 				606D92451DB677BD00DBD78A /* SelectPlayerTableViewCell.swift in Sources */,
-				60BC9ED81D9D148D00AEBBFF /* LastFmManager.swift in Sources */,
 				6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */,
 				603FF51E1DAE3CBD007E1C50 /* PluginDetailViewController.swift in Sources */,
 				6074D2771DBDFE35000F2285 /* SwiftNotice.swift in Sources */,
