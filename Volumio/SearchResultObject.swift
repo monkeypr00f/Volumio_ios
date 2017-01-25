@@ -13,7 +13,6 @@ class SearchResultObject: Mappable {
     var title: String?
     
     required init?(map: Map) {
-        
     }
     
     // Mappable

@@ -15,6 +15,8 @@
 		097522DF1E38AC9F00A94A7A /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DC1E38AC9F00A94A7A /* Debug.xcconfig */; };
 		097522E01E38AC9F00A94A7A /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 097522DD1E38AC9F00A94A7A /* Release.xcconfig */; };
 		097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E21E38CEA100A94A7A /* LastFMService.swift */; };
+		097522E61E38D8DE00A94A7A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E51E38D8DE00A94A7A /* Item.swift */; };
+		097522E81E38D8E800A94A7A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E71E38D8E800A94A7A /* Service.swift */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
@@ -82,6 +84,8 @@
 		097522DC1E38AC9F00A94A7A /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = VolumioConfigs/Debug.xcconfig; sourceTree = "<group>"; };
 		097522DD1E38AC9F00A94A7A /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = VolumioConfigs/Release.xcconfig; sourceTree = "<group>"; };
 		097522E21E38CEA100A94A7A /* LastFMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMService.swift; sourceTree = "<group>"; };
+		097522E51E38D8DE00A94A7A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		097522E71E38D8E800A94A7A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -180,7 +184,9 @@
 			isa = PBXGroup;
 			children = (
 				0961213E1E3121140073D7C8 /* VolumioIO */,
+				097522E51E38D8DE00A94A7A /* Item.swift */,
 				0961213C1E3120B70073D7C8 /* Player.swift */,
+				097522E71E38D8E800A94A7A /* Service.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				6086E2AB1D9133A50067A8B5 /* AppDelegate.swift in Sources */,
 				097522D71E38AA2600A94A7A /* BundleInfo.swift in Sources */,
 				097522D01E38A9D100A94A7A /* Logging.swift in Sources */,
+				097522E61E38D8DE00A94A7A /* Item.swift in Sources */,
 				603FF51C1DAE3AD2007E1C50 /* PluginsTableViewController.swift in Sources */,
 				097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */,
 				606D92451DB677BD00DBD78A /* SelectPlayerTableViewCell.swift in Sources */,
@@ -526,6 +533,7 @@
 				607ADC701DBF42680090F038 /* QueueTableViewCell.swift in Sources */,
 				4C20174B1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift in Sources */,
 				606D923F1DB4D4FD00DBD78A /* Extensions.swift in Sources */,
+				097522E81E38D8E800A94A7A /* Service.swift in Sources */,
 				60E1D5D91DD0D10D00DAED54 /* PlaylistAddViewController.swift in Sources */,
 				60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */,
 				608275711DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift in Sources */,

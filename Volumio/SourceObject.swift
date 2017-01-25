@@ -15,7 +15,6 @@ class SourceObject: Mappable {
     var uri: String?
     
     required init?(map: Map) {
-        
     }
     
     // Mappable
