@@ -349,6 +349,7 @@
 				15AD8FBD9ABC016773436C82 /* [CP] Copy Pods Resources */,
 				602803BE1DA2C0CF00055D42 /* Embed Watch Content */,
 				60AE8C7B1DBA3B4100B1E0C8 /* ShellScript */,
+				097522E41E38D79800A94A7A /* Run Script (Create warnings for TODO and FIXME comments) */,
 			);
 			buildRules = (
 			);
@@ -418,6 +419,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		097522E41E38D79800A94A7A /* Run Script (Create warnings for TODO and FIXME comments) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script (Create warnings for TODO and FIXME comments)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" -type f \\( -path \"${SRCROOT}/Volumio*\" \\) \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
 		15AD8FBD9ABC016773436C82 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

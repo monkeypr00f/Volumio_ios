@@ -197,6 +197,8 @@ class BrowseFolderTableViewController: UITableViewController,
             let album = track.album ?? ""
             cell.trackArtist.text = "\(artist) - \(album)"
             
+            cell.trackImage.image = nil // TODO: quickfix for cell reuse
+            
             if track.albumArt?.range(of:"http") != nil{
                 cell.trackImage.contentMode = .scaleAspectFill
                 cell.trackImage.kf.setImage(with: URL(string: track.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
