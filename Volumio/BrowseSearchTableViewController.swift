@@ -48,7 +48,6 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             name: .browseSearch,
             object: nil
         )
-        // FIXME: dead code?
         NotificationCenter.default.addObserver(self,
             selector: #selector(isOnPlaylist(notification:)),
             name: .addedToPlaylist,
@@ -99,25 +98,25 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
         
-        if item.type == "song" {
+        if item.type == .song {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             
-            cell.trackTitle.text = item.title ?? ""
-            let artist = item.artist ?? ""
-            let album = item.album ?? ""
-            cell.trackArtist.text = "\(artist) - \(album)"
+            cell.trackTitle.text = item.localizedTitle
+            cell.trackArtist.text = item.localizedArtistAndAlbum
             
+            cell.trackImage.image = nil // TODO: quickfix for cell reuse
+
             if item.albumArt?.range(of:"http") != nil{
                 cell.trackImage.contentMode = .scaleAspectFill
                 cell.trackImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
             } else {
                 
                 if let artist = item.artist, let album = item.album {
-                    LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
+                    LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
                         if let albumUrl = albumUrl {
                             DispatchQueue.main.async {
                                 cell.trackImage.contentMode = .scaleAspectFill
-                                cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                                cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                             }
                         }
                     })
@@ -126,7 +125,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             
             return cell
             
-        } else if item.type == "webradio" || item.type == "mywebradio" {
+        } else if item.type.isRadio {
             let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
             
             cell.folderTitle.text = item.title ?? ""
@@ -260,16 +259,27 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "browseFolder" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
                 
             let itemList = sourcesList[indexPath.section]
-            let item = itemList.items![indexPath.row] as LibraryObject
+            let items = itemList.items
+            if let items = items {
+                let item = items[indexPath.row] as LibraryObject
             
-            let destinationController = segue.destination as! BrowseFolderTableViewController
-            destinationController.serviceName = item.title
-            destinationController.serviceUri = item.uri
-            destinationController.serviceType = item.type
-            destinationController.serviceService = item.service
+                let destinationController = segue.destination as! BrowseFolderTableViewController
+
+                switch item.type {
+                case .folder:
+                    destinationController.serviceType = .folder
+                case .playlist:
+                    destinationController.serviceType = .playlist
+                default:
+                    destinationController.serviceType = .generic
+                }
+                destinationController.serviceName = item.title
+                destinationController.serviceUri = item.uri
+                destinationController.serviceService = item.service
+            }
         }
     }
 }

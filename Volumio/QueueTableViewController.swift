@@ -96,7 +96,11 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         VolumioIOManager.shared.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop(self.localizedRemovedNotice, autoClear: true, autoClearTime: 3)
+            self.noticeTop(
+                self.localizedRemovedNotice,
+                autoClear: true,
+                autoClearTime: 3
+            )
         })
         
     }
@@ -119,11 +123,8 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
         let track = queue[indexPath.row]
         
-        cell.trackTitle.text = track.name ?? ""
-        if let artist = track.artist,
-            let album = track.album {
-            cell.trackArtist.text = "\(artist) - \(album)"            
-        }
+        cell.trackTitle.text = track.localizedTitle
+        cell.trackArtist.text = track.localizedArtistAndAlbum
         
         cell.trackPosition.text = "\(indexPath.row + 1)"
                 
@@ -135,15 +136,16 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
             cell.backgroundColor = UIColor.white
         }
         
-        
+        cell.trackImage.image = nil // TODO: quickfix for cell reuse
+
         if track.albumArt!.range(of:"http") != nil{
             cell.trackImage.kf.setImage(with: URL(string: (track.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
         } else {
             if let artist = track.artist, let album = track.album {
-                LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
+                LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
                     if let albumUrl = albumUrl {
                         DispatchQueue.main.async {
-                            cell.trackImage.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                            cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
                         }
                     }
                 })

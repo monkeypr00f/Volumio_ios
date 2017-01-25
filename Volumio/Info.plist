@@ -67,5 +67,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>AppLogLevel</key>
+	<string>${APP_LOG_LEVEL}</string>
 </dict>
 </plist>

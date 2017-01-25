@@ -84,7 +84,7 @@
 "QUEUE_CONSUME" = "Verarbeiten";
 
 /* removed item from queue */
-"QUEUE_REMOVED_ITEM" = "%@ entfernt";
+"QUEUE_REMOVED_ITEM" = "Entfernt";
 
 /* [toggle](short) queue repeat */
 "QUEUE_REPEAT" = "Wiederholen";

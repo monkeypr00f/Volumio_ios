@@ -90,10 +90,18 @@ class BrowseSourcesTableViewController: UITableViewController {
         if segue.identifier == "showFolder" {
             guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
             
+            let item = sourcesList[indexPath.row]
+            
             let destinationController = segue.destination as! BrowseFolderTableViewController
-            destinationController.serviceName = sourcesList[indexPath.row].name
-            destinationController.serviceUri = sourcesList[indexPath.row].uri
-            destinationController.serviceType = sourcesList[indexPath.row].plugin_type
+
+            switch item.plugin_type {
+            case .some("music_service"):
+                destinationController.serviceType = .music_service
+            default:
+                destinationController.serviceType = .generic
+            }
+            destinationController.serviceName = item.name
+            destinationController.serviceUri = item.uri
         }
     }
 

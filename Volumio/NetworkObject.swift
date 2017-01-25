@@ -18,7 +18,6 @@ class NetworkObject: Mappable {
     var type: String?
     
     required init?(map: Map) {
-        
     }
     
     // Mappable
