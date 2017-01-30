@@ -206,6 +206,77 @@ open class Logger {
     
 }
 
+extension Logger {
+
+    public func entry(_ sender: Any, message items: Any...,
+        file: String? = #file,
+        line: Int? = #line,
+        function: String? = #function
+    ) {
+        applog(.info, sender, items, file: file, line: line, function: function)
+    }
+    
+    public func exit(_ sender: Any, message items: Any...,
+        file: String? = #file,
+        line: Int? = #line,
+        function: String? = #function
+    ) {
+        applog(.info, sender, items, file: file, line: line, function: function)
+    }
+    
+    public func exitWarn(_ sender: Any, message items: Any...,
+        file: String? = #file,
+        line: Int? = #line,
+        function: String? = #function
+    ) {
+        applog(.warn, sender, items, file: file, line: line, function: function)
+    }
+    
+    public func exitFail(_ sender: Any, message items: Any...,
+        file: String? = #file,
+        line: Int? = #line,
+        function: String? = #function
+    ) {
+        applog(.error, sender, items, file: file, line: line, function: function)
+    }
+    
+    public func abort(_ sender: Any, message items: Any...,
+        file: String? = #file,
+        line: Int? = #line,
+        function: String? = #function
+    ) {
+        applog(.error, sender, items, file: file, line: line, function: function)
+    }
+    
+    fileprivate func applog(_ level: LogLevel, _ sender: Any? = nil, _ items: [Any],
+        file: String?,
+        line: Int?,
+        function: String?
+    ) {
+        if items.count > 0 {
+            let i = items.map{String(describing: $0)}.joined(separator: " ")
+            if let sender = sender {
+                let m = "\(type(of: sender)) \(i)"
+                self.log(level: level, message: m, file: file, line: line, function: function)
+            }
+            else {
+                let m = "\(i)"
+                self.log(level: level, message: m, file: file, line: line, function: function)
+            }
+        }
+        else {
+            if let sender = sender {
+                let m = "\(type(of: sender))"
+                self.log(level: level, message: m, file: file, line: line, function: function)
+            }
+            else {
+                self.log(level: level, message: "", file: file, line: line, function: function)
+            }
+        }
+    }
+    
+}
+
 // MARK: -
 
 extension Logger {

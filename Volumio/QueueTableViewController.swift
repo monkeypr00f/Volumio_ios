@@ -7,10 +7,13 @@
 //
 
 import UIKit
-import Kingfisher
-import Fabric
 
-class QueueTableViewController: UITableViewController, QueueActionsDelegate {
+import Kingfisher
+
+/**
+ Controller for queue table view. Inherits automatic connection handling from `VolumioTableViewController`.
+ */
+class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate {
     
     var queue : [TrackObject] = []
     var headerView: QueueActions?
@@ -18,21 +21,13 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     
     var track : TrackObject!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        registerObservers()
-
-        VolumioIOManager.shared.getState()
-    }
-
+    // MARK: - View Callbacks
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         localize()
 
-        pleaseWait()
-        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         self.refreshControl?.addTarget(self,
@@ -40,40 +35,36 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
             for: UIControlEvents.valueChanged
         )
         
-        // HeaderView
         let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 56.0)
         headerView = QueueActions(frame: frame)
         headerView?.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerObserver(forName: .currentQueue) { (notification) in
+            self.getQueue(notification: notification)
+        }
+        registerObserver(forName: .currentTrack) { (notification) in
+            self.getCurrentTrack(notification: notification)
+        }
+        registerObserver(forName: .removedfromQueue) { (notification) in
+            self.removeFromQueue(notification: notification)
+        }
+        
+        pleaseWait()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         clearAllNotice()
-        
-        NotificationCenter.default.removeObserver(self)
     }
 
-    private func registerObservers() {
-        
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(getQueue(notification:)),
-            name: .currentQueue,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(getCurrentTrack(notification:)),
-            name: .currentTrack,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(removeFromQueue(notification:)),
-            name: .removedfromQueue,
-            object: nil
-        )
-    }
+    // MARK: -
     
-    func getQueue(notification: NSNotification) {
+    func getQueue(notification: Notification) {
         guard let sources = notification.object as? [TrackObject] else { return }
         
         queue = sources
@@ -81,7 +72,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         clearAllNotice()
     }
     
-    func getCurrentTrack(notification: NSNotification) {
+    func getCurrentTrack(notification: Notification) {
         if let currentTrack = notification.object as? TrackObject,
            let position = currentTrack.position
         {
@@ -92,7 +83,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         VolumioIOManager.shared.getQueue()
     }
     
-    func removeFromQueue(notification: NSNotification) {
+    func removeFromQueue(notification: Notification) {
         VolumioIOManager.shared.getQueue()
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {

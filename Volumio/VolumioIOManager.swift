@@ -33,11 +33,14 @@ class VolumioIOManager: NSObject {
     var isConnected: Bool {
         return socket != nil && socket!.status == .connected
     }
+    var isConnecting: Bool {
+        return socket != nil && socket!.status == .connecting
+    }
     
     // MARK: - manage connection
     
     /**
-        Establishes a connection to the player.
+        Establishes a connection to the player. This is a no-op if this is already done or currently ongoing.
     */
     func establishConnection() {
         guard let socket = socket else { return }
@@ -50,10 +53,6 @@ class VolumioIOManager: NSObject {
             NotificationCenter.default.post(name: .connected, object: nil)
 
             self.getState()
-        }
-        
-        socket.on(.reconnect) { data, ack in
-            NotificationCenter.default.post(name: .disconnected, object: nil)
         }
         
         socket.on(.pushState) { data, ack in
@@ -83,6 +82,20 @@ class VolumioIOManager: NSObject {
     }
     
     /**
+        Connects to the current player.
+    */
+    func connectCurrent() {
+        closeConnection()
+        
+        if let player = currentPlayer {
+            connect(to: player)
+        }
+        else {
+            isDisconnected()
+        }
+    }
+
+    /**
         Connects to the default player.
     */
     func connectDefault() {
@@ -99,16 +112,25 @@ class VolumioIOManager: NSObject {
     /**
         Closes the connection to the player.
     */
+    func disconnect(unsetDefault: Bool = false) {
+        if unsetDefault {
+            Defaults.remove(.selectedPlayer)
+        }
+
+        closeConnection()
+        
+        isDisconnected()
+    }
+    
     func closeConnection() {
         if let socket = socket {
             socket.disconnect()
 
             self.socket = nil
         }
-        currentPlayer = nil
     }
     
-    func isDisconnected() {
+    private func isDisconnected() {
         NotificationCenter.default.post(name: .disconnected, object: nil)
     }
 
@@ -151,7 +173,7 @@ class VolumioIOManager: NSObject {
     }
     
     func getState() {
-        guard let socket = socket else { isDisconnected(); return }
+        guard let socket = socket else { return }
         socket.emit(.getState)
     }
     

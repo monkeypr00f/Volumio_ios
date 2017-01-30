@@ -8,18 +8,14 @@
 
 import UIKit
 
-class PluginsTableViewController: UITableViewController {
+class PluginsTableViewController: UITableViewController, ObservesNotifications {
     
     var pluginsList : [PluginObject] = []
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        VolumioIOManager.shared.getInstalledPlugins()
-        
-        registerObservers()
-    }
 
+    var observers: [AnyObject] = []
+    
+    // MARK: View Callbacks
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,14 +23,37 @@ class PluginsTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        pleaseWait()
-        
         refreshControl?.addTarget(self,
             action: #selector(handleRefresh),
             for: UIControlEvents.valueChanged
         )
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerObserver(forName: .browsePlugins) { (notification) in
+            self.clearAllNotice()
+    
+            guard let plugins = notification.object as? [PluginObject]
+                else { return }
+            self.pluginsList = plugins
+            self.updatePlugins()
+        }
+
+        pleaseWait()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
+            _ = navigationController?.popToRootViewController(animated: animated)
+        }
+        else {
+            VolumioIOManager.shared.getInstalledPlugins()
+        }
+        super.viewDidAppear(animated)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -43,20 +62,10 @@ class PluginsTableViewController: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(updateSources(notification:)),
-            name: .browsePlugins,
-            object: nil
-        )
-    }
-    
-    func updateSources(notification: NSNotification) {
-        guard let sources = notification.object as? [PluginObject] else { return }
-        
-        pluginsList = sources
+    // MARK: - View Update
+
+    func updatePlugins() {
         tableView.reloadData()
-        clearAllNotice()
     }
 
     // MARK: - Table view data source
