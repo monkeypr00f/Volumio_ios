@@ -43,6 +43,8 @@ class VolumioIOManager: NSObject {
         Establishes a connection to the player. This is a no-op if this is already done or currently ongoing.
     */
     func establishConnection() {
+        Log.entry(self, message: "establishes connection on \(socket~?)")
+        
         guard let socket = socket else { return }
         
         socket.connect(timeoutAfter: 10) {
@@ -70,6 +72,8 @@ class VolumioIOManager: NSObject {
         - parameter setDefault: If `true`, stores the specified player as default. Defaults to `false`.
     */
     func connect(to player: Player, setDefault: Bool = false) {
+        Log.entry(self, message: "connects to \(player)")
+
         closeConnection()
         
         if setDefault {
@@ -85,12 +89,14 @@ class VolumioIOManager: NSObject {
         Connects to the current player.
     */
     func connectCurrent() {
-        closeConnection()
+        Log.entry(self, message: "connects to current player")
         
         if let player = currentPlayer {
             connect(to: player)
         }
         else {
+            Log.exit(self, message: "has no current player")
+            closeConnection()
             isDisconnected()
         }
     }
@@ -99,12 +105,14 @@ class VolumioIOManager: NSObject {
         Connects to the default player.
     */
     func connectDefault() {
-        closeConnection()
+        Log.entry(self, message: "connects to default player")
 
         if let player = Defaults[.selectedPlayer] {
             connect(to: player)
         }
         else {
+            Log.exit(self, message: "has no default player")
+            closeConnection()
             isDisconnected()
         }
     }
@@ -113,6 +121,8 @@ class VolumioIOManager: NSObject {
         Closes the connection to the player.
     */
     func disconnect(unsetDefault: Bool = false) {
+        Log.entry(self, message: "disconnects from \(currentPlayer~?)")
+
         if unsetDefault {
             Defaults.remove(.selectedPlayer)
         }
@@ -123,6 +133,8 @@ class VolumioIOManager: NSObject {
     }
     
     func closeConnection() {
+        Log.entry(self, message: "closes connection on \(socket~?)")
+
         if let socket = socket {
             socket.disconnect()
 

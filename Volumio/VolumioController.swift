@@ -48,11 +48,11 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     // MARK: - Volumio Callbacks (default implementations)
     
     func _volumioConnected() {
-        Log.entry(self, message: "Volumio connected")
+        Log.entry(self, message: "- Volumio is connected")
     }
     
     func _volumioDisconnected() {
-        Log.entry(self, message: "Volumio disconnected")
+        Log.entry(self, message: "- Volumio is disconnected")
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
