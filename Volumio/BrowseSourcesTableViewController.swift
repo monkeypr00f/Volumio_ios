@@ -46,11 +46,13 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        pleaseWait()
+
         VolumioIOManager.shared.browseSources()
     
         super.viewDidAppear(animated)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -61,6 +63,15 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     
     func updateSources() {
         tableView.reloadData()
+    }
+
+    // MARK: - Volumio Events
+    
+    override func volumioDisconnected() {
+        super.volumioDisconnected()
+        
+        sourcesList = []
+        updateSources()
     }
 
     // MARK: - Table view data source

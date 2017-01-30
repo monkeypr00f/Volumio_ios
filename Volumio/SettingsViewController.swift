@@ -56,12 +56,6 @@ class SettingsViewController: VolumioFormViewController {
             }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        clearAllNotice()
-        
-        super.viewDidAppear(animated)
-    }
-    
     // MARK: -
     
     func clearImageCache() {

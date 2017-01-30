@@ -43,7 +43,7 @@ class PlaybackViewController: VolumioViewController {
     
     var counter: Int = 0
     var trackDuration: Int = 0
-    var currentTrack:TrackObject?
+    var currentTrack: TrackObject?
     var timer = Timer()
     
     let dropper = Dropper(width: 375, height: 200)
@@ -101,8 +101,12 @@ class PlaybackViewController: VolumioViewController {
                 autoClearTime: 3
             )
         }
-        
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
         pleaseWait()
+        
+        super.viewDidAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
