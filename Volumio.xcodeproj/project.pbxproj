@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0957B6C31E40A3C000D5F1F3 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957B6C21E40A3C000D5F1F3 /* Optional+Unwrap.swift */; };
+		0957B6CA1E41F6B300D5F1F3 /* UIApplication+Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957B6C91E41F6B300D5F1F3 /* UIApplication+Dispatch.swift */; };
 		0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213A1E310DB60073D7C8 /* UserDefaults.swift */; };
 		0961213D1E3120B70073D7C8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0961213C1E3120B70073D7C8 /* Player.swift */; };
 		097522D01E38A9D100A94A7A /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522CF1E38A9D100A94A7A /* Logging.swift */; };
@@ -15,6 +16,7 @@
 		097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E21E38CEA100A94A7A /* LastFMService.swift */; };
 		097522E61E38D8DE00A94A7A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E51E38D8DE00A94A7A /* Item.swift */; };
 		097522E81E38D8E800A94A7A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E71E38D8E800A94A7A /* Service.swift */; };
+		09DA7BEB1E421F5C00EB20EC /* ShowsNotices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */; };
 		09EBB6061E24FF180081654E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6081E24FF180081654E /* Localizable.strings */; };
 		09EBB6131E266D210081654E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09EBB6121E266D210081654E /* LaunchScreen.storyboard */; };
 		4C2017491E26E3E7000A2192 /* VolumioIOEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2017481E26E3E7000A2192 /* VolumioIOEvents.swift */; };
@@ -79,6 +81,7 @@
 
 /* Begin PBXFileReference section */
 		0957B6C21E40A3C000D5F1F3 /* Optional+Unwrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
+		0957B6C91E41F6B300D5F1F3 /* UIApplication+Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Dispatch.swift"; sourceTree = "<group>"; };
 		0961213A1E310DB60073D7C8 /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		0961213C1E3120B70073D7C8 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		097522CF1E38A9D100A94A7A /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -89,6 +92,7 @@
 		097522E21E38CEA100A94A7A /* LastFMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMService.swift; sourceTree = "<group>"; };
 		097522E51E38D8DE00A94A7A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		097522E71E38D8E800A94A7A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowsNotices.swift; sourceTree = "<group>"; };
 		09EBB6071E24FF180081654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6091E24FF250081654E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		09EBB6121E266D210081654E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 				4C8D3DDE1E3FF431008511E1 /* VolumioFormViewController.swift */,
 				4C8D3DDF1E3FF431008511E1 /* VolumioTableViewController.swift */,
 				4C8D3DE01E3FF431008511E1 /* VolumioViewController.swift */,
+				09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
 				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
 				0957B6C21E40A3C000D5F1F3 /* Optional+Unwrap.swift */,
+				0957B6C91E41F6B300D5F1F3 /* UIApplication+Dispatch.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -572,6 +578,7 @@
 				606D923D1DB4D3BA00DBD78A /* PluginTableViewCell.swift in Sources */,
 				60A7B7A01DF1BAB50095A27C /* PlaylistActions.swift in Sources */,
 				606D923B1DB4C80300DBD78A /* PluginObject.swift in Sources */,
+				09DA7BEB1E421F5C00EB20EC /* ShowsNotices.swift in Sources */,
 				4C8D3DE11E3FF431008511E1 /* VolumioController.swift in Sources */,
 				60E377941DF2F73C00123663 /* SearchVolumioViewController.swift in Sources */,
 				0961213B1E310DB60073D7C8 /* UserDefaults.swift in Sources */,
@@ -581,6 +588,7 @@
 				097522E81E38D8E800A94A7A /* Service.swift in Sources */,
 				60E1D5D91DD0D10D00DAED54 /* AddToPlaylistViewController.swift in Sources */,
 				60E781991DABCC9800C48A43 /* LibraryObject.swift in Sources */,
+				0957B6CA1E41F6B300D5F1F3 /* UIApplication+Dispatch.swift in Sources */,
 				608275711DD2058E004E4E6A /* AddToPlaylistTableViewCell.swift in Sources */,
 				60E377921DF2F70700123663 /* TabBarViewController.swift in Sources */,
 				6072D0321DAD31A1006D7E45 /* QCMethod.swift in Sources */,

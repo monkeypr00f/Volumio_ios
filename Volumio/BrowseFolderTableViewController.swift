@@ -9,6 +9,7 @@
 import UIKit
 
 class BrowseFolderTableViewController: UITableViewController,
+    ObservesNotifications, ShowsNotices,
     BrowseActionsDelegate, PlaylistActionsDelegate
 {
     
@@ -24,6 +25,8 @@ class BrowseFolderTableViewController: UITableViewController,
     var sourceLibrarySections = [LibraryObject]()
     var sourceLibraryDict = [String: [String]]()
     
+    var observers: [AnyObject] = []
+
 //    func generateLibraryDict() {
 //        for source in sourceLibrary {
 //            let key = "\(source[(source.title?.startIndex)!])"
@@ -61,18 +64,53 @@ class BrowseFolderTableViewController: UITableViewController,
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        VolumioIOManager.shared.browseLibrary(uri: serviceUri)
-
-        registerObservers()
-
         super.viewWillAppear(animated)
+
+        registerObserver(forName: .browseLibrary) { (notification) in
+            self.clearAllNotice()
+            
+            guard let sources = notification.object as? [LibraryObject]
+                else { return }
+            self.update(sources: sources)
+        }
+        registerObserver(forName: .playlistPlaying) { (notification) in
+            guard let object = notification.object
+                else { return }
+            self.notice(playing: object)
+        }
+        registerObserver(forName: .playlistDeleted) { (notification) in
+            guard let object = notification.object
+                else { return }
+            self.notice(deleted: object, delayed: 0.5)
+
+            VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
+        }
+        registerObserver(forName: .addedToQueue) { (notification) in
+            guard let object = notification.object
+                else { return }
+            self.notice(queueAdded: object)
+        }
+        registerObserver(forName: .addedToPlaylist) { (notification) in
+            guard let object = notification.object
+                else { return }
+            self.notice(playlistAdded: object)
+        }
+        registerObserver(forName: .removedFromPlaylist) { (notification) in
+            guard let object = notification.object
+                else { return }
+            self.notice(playlistRemoved: object, delayed: 0.5)
+    
+            VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             _ = navigationController?.popToRootViewController(animated: animated)
         }
-
+        else {
+            VolumioIOManager.shared.browseLibrary(uri: serviceUri)
+        }
         super.viewDidAppear(animated)
     }
     
@@ -84,105 +122,41 @@ class BrowseFolderTableViewController: UITableViewController,
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(updateSourceLibrary(notification:)),
-            name: .browseLibrary,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(playPlaylist(notification:)),
-            name: .playlistPlaying,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(deletePlaylist(notification:)),
-            name: .playlistDeleted,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(addToQueue(notification:)),
-            name: .addedToQueue,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(addToPlaylist(notification:)),
-            name: .addedToPlaylist,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(removeFromPlaylist(notification:)),
-            name: .removedFromPlaylist,
-            object: nil
-        )
+    override func viewDidDisappear(_ animated: Bool) {
+        unregisterObservers()
+        
+        super.viewDidDisappear(animated)        
     }
     
-    func updateSourceLibrary(notification: NSNotification) {
-        guard let sources = notification.object as? [LibraryObject] else { return }
-        
-        sourceLibrary = sources
+    // MARK: - View Update
+    
+    func update(sources: [LibraryObject]? = nil) {
+        if let sources = sources {
+            sourceLibrary = sources
+        }
         tableView.reloadData()
-        clearAllNotice()
     }
-    
-    func playPlaylist(notification: NSNotification) {
-        guard let object = notification.object else { return }
 
-        noticeTop(
-            localizedPlaylistPlaying(name: String(describing: object)),
-            autoClear: true,
-            autoClearTime: 3
+    func notice(playing playlist: Any, delayed time: Double? = nil) {
+        notice(localizedPlaylistPlaying(name: String(describing: playlist)), delayed: time)
+    }
+    
+    func notice(deleted playlist: Any, delayed time: Double? = nil) {
+        notice(localizedPlaylistDeleted(name: String(describing: playlist)), delayed: time)
+    }
+    
+    func notice(queueAdded item: Any, delayed time: Double? = nil) {
+        notice(localizedAddedItemToQueueNotice(name: String(describing: item)), delayed: time)
+    }
+   
+    func notice(playlistAdded item: Any, delayed time: Double? = nil) {
+        notice(localizedAddedItemToPlaylistNotice(name: String(describing: item)), delayed: time)
+    }
+    
+    func notice(playlistRemoved item: Any, delayed time: Double? = nil) {
+        notice(localizedRemovedItemFromPlaylistNotice(name: String(describing: item)),
+            delayed: time
         )
-    }
-    
-    func deletePlaylist(notification: NSNotification) {
-        guard let object = notification.object else { return }
-        
-        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
-        
-        let waitTime = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop(
-                self.localizedPlaylistDeleted(name: String(describing: object)),
-                autoClear: true,
-                autoClearTime: 3
-            )
-        })
-    }
-    
-    func addToQueue(notification: NSNotification) {
-        guard let object = notification.object else { return }
-
-        noticeTop(
-            localizedAddedItemToQueueNotice(name: String(describing: object)),
-            autoClear: true,
-            autoClearTime: 3
-        )
-    }
-    
-    func addToPlaylist(notification: NSNotification) {
-        guard let object = notification.object else { return }
-        
-        noticeTop(
-            localizedAddedItemToPlaylistNotice(name: String(describing: object)),
-            autoClear: true,
-            autoClearTime: 3
-        )
-    }
-    
-    func removeFromPlaylist(notification: NSNotification) {
-        guard let object = notification.object else { return }
-        
-        VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
-        
-        let waitTime = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop(
-                self.localizedRemovedItemFromPlaylistNotice(name: String(describing: object)),
-                autoClear: true,
-                autoClearTime: 3
-            )
-        })
     }
     
     // MARK: - Table view data source

@@ -243,6 +243,7 @@ class VolumioIOManager: NSObject {
                 if json.count == 0 {
                     socket.emit(.addToQueue, ["uri": uri, "title": title, "service": service])
                     socket.once(.pushQueue) {data, ack in
+                        NotificationCenter.default.post(name: .addedToQueue, object: title)
                         self.playTrack(position: 0)
                     }
                 }

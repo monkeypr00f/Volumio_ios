@@ -59,7 +59,9 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
             self.getCurrent(track)
         }
         registerObserver(forName: .removedfromQueue) { (notification) in
-            self.removeFromQueue()
+            self.noticeRemovedItem(delayed: 0.5)
+            
+            VolumioIOManager.shared.getQueue()
         }
         
         pleaseWait()
@@ -86,6 +88,10 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         tableView.reloadData()
     }
 
+    func noticeRemovedItem(delayed time: Double? = nil) {
+        notice(localizedRemovedNotice, delayed: time)
+    }
+    
     // MARK: -
     
     func getCurrent(_ track: TrackObject) {
@@ -99,20 +105,6 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         VolumioIOManager.shared.getQueue()
     }
     
-    func removeFromQueue() {
-        VolumioIOManager.shared.getQueue()
-
-        let waitTime = DispatchTime.now() + .milliseconds(500)
-        DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
-            self.noticeTop(
-                self.localizedRemovedNotice,
-                autoClear: true,
-                autoClearTime: 3
-            )
-        })
-        
-    }
-
     // MARK: - Volumio Events
     
     override func volumioDisconnected() {
