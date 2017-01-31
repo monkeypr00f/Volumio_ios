@@ -174,21 +174,22 @@ class BrowseFolderTableViewController: UITableViewController,
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        if sourceLibrary[indexPath.row].type == .song {
+        let item = sourceLibrary[indexPath.row]
+        
+        if item.type == .song || item.type == .track {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
-            let track = sourceLibrary[indexPath.row]
             
-            cell.trackTitle.text = track.localizedTitle
-            cell.trackArtist.text = track.localizedArtistAndAlbum
+            cell.trackTitle.text = item.localizedTitle
+            cell.trackArtist.text = item.localizedArtistAndAlbum
             
             cell.trackImage.image = nil // TODO: quickfix for cell reuse
             
-            if track.albumArt?.range(of:"http") != nil{
+            if item.albumArt?.range(of:"http") != nil{
                 cell.trackImage.contentMode = .scaleAspectFill
-                cell.trackImage.kf.setImage(with: URL(string: track.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                cell.trackImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
             } else {
                 // FIXME: this will fail for songs without artist or album field
-                LastFMService.shared.albumGetImageURL(artist: track.artist!, album: track.album!, completion: { (albumUrl) in
+                LastFMService.shared.albumGetImageURL(artist: item.artist!, album: item.album!, completion: { (albumUrl) in
                     if let albumUrl = albumUrl {
                         DispatchQueue.main.async {
                             cell.trackImage.contentMode = .scaleAspectFill
@@ -199,36 +200,35 @@ class BrowseFolderTableViewController: UITableViewController,
             }
             return cell
          
-        } else if sourceLibrary[indexPath.row].type.isRadio {
+        } else if item.type.isRadio {
             let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
-            let folder = sourceLibrary[indexPath.row]
             
-            cell.folderTitle.text = folder.title ?? ""
-            if folder.albumArt?.range(of:"http") != nil{
+            cell.folderTitle.text = item.localizedTitle
+            
+            if item.albumArt?.range(of:"http") != nil{
                 cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: folder.albumArt!), placeholder: UIImage(named: "radio"), options: [.transition(.fade(0.2))])
+                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "radio"), options: [.transition(.fade(0.2))])
             } else {
                 cell.folderImage.contentMode = .center
                 cell.folderImage.image = UIImage(named: "radio")
             }
             return cell
             
-        } else if sourceLibrary[indexPath.row].type == .title {
+        } else if item.type == .title {
             let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
-            let folder = sourceLibrary[indexPath.row]
             
-            cell.textLabel?.text = folder.title
+            cell.textLabel?.text = item.localizedTitle
 
             return cell
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
-            let folder = sourceLibrary[indexPath.row]
             
-            cell.folderTitle.text = folder.title ?? ""
-            if folder.albumArt?.range(of:"http") != nil{
+            cell.folderTitle.text = item.localizedTitle
+            
+            if item.albumArt?.range(of:"http") != nil{
                 cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: folder.albumArt!), placeholder: UIImage(named: "folder"), options: [.transition(.fade(0.2))])
+                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "folder"), options: [.transition(.fade(0.2))])
             } else {
                 cell.folderImage.contentMode = .center
                 cell.folderImage.image = UIImage(named: "folder")
