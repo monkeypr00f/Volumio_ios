@@ -17,10 +17,11 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     
     var headerView: QueueActions?
 
-    var queue : [TrackObject] = []
-    var queuePointer : Int = 0
+    var tracksList: [TrackObject] = []
     
-    var currentTrack : TrackObject?
+    var queuePointer: Int = 0
+    
+    var currentTrack: TrackObject?
     
     // MARK: - View Callbacks
     
@@ -47,10 +48,9 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         registerObserver(forName: .currentQueue) { (notification) in
             self.clearAllNotice()
     
-            guard let queue = notification.object as? [TrackObject]
+            guard let tracks = notification.object as? [TrackObject]
                 else { return }
-            self.queue = queue
-            self.updateQueue()
+            self.update(tracks: tracks)
         }
 
         registerObserver(forName: .currentTrack) { (notification) in
@@ -79,7 +79,10 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
 
     // MARK: - View Update
     
-    func updateQueue() {
+    func update(tracks: [TrackObject]? = nil) {
+        if let tracks = tracks {
+            tracksList = tracks
+        }
         tableView.reloadData()
     }
 
@@ -88,9 +91,10 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     func getCurrent(_ track: TrackObject) {
         if let position = track.position {
             currentTrack = track
+
             queuePointer = position
 
-            headerView?.updateStatus(for: track)
+            headerView?.update(for: track)
         }
         VolumioIOManager.shared.getQueue()
     }
@@ -114,8 +118,7 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     override func volumioDisconnected() {
         super.volumioDisconnected()
         
-        queue = []
-        updateQueue()
+        update(tracks: [])
     }
 
     // MARK: - Table view data source
@@ -127,14 +130,14 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     override func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return queue.count
+        return tracksList.count
     }
 
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
-        let track = queue[indexPath.row]
+        let track = tracksList[indexPath.row]
         
         cell.trackTitle.text = track.localizedTitle
         cell.trackArtist.text = track.localizedArtistAndAlbum

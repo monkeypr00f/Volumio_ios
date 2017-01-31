@@ -38,8 +38,7 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     
             guard let sources = notification.object as? [SourceObject]
                 else { return }
-            self.sourcesList = sources
-            self.updateSources()
+            self.update(sources: sources)
         }
     
         pleaseWait()
@@ -61,7 +60,10 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     
     // MARK: - View Update
     
-    func updateSources() {
+    func update(sources: [SourceObject]? = nil) {
+        if let sources = sources {
+            sourcesList = sources
+        }
         tableView.reloadData()
     }
 
@@ -70,8 +72,7 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     override func volumioDisconnected() {
         super.volumioDisconnected()
         
-        sourcesList = []
-        updateSources()
+        update(sources: [])
     }
 
     // MARK: - Table view data source
