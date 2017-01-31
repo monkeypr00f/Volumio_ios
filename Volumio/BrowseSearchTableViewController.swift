@@ -104,7 +104,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
         
-        if item.type == .song {
+        if item.type == .song || item.type == .track {
             let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
             
             cell.trackTitle.text = item.localizedTitle
@@ -134,7 +134,8 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         } else if item.type.isRadio {
             let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
             
-            cell.folderTitle.text = item.title ?? ""
+            cell.folderTitle.text = item.localizedTitle
+            
             if item.albumArt?.range(of:"http") != nil{
                 cell.folderImage.contentMode = .scaleAspectFill
                 cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "radio"), options: [.transition(.fade(0.2))])
@@ -147,7 +148,8 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
             
-            cell.folderTitle.text = item.title ?? ""
+            cell.folderTitle.text = item.localizedTitle
+            
             if item.albumArt?.range(of:"http") != nil{
                 cell.folderImage.contentMode = .scaleAspectFill
                 cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "folder"), options: [.transition(.fade(0.2))])
