@@ -9,7 +9,7 @@
 import UIKit
 
 class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegate,
-    ObservesNotifications
+    ObservesNotifications, ShowsNotices
 {
 
     @IBOutlet weak var searchBar: UISearchBar!
