@@ -51,3 +51,7 @@ class TrackObject: Mappable, Item {
         position    <- map["position"]
     }
 }
+
+extension TrackObject:
+    CustomStringConvertible, CustomDebugStringConvertible, DefaultStringConvertible {
+}

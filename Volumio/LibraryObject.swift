@@ -36,6 +36,10 @@ class LibraryObject: Mappable, Item {
     }
 }
 
+extension LibraryObject:
+    CustomStringConvertible, CustomDebugStringConvertible, DefaultStringConvertible {
+}
+
 /// Transform for JSON mapping from string to `ItemType` and vice versa.
 class ItemTypeTransform: TransformType {
     public typealias Object = ItemType

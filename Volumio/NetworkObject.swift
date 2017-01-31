@@ -31,3 +31,7 @@ class NetworkObject: Mappable {
         type        <- map["type"]
     }
 }
+
+extension NetworkObject:
+    CustomStringConvertible, CustomDebugStringConvertible, DefaultStringConvertible {
+}
