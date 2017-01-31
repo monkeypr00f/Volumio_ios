@@ -235,9 +235,21 @@
 			name = "⚒ Utilities";
 			sourceTree = "<group>";
 		};
-		4C8D3DD91E3FF0DE008511E1 /* Scenes */ = {
+		09DA7BF91E4247FB00EB20EC /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				09EBB6081E24FF180081654E /* Localizable.strings */,
+				6086E2B81D9133A50067A8B5 /* Info.plist */,
+				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
+				601424761D916F0C001159B2 /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		4C8D3DD91E3FF0DE008511E1 /* ⚜ Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				60E7819E1DABE36D00C48A43 /* Main.storyboard */,
 				4C8D3DDA1E3FF0E7008511E1 /* Base */,
 				4C8D3DE61E3FF5B7008511E1 /* Browse Library */,
 				4C8D3DE51E3FF5AD008511E1 /* Control Playback */,
@@ -247,7 +259,7 @@
 				4C8D3DEA1E3FF5D8008511E1 /* Show Plugins */,
 				4C8D3DE91E3FF5CF008511E1 /* Show Settings */,
 			);
-			name = Scenes;
+			name = "⚜ Scenes";
 			sourceTree = "<group>";
 		};
 		4C8D3DDA1E3FF0E7008511E1 /* Base */ = {
@@ -335,7 +347,7 @@
 			name = "Show Networks";
 			sourceTree = "<group>";
 		};
-		6005E4E91D99168A000B80AE /* Models */ = {
+		6005E4E91D99168A000B80AE /* ⚜ Models */ = {
 			isa = PBXGroup;
 			children = (
 				0961213E1E3121140073D7C8 /* VolumioIO */,
@@ -343,18 +355,18 @@
 				0961213C1E3120B70073D7C8 /* Player.swift */,
 				097522E71E38D8E800A94A7A /* Service.swift */,
 			);
-			name = Models;
+			name = "⚜ Models";
 			sourceTree = "<group>";
 		};
-		6014247A1D9173AD001159B2 /* Controllers */ = {
+		6014247A1D9173AD001159B2 /* ⚜ Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				60E377911DF2F70700123663 /* TabBarViewController.swift */,
 			);
-			name = Controllers;
+			name = "⚜ Controllers";
 			sourceTree = "<group>";
 		};
-		6014247B1D9173C4001159B2 /* Manager */ = {
+		6014247B1D9173C4001159B2 /* ⚜ Manager */ = {
 			isa = PBXGroup;
 			children = (
 				097522E11E38CE9600A94A7A /* Services */,
@@ -362,7 +374,7 @@
 				60B2261F1DCA887F00B74B57 /* VolumioIOManager.swift */,
 				4C20174A1E29A6C3000A2192 /* VolumioIOManagerNotifications.swift */,
 			);
-			name = Manager;
+			name = "⚜ Manager";
 			sourceTree = "<group>";
 		};
 		6072D0331DAD31A5006D7E45 /* QC */ = {
@@ -399,17 +411,13 @@
 				09DA7BF71E423E8400EB20EC /* ⚒ Utilities */,
 				09DA7BF51E423E4F00EB20EC /* ⚔ Foundation */,
 				09DA7BF41E423E4300EB20EC /* ⚔ UI */,
+				6014247A1D9173AD001159B2 /* ⚜ Controllers */,
+				6014247B1D9173C4001159B2 /* ⚜ Manager */,
+				6005E4E91D99168A000B80AE /* ⚜ Models */,
+				4C8D3DD91E3FF0DE008511E1 /* ⚜ Scenes */,
 				6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */,
-				6014247B1D9173C4001159B2 /* Manager */,
-				6014247A1D9173AD001159B2 /* Controllers */,
-				6005E4E91D99168A000B80AE /* Models */,
-				4C8D3DD91E3FF0DE008511E1 /* Scenes */,
+				09DA7BF91E4247FB00EB20EC /* Assets */,
 				6072D0331DAD31A5006D7E45 /* QC */,
-				60E7819E1DABE36D00C48A43 /* Main.storyboard */,
-				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
-				601424761D916F0C001159B2 /* Assets.xcassets */,
-				6086E2B81D9133A50067A8B5 /* Info.plist */,
-				09EBB6081E24FF180081654E /* Localizable.strings */,
 			);
 			path = Volumio;
 			sourceTree = "<group>";
