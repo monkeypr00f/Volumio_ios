@@ -197,6 +197,44 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		09DA7BF41E423E4300EB20EC /* ⚔ UI */ = {
+			isa = PBXGroup;
+			children = (
+				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
+				0957B6C91E41F6B300D5F1F3 /* UIApplication+Dispatch.swift */,
+				09DA7BF21E42371B00EB20EC /* UIView+.swift */,
+			);
+			name = "⚔ UI";
+			sourceTree = "<group>";
+		};
+		09DA7BF51E423E4F00EB20EC /* ⚔ Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				097522D61E38AA2600A94A7A /* BundleInfo.swift */,
+				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
+			);
+			name = "⚔ Foundation";
+			sourceTree = "<group>";
+		};
+		09DA7BF61E423E5700EB20EC /* ★ Swift */ = {
+			isa = PBXGroup;
+			children = (
+				09DA7BEC1E42332F00EB20EC /* Collection+.swift */,
+				0957B6C21E40A3C000D5F1F3 /* Optional+Unwrap.swift */,
+				09DA7BF01E4236EB00EB20EC /* String+.swift */,
+			);
+			name = "★ Swift";
+			sourceTree = "<group>";
+		};
+		09DA7BF71E423E8400EB20EC /* ⚒ Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */,
+				097522CF1E38A9D100A94A7A /* Logging.swift */,
+			);
+			name = "⚒ Utilities";
+			sourceTree = "<group>";
+		};
 		4C8D3DD91E3FF0DE008511E1 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,22 +365,12 @@
 			name = Manager;
 			sourceTree = "<group>";
 		};
-		6072D0331DAD31A5006D7E45 /* Utility */ = {
+		6072D0331DAD31A5006D7E45 /* QC */ = {
 			isa = PBXGroup;
 			children = (
-				097522D61E38AA2600A94A7A /* BundleInfo.swift */,
-				09DA7BEC1E42332F00EB20EC /* Collection+.swift */,
-				09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */,
-				097522CF1E38A9D100A94A7A /* Logging.swift */,
-				0957B6C21E40A3C000D5F1F3 /* Optional+Unwrap.swift */,
 				6072D0311DAD31A1006D7E45 /* QCMethod.swift */,
-				09DA7BF01E4236EB00EB20EC /* String+.swift */,
-				6074D2761DBDFE35000F2285 /* SwiftNotice.swift */,
-				0957B6C91E41F6B300D5F1F3 /* UIApplication+Dispatch.swift */,
-				09DA7BF21E42371B00EB20EC /* UIView+.swift */,
-				0961213A1E310DB60073D7C8 /* UserDefaults.swift */,
 			);
-			name = Utility;
+			name = QC;
 			sourceTree = "<group>";
 		};
 		6086E29E1D9133A50067A8B5 = {
@@ -367,12 +395,16 @@
 		6086E2A91D9133A50067A8B5 /* Volumio */ = {
 			isa = PBXGroup;
 			children = (
+				09DA7BF61E423E5700EB20EC /* ★ Swift */,
+				09DA7BF71E423E8400EB20EC /* ⚒ Utilities */,
+				09DA7BF51E423E4F00EB20EC /* ⚔ Foundation */,
+				09DA7BF41E423E4300EB20EC /* ⚔ UI */,
 				6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */,
 				6014247B1D9173C4001159B2 /* Manager */,
 				6014247A1D9173AD001159B2 /* Controllers */,
 				6005E4E91D99168A000B80AE /* Models */,
 				4C8D3DD91E3FF0DE008511E1 /* Scenes */,
-				6072D0331DAD31A5006D7E45 /* Utility */,
+				6072D0331DAD31A5006D7E45 /* QC */,
 				60E7819E1DABE36D00C48A43 /* Main.storyboard */,
 				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
 				601424761D916F0C001159B2 /* Assets.xcassets */,
