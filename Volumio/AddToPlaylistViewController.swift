@@ -1,5 +1,5 @@
 //
-//  PlaylistAddViewController.swift
+//  AddToPlaylistViewController.swift
 //  Volumio
 //
 //  Created by Federico Sintucci on 07/11/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaylistAddViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class AddToPlaylistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var playlists : [Any] = []

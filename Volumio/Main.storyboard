@@ -311,15 +311,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNd-Iv-GN6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="rsB-vO-2qj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <blurEffect style="extraLight"/>
-                            </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeD-7U-4wd" userLabel="Outer">
                                 <rect key="frame" x="15" y="0.0" width="345" height="345"/>
                                 <subviews>
@@ -447,6 +438,14 @@
                                     <constraint firstAttribute="width" secondItem="SeD-7U-4wd" secondAttribute="height" multiplier="1:1" id="ujO-KO-QWS"/>
                                 </constraints>
                             </view>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VNd-Iv-GN6">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="rsB-vO-2qj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="VvN-0w-wtO">
                                 <rect key="frame" x="0.0" y="355" width="375" height="2.5"/>
                                 <color key="progressTintColor" red="0.2901960784" green="0.74509803919999995" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -604,9 +603,13 @@
                             <constraint firstItem="xqu-Ef-K8A" firstAttribute="leading" secondItem="00C-7C-gua" secondAttribute="leading" id="8Vy-yP-njE"/>
                             <constraint firstItem="VvN-0w-wtO" firstAttribute="top" secondItem="OAY-lW-eo7" secondAttribute="bottom" constant="4" id="C5q-Ge-JQT"/>
                             <constraint firstItem="avu-qI-7mf" firstAttribute="leading" secondItem="00C-7C-gua" secondAttribute="leading" constant="10" id="Cky-XH-MU1"/>
+                            <constraint firstItem="VNd-Iv-GN6" firstAttribute="leading" secondItem="00C-7C-gua" secondAttribute="leading" id="DxX-zc-Lwg"/>
+                            <constraint firstAttribute="trailing" secondItem="VNd-Iv-GN6" secondAttribute="trailing" id="GPP-C6-SBr"/>
                             <constraint firstItem="VvN-0w-wtO" firstAttribute="leading" secondItem="00C-7C-gua" secondAttribute="leading" id="JzO-LI-HEP"/>
                             <constraint firstAttribute="trailing" secondItem="xqu-Ef-K8A" secondAttribute="trailing" id="NjG-o9-wcZ"/>
+                            <constraint firstItem="VNd-Iv-GN6" firstAttribute="top" secondItem="tkp-El-lEZ" secondAttribute="bottom" id="RTV-lx-cTL"/>
                             <constraint firstItem="SeD-7U-4wd" firstAttribute="top" secondItem="tkp-El-lEZ" secondAttribute="bottom" id="Rsl-hz-JVg"/>
+                            <constraint firstAttribute="bottom" secondItem="VNd-Iv-GN6" secondAttribute="bottom" id="U9j-AA-IVL"/>
                             <constraint firstItem="Ou4-8S-rTj" firstAttribute="top" secondItem="bmy-kf-XAK" secondAttribute="bottom" id="VEe-g1-fUx"/>
                             <constraint firstAttribute="trailing" secondItem="bmy-kf-XAK" secondAttribute="trailing" id="W8K-7z-hob"/>
                             <constraint firstAttribute="trailing" secondItem="VvN-0w-wtO" secondAttribute="trailing" id="bfx-Kh-LW8"/>
@@ -1200,10 +1203,10 @@
             </objects>
             <point key="canvasLocation" x="3897" y="-1648"/>
         </scene>
-        <!--Playlist Add View Controller-->
+        <!--Add To Playlist View Controller-->
         <scene sceneID="7SW-2n-9a3">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="7BN-Ok-bOJ" customClass="PlaylistAddViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="7BN-Ok-bOJ" customClass="AddToPlaylistViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="f7q-qh-ytu"/>
                         <viewControllerLayoutGuide type="bottom" id="1ER-to-nP1"/>

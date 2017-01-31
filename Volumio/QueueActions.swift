@@ -68,7 +68,7 @@ class QueueActions: UIView {
         delegate?.didClear()
     }
 
-    func updateStatus(track:TrackObject) {
+    func update(for track: TrackObject) {
         if let repetition = track.repetition {
             switch repetition {
             case 1: repeatState.alpha = 1

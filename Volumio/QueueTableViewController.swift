@@ -7,32 +7,29 @@
 //
 
 import UIKit
+
 import Kingfisher
-import Fabric
 
-class QueueTableViewController: UITableViewController, QueueActionsDelegate {
+/**
+ Controller for queue table view. Inherits automatic connection handling from `VolumioTableViewController`.
+ */
+class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate {
     
-    var queue : [TrackObject] = []
     var headerView: QueueActions?
-    var queuePointer : Int = 0
-    
-    var track : TrackObject!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        registerObservers()
 
-        VolumioIOManager.shared.getState()
-    }
-
+    var tracksList: [TrackObject] = []
+    
+    var queuePointer: Int = 0
+    
+    var currentTrack: TrackObject?
+    
+    // MARK: - View Callbacks
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         localize()
 
-        pleaseWait()
-        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         self.refreshControl?.addTarget(self,
@@ -40,60 +37,71 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
             for: UIControlEvents.valueChanged
         )
         
-        // HeaderView
         let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 56.0)
         headerView = QueueActions(frame: frame)
         headerView?.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerObserver(forName: .currentQueue) { (notification) in
+            self.clearAllNotice()
+    
+            guard let tracks = notification.object as? [TrackObject]
+                else { return }
+            self.update(tracks: tracks)
+        }
+
+        registerObserver(forName: .currentTrack) { (notification) in
+            guard let track = notification.object as? TrackObject
+                else { return }
+            self.getCurrent(track)
+        }
+        registerObserver(forName: .removedfromQueue) { (notification) in
+            self.removeFromQueue()
+        }
+        
+        pleaseWait()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        pleaseWait()
+        
+        super.viewDidAppear(animated)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         clearAllNotice()
-        
-        NotificationCenter.default.removeObserver(self)
     }
 
-    private func registerObservers() {
-        
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(getQueue(notification:)),
-            name: .currentQueue,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(getCurrentTrack(notification:)),
-            name: .currentTrack,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(removeFromQueue(notification:)),
-            name: .removedfromQueue,
-            object: nil
-        )
-    }
+    // MARK: - View Update
     
-    func getQueue(notification: NSNotification) {
-        guard let sources = notification.object as? [TrackObject] else { return }
-        
-        queue = sources
+    func update(tracks: [TrackObject]? = nil) {
+        if let tracks = tracks {
+            tracksList = tracks
+        }
         tableView.reloadData()
-        clearAllNotice()
     }
+
+    // MARK: -
     
-    func getCurrentTrack(notification: NSNotification) {
-        if let currentTrack = notification.object as? TrackObject,
-           let position = currentTrack.position
-        {
-            track = currentTrack
+    func getCurrent(_ track: TrackObject) {
+        if let position = track.position {
+            currentTrack = track
+
             queuePointer = position
-            headerView?.updateStatus(track: track)
+
+            headerView?.update(for: track)
         }
         VolumioIOManager.shared.getQueue()
     }
     
-    func removeFromQueue(notification: NSNotification) {
+    func removeFromQueue() {
         VolumioIOManager.shared.getQueue()
+
         let waitTime = DispatchTime.now() + .milliseconds(500)
         DispatchQueue.main.asyncAfter(deadline: waitTime, execute: {
             self.noticeTop(
@@ -105,6 +113,14 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
         
     }
 
+    // MARK: - Volumio Events
+    
+    override func volumioDisconnected() {
+        super.volumioDisconnected()
+        
+        update(tracks: [])
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -114,14 +130,14 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     override func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return queue.count
+        return tracksList.count
     }
 
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
-        let track = queue[indexPath.row]
+        let track = tracksList[indexPath.row]
         
         cell.trackTitle.text = track.localizedTitle
         cell.trackArtist.text = track.localizedArtistAndAlbum
@@ -222,7 +238,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     // MARK: - QueueActionsDelegate
     
     func didRepeat() {
-        if let track = track, let repetition = track.repetition {
+        if let track = currentTrack, let repetition = track.repetition {
             switch repetition {
             case 0: VolumioIOManager.shared.toggleRepeat(value: 1)
             default: VolumioIOManager.shared.toggleRepeat(value: 0)
@@ -233,7 +249,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     }
     
     func didShuffle() {
-        if let track = track, let shuffle = track.shuffle {
+        if let track = currentTrack, let shuffle = track.shuffle {
             switch shuffle {
             case 0: VolumioIOManager.shared.toggleRandom(value: 1)
             default: VolumioIOManager.shared.toggleRandom(value: 0)
@@ -244,7 +260,7 @@ class QueueTableViewController: UITableViewController, QueueActionsDelegate {
     }
     
     func didConsume() {
-        if let track = track, let consume = track.consume {
+        if let track = currentTrack, let consume = track.consume {
             switch consume {
             case 0: VolumioIOManager.shared.toggleConsume(value: 1)
             default: VolumioIOManager.shared.toggleConsume(value: 0)

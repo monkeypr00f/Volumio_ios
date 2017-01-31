@@ -8,23 +8,20 @@
 
 import UIKit
 
-class BrowseSourcesTableViewController: UITableViewController {
+/**
+    Controller for browse sources table view. Inherits automatic connection handling from `VolumioTableViewController`.
+ */
+class BrowseSourcesTableViewController: VolumioTableViewController {
     
     var sourcesList : [SourceObject] = []
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        VolumioIOManager.shared.browseSources()
-        registerObservers()
-    }
+    // MARK: - View Callbacks
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         localize()
 
-        pleaseWait()
-        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         refreshControl?.addTarget(self,
@@ -33,28 +30,49 @@ class BrowseSourcesTableViewController: UITableViewController {
         )
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        registerObserver(forName: .browseSources) { (notification) in
+            self.clearAllNotice()
+    
+            guard let sources = notification.object as? [SourceObject]
+                else { return }
+            self.update(sources: sources)
+        }
+    
+        pleaseWait()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        pleaseWait()
+
+        VolumioIOManager.shared.browseSources()
+    
+        super.viewDidAppear(animated)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         clearAllNotice()
-        
-        NotificationCenter.default.removeObserver(self)
     }
     
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(updateSources(notification:)),
-            name: .browseSources,
-            object: nil
-        )
-    }
+    // MARK: - View Update
     
-    func updateSources(notification: NSNotification) {
-        guard let sources = notification.object as? [SourceObject] else { return }
-        
-        sourcesList = sources
+    func update(sources: [SourceObject]? = nil) {
+        if let sources = sources {
+            sourcesList = sources
+        }
         tableView.reloadData()
-        clearAllNotice()
+    }
+
+    // MARK: - Volumio Events
+    
+    override func volumioDisconnected() {
+        super.volumioDisconnected()
+        
+        update(sources: [])
     }
 
     // MARK: - Table view data source
