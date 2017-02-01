@@ -54,8 +54,10 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     func _volumioDisconnected() {
         Log.entry(self, message: "- Volumio is disconnected")
         
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
+        let controller = UIViewController.instantiate(
+            fromStoryboard: "SearchVolumio",
+            withIdentifier: "SearchVolumioViewController"
+        )
         present(controller, animated: true, completion: nil)
     }
     
