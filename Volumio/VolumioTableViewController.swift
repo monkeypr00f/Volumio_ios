@@ -12,7 +12,7 @@ import UIKit
  This class extends `UITableViewcontroller` to handle a connection to a volumio server.
  - Note: Because this has to be implemented via subclassing, this code is duplicated across serveral view controller subtypes. See `VolumioViewController`, `VolumioFormViewController`.
  */
-class VolumioTableViewController: UITableViewController, VolumioController, ObservesNotifications {
+class VolumioTableViewController: UITableViewController, VolumioController, ObservesNotifications, ShowsNotices {
     
     var observers: [AnyObject] = []
     

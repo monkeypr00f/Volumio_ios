@@ -95,11 +95,7 @@ class PlaybackViewController: VolumioViewController {
             
             guard let object = notification.object
                 else { return }
-            self.noticeTop(
-                self.localizedAddedToPlaylistNotice(name: String(describing: object)),
-                autoClear: true,
-                autoClearTime: 3
-            )
+            self.notice(self.localizedAddedToPlaylistNotice(name: String(describing: object)))
         }
     }
 
