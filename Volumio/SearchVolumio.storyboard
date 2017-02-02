@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -111,6 +111,13 @@
                                     <action selector="closeButton:" destination="URx-vp-8MS" eventType="touchUpInside" id="SVC-ng-E5M"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYm-x4-uSv">
+                                <rect key="frame" x="305" y="617" width="24" height="24"/>
+                                <state key="normal" image="gears"/>
+                                <connections>
+                                    <segue destination="qSo-MX-n8i" kind="presentation" identifier="presentPlayerSettings" id="n76-Au-ZOD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -119,7 +126,9 @@
                             <constraint firstItem="f96-lA-pJl" firstAttribute="top" secondItem="sV4-6c-CgZ" secondAttribute="bottom" constant="35" id="6Hd-9E-79I"/>
                             <constraint firstAttribute="trailing" secondItem="lrF-nN-dNF" secondAttribute="trailing" id="81f-6A-8p6"/>
                             <constraint firstItem="f96-lA-pJl" firstAttribute="leading" secondItem="IK6-xy-lMF" secondAttribute="leading" constant="20" id="Awg-yB-0lD"/>
+                            <constraint firstItem="pZq-ro-xoh" firstAttribute="centerY" secondItem="BYm-x4-uSv" secondAttribute="centerY" id="BSy-B2-AOE"/>
                             <constraint firstItem="lrF-nN-dNF" firstAttribute="top" secondItem="IK6-xy-lMF" secondAttribute="top" id="CLB-J0-wUN"/>
+                            <constraint firstItem="BYm-x4-uSv" firstAttribute="trailing" secondItem="EiF-Td-nBi" secondAttribute="trailing" id="NpU-MR-IGa"/>
                             <constraint firstItem="lrF-nN-dNF" firstAttribute="leading" secondItem="IK6-xy-lMF" secondAttribute="leading" id="PMG-Tr-ibp"/>
                             <constraint firstItem="EiF-Td-nBi" firstAttribute="leading" secondItem="IK6-xy-lMF" secondAttribute="leadingMargin" constant="30" id="UJd-rA-hsd"/>
                             <constraint firstItem="riF-k9-H70" firstAttribute="top" secondItem="pZq-ro-xoh" secondAttribute="bottom" constant="20" id="Xac-Mx-K6Z"/>
@@ -150,9 +159,62 @@
             </objects>
             <point key="canvasLocation" x="3897" y="-136"/>
         </scene>
+        <!--Player Settings View Controller-->
+        <scene sceneID="ZGO-yJ-aD6">
+            <objects>
+                <viewController id="NGH-jz-tis" customClass="PlayerSettingsViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ttt-bl-EoR"/>
+                        <viewControllerLayoutGuide type="bottom" id="rLL-9W-HsO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7GG-55-ycx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PdJ-uY-I7i">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Gow-hY-GXO">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="dismiss:" destination="NGH-jz-tis" id="X0U-TG-wbQ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Connect" id="C5e-G6-zYZ">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="connect:" destination="NGH-jz-tis" id="Qeg-Xk-g1N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelBarButtonItem" destination="Gow-hY-GXO" id="0gA-VH-80i"/>
+                        <outlet property="connectBarButtonItem" destination="C5e-G6-zYZ" id="jb7-Sg-MBI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Kf-bP-E60" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5550" y="-136"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9Wl-Mu-MqG">
+            <objects>
+                <navigationController id="qSo-MX-n8i" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nnp-Dm-kme">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="NGH-jz-tis" kind="relationship" relationship="rootViewController" id="ssi-R3-kRP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F9N-qI-7EF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4806" y="-136"/>
+        </scene>
     </scenes>
     <resources>
         <image name="close" width="64" height="64"/>
+        <image name="gears" width="24" height="24"/>
         <image name="select" width="15" height="18"/>
     </resources>
 </document>

@@ -12,7 +12,9 @@ import UIKit
     This class extends `UIViewcontroller to` handle a connection to a volumio server.
     - Note: Because this has to be implemented via subclassing, this code is duplicated across serveral view controller subtypes. See `VolumioTableViewController`, `VolumioFormViewController`.
  */
-class VolumioViewController: UIViewController, VolumioController, ObservesNotifications, ShowsNotices {
+class VolumioViewController: UIViewController,
+    VolumioController, ObservesNotifications, ShowsNotices
+{
     
     var observers: [AnyObject] = []
 
@@ -31,13 +33,17 @@ class VolumioViewController: UIViewController, VolumioController, ObservesNotifi
         super.viewDidDisappear(animated)
     }
 
+    // if a subclass wants to act on a connecting event, it can override this method
+    func volumioWillConnect() {
+    }
+    
     // if a subclass wants to act on a connected event, it can override this method (but it has to call this super methd)
-    func volumioConnected() {
+    func volumioDidConnect() {
         self._volumioConnected()
     }
     
     // if a subclass wants to act on a disconnected event, it can override this method (but it has to call this super methd)
-    func volumioDisconnected() {
+    func volumioDidDisconnect() {
         self._volumioDisconnected()
     }
     

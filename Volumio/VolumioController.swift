@@ -10,16 +10,19 @@ import UIKit
 
 protocol VolumioController {
     func connectToVolumio()
-    func volumioConnected()
-    func volumioDisconnected()
+    
+    func volumioWillConnect()
+    func volumioDidConnect()
+    func volumioDidDisconnect()
 }
 
 extension VolumioController where Self: UIViewController, Self: ObservesNotifications {
     
-    /// Connects to volumio if there is no connection yet or tries to get current state otherwise.
+    /// Connects to Volumio player if there is no connection yet or tries to get current state otherwise.
     func connectToVolumio() {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             VolumioIOManager.shared.connectDefault()
+            volumioWillConnect()
         }
         else {
             VolumioIOManager.shared.getState()
@@ -30,10 +33,10 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     
     func _viewWillAppear() {
         registerObserver(forName: .connected) { (notification) in
-            self.volumioConnected()
+            self.volumioDidConnect()
         }
         registerObserver(forName: .disconnected) { (notification) in
-            self.volumioDisconnected()
+            self.volumioDidDisconnect()
         }
     }
 
@@ -54,10 +57,18 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     func _volumioDisconnected() {
         Log.entry(self, message: "- Volumio is disconnected")
         
+        // Search for Volumio players
+
         let controller = UIViewController.instantiate(
             fromStoryboard: "SearchVolumio",
             withIdentifier: "SearchVolumioViewController"
-        )
+        ) as! SearchVolumioViewController
+        controller.finished = { [unowned self] (player) in
+            controller.dismiss(animated: true, completion: nil)
+            guard let player = player else { return }
+            VolumioIOManager.shared.connect(to: player, setDefault: true)
+            self.volumioWillConnect()
+        }
         present(controller, animated: true, completion: nil)
     }
     

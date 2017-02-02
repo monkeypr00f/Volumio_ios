@@ -31,6 +31,9 @@
 /* [trigger] cancel action */
 "CANCEL" = "Cancel";
 
+/* [trigger] connect action */
+"CONNECT" = "Connect";
+
 /* [trigger] more actions */
 "MORE" = "More";
 
@@ -138,3 +141,24 @@
 
 /* [trigger](short) show settings view */
 "TAB_SETTINGS" = "Settings";
+
+/* [input] label for player name setting */
+"PLAYER_SETTINGS_NAME_TITLE" = "Name";
+
+/* [input] placeholder for player name setting */
+"PLAYER_SETTINGS_NAME_PLACEHOLDER" = "Your player’s name";
+
+/* [input] label for player host setting */
+"PLAYER_SETTINGS_HOST_TITLE" = "Host";
+
+/* [input] placeholder for player host setting */
+"PLAYER_SETTINGS_HOST_PLACEHOLDER" = "Your player’s ip";
+
+/* [input] label for player port setting */
+"PLAYER_SETTINGS_PORT_TITLE" = "Port";
+
+/* [input] placeholder for player port setting */
+"PLAYER_SETTINGS_PORT_PLACEHOLDER" = "Your player’s port";
+
+/* settings (name, host or port) for player are invalid */
+"PLAYER_INVALID_SETTINGS" = "Invalid settings for player";

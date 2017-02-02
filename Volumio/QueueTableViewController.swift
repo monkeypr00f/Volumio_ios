@@ -67,12 +67,6 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         pleaseWait()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        pleaseWait()
-        
-        super.viewDidAppear(animated)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -106,9 +100,15 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     }
     
     // MARK: - Volumio Events
-    
-    override func volumioDisconnected() {
-        super.volumioDisconnected()
+
+    override func volumioWillConnect() {
+        pleaseWait()
+        
+        super.volumioWillConnect()
+    }
+
+    override func volumioDidDisconnect() {
+        super.volumioDidDisconnect()
         
         update(tracks: [])
     }
