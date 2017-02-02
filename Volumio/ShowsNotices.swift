@@ -16,6 +16,8 @@ public protocol ShowsNotices: class {
     
     func notice(_ text: String, delayed time: Double?)
 
+    func notice(error text: String, delayed time: Double?)
+    
 }
 
 // MARK: - Extension: ShowsNotices
@@ -23,6 +25,12 @@ public protocol ShowsNotices: class {
 extension ShowsNotices where Self: UIViewController {
     
     func notice(_ text: String, delayed time: Double? = nil) {
+        UIApplication.main(after: time) {
+            self.noticeTop(text, autoClear: true, autoClearTime: 3)
+        }
+    }
+
+    func notice(error text: String, delayed time: Double? = nil) {
         UIApplication.main(after: time) {
             self.noticeTop(text, autoClear: true, autoClearTime: 3)
         }
