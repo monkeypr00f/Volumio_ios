@@ -132,9 +132,7 @@ class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITabl
         let player = Player(name: name, host: host, port: port)
         VolumioIOManager.shared.connect(to: player, setDefault: true)
         
-        if let top = UIApplication.shared.keyWindow?.rootViewController {
-            top.dismiss(animated: true, completion: nil)
-        }
+        dismiss(animated: true, completion: nil)
     }
     
 }
