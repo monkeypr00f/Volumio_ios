@@ -21,11 +21,11 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     /// Connects to Volumio player if there is no connection yet or tries to get current state otherwise.
     func connectToVolumio() {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
-            VolumioIOManager.shared.connectDefault()
             volumioWillConnect()
+            VolumioIOManager.shared.connectDefault()
         }
         else {
-            VolumioIOManager.shared.getState()
+            volumioDidConnect()
         }
     }
     
@@ -66,8 +66,8 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
         controller.finished = { [unowned self] (player) in
             controller.dismiss(animated: true, completion: nil)
             guard let player = player else { return }
-            VolumioIOManager.shared.connect(to: player, setDefault: true)
             self.volumioWillConnect()
+            VolumioIOManager.shared.connect(to: player, setDefault: true)
         }
         present(controller, animated: true, completion: nil)
     }

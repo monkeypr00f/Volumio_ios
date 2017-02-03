@@ -107,7 +107,15 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         super.volumioWillConnect()
     }
 
+    override func volumioDidConnect() {
+        super.volumioDidConnect()
+        
+        VolumioIOManager.shared.getQueue()
+    }
+    
     override func volumioDidDisconnect() {
+        clearAllNotice()
+        
         super.volumioDidDisconnect()
         
         update(tracks: [])

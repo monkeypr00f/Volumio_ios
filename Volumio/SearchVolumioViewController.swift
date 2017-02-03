@@ -45,11 +45,6 @@ class SearchVolumioViewController: UIViewController,
         browserStartSearch()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        clearAllNotice()
-    }
-    
     // MARK: - View Update
     
     @IBAction func refreshBrowser(_ sender: UIBarButtonItem) {

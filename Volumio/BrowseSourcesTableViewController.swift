@@ -72,6 +72,8 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     }
 
     override func volumioDidDisconnect() {
+        clearAllNotice()
+        
         super.volumioDidDisconnect()
         
         update(sources: [])

@@ -31,8 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         UINavigationBar.appearance().tintColor = UIColor.black
         
-        VolumioIOManager.shared.connectDefault()
-
         return true
     }
 

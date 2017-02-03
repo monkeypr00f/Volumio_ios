@@ -351,7 +351,15 @@ class PlaybackViewController: VolumioViewController {
         super.volumioWillConnect()
     }
     
+    override func volumioDidConnect() {
+        super.volumioDidConnect()
+        
+        VolumioIOManager.shared.getState()
+    }
+
     override func volumioDidDisconnect() {
+        clearAllNotice()
+        
         super.volumioDidDisconnect()
         
         currentTrack = nil
