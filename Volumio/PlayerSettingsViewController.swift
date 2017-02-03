@@ -35,6 +35,21 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
     @IBOutlet var cancelBarButtonItem: UIBarButtonItem!
     @IBOutlet var connectBarButtonItem: UIBarButtonItem!
     
+    var formName: String? {
+        guard let row = form.rowBy(tag: "player_name") as? TextRow else { return nil }
+        return row.value
+    }
+
+    var formHost: String? {
+        guard let row = form.rowBy(tag: "player_host") as? TextRow else { return nil }
+        return row.value
+    }
+    
+    var formPort: Int? {
+        guard let row = form.rowBy(tag: "player_port") as? IntRow else { return nil }
+        return row.value
+    }
+    
     // MARK: - View Callbacks
 
     override func viewDidLoad() {
@@ -102,16 +117,15 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
     // MARK: - View Actions
     
     @IBAction func dismiss(_ sender: Any) {
-        guard let delegate = delegate
-            else { return }
+        guard let delegate = delegate else { return }
         
         delegate.didCancel(on: self)
     }
     
     @IBAction func connect(_ sender: Any) {
-        guard let delegate = delegate
-            else { return }
-        guard let name = formName(), let host = formHost(), let port = formPort()
+        guard let delegate = delegate else { return }
+        
+        guard let name = formName, let host = formHost, let port = formPort
             else { return }
         
         let player = Player(name: name, host: host, port: port)
@@ -124,26 +138,6 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
         }
     }
 
-    // MARK: -
-    
-    func formName() -> String? {
-        guard let row = form.rowBy(tag: "player_name") as? TextRow
-            else { return nil }
-        return row.value
-    }
-
-    func formHost() -> String? {
-        guard let row = form.rowBy(tag: "player_host") as? TextRow
-            else { return nil }
-        return row.value
-    }
-    
-    func formPort() -> Int? {
-        guard let row = form.rowBy(tag: "player_port") as? IntRow
-            else { return nil }
-        return row.value
-    }
-    
 }
 
 // MARK: - Localization
