@@ -16,11 +16,37 @@ struct Player {
     var host: String
     var port: Int
 
-    /// Returns the player’s url for web ui
+    /// Returns the player’s url for web ui.
     var url: URL? {
         return URL(string: "http://\(host)")
     }
 
+    /// Validates this player’s properties. Currently accepts only ip addresses for the host property (because this is used to validate user input which accepts ip addresses only at the moment). Should be fixed sometimes to validate alphanumerical hostnames, too.
+    var isValid: Bool {
+        return validate(name: name) && validate(host: host) && validate(port: port)
+    }
+    
+    private func validate(name: String) -> Bool {
+        return name.characters.count > 0
+    }
+    
+    private func validate(host: String) -> Bool {
+        // ip v6 addr
+        var sin6 = sockaddr_in6()
+        if host.withCString({ cstring in inet_pton(AF_INET6, cstring, &sin6.sin6_addr) }) == 1 {
+            return true
+        }
+        // ip v4 addr
+        var sin = sockaddr_in()
+        if host.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
+            return true
+        }
+        return false
+    }
+    
+    private func validate(port: Int) -> Bool {
+        return port > 0 && port < 65536
+    }
 }
 
 extension SafeUserDefaults {

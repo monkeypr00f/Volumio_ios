@@ -40,18 +40,8 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
                 else { return }
             self.update(sources: sources)
         }
-    
-        pleaseWait()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        pleaseWait()
-
-        VolumioIOManager.shared.browseSources()
-    
-        super.viewDidAppear(animated)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -69,8 +59,22 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
 
     // MARK: - Volumio Events
     
-    override func volumioDisconnected() {
-        super.volumioDisconnected()
+    override func volumioWillConnect() {
+        pleaseWait()
+        
+        super.volumioWillConnect()
+    }
+
+    override func volumioDidConnect() {
+        super.volumioDidConnect()
+        
+        VolumioIOManager.shared.browseSources()
+    }
+
+    override func volumioDidDisconnect() {
+        clearAllNotice()
+        
+        super.volumioDidDisconnect()
         
         update(sources: [])
     }

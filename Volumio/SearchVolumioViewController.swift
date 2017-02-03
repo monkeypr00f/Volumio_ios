@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
+class SearchVolumioViewController: UIViewController,
+    UITableViewDelegate, UITableViewDataSource,
+    PlayerSettingsDelegate,
     NetServiceBrowserDelegate, NetServiceDelegate
 {
     
@@ -20,6 +22,11 @@ class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITabl
     let browser = NetServiceBrowser()
 
     var services : [NetService] = []
+    
+    /// Callback which will be called when this view controller is finished. Parameter will be a Player struct after a successful search or `nil` if the search was cancelled. Callee must dismiss this view controller.
+    var finished: ((Player?) -> Void)?
+    
+    // MARK: View Callbacks
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,15 +45,20 @@ class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITabl
         browserStartSearch()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        clearAllNotice()
-    }
+    // MARK: - View Update
     
     @IBAction func refreshBrowser(_ sender: UIBarButtonItem) {
         browser.stop()
         browserStartSearch()
     }
+    
+    // MARK: - View Actions
+    
+    @IBAction func closeButton(_ sender: UIButton) {
+        finished?(nil)
+    }
+
+    // MARK: - Table View
     
     func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
@@ -120,23 +132,52 @@ class SearchVolumioViewController: UIViewController, UITableViewDelegate, UITabl
         service.delegate = nil
     }
     
-    @IBAction func closeButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     func setPlayer(_ service: NetService) {
         let name = service.name
         let port = service.port
         guard let host = service.hostName else { return }
         
-        let player = Player(name: name, host: host, port: port)
-        VolumioIOManager.shared.connect(to: player, setDefault: true)
-        
-        if let top = UIApplication.shared.keyWindow?.rootViewController {
-            top.dismiss(animated: true, completion: nil)
+        set(Player(name: name, host: host, port: port))
+    }
+    
+    func set(_ player: Player) {
+        finished?(player)
+    }
+    
+    // MARK: - View Segues
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "presentPlayerSettings" {
+            let navigationController = segue.destination
+                as! UINavigationController
+            let viewController = navigationController.topViewController
+                as! PlayerSettingsViewController
+            viewController.delegate = self
         }
     }
     
+    // MARK: - PlayerSettings Delegate
+    
+    func didCancel(on playerSettings: PlayerSettingsViewController) {
+        playerSettings.dismiss(animated: true, completion: nil)
+    }
+    
+    func willAccept(player: Player,
+        on playerSettings: PlayerSettingsViewController
+    ) -> Bool {
+        return player.isValid
+    }
+    
+    func didFinish(with player: Player,
+        on playerSettings: PlayerSettingsViewController
+    ) {
+        playerSettings.dismiss(animated: true, completion: nil)
+
+        if player.isValid {
+            set(player)
+        }
+    }
+
 }
 
 // MARK: - Localization

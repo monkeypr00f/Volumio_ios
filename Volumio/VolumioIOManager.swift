@@ -37,6 +37,15 @@ class VolumioIOManager: NSObject {
         return socket != nil && socket!.status == .connecting
     }
     
+    var defaultPlayer: Player? {
+        get {
+            return Defaults[.selectedPlayer]
+        }
+        set {
+            Defaults[.selectedPlayer] = newValue
+        }
+    }
+
     // MARK: - manage connection
     
     /**
@@ -68,52 +77,63 @@ class VolumioIOManager: NSObject {
     /**
         Connects to the player with the specified name.
      
-        - parameter player: Player to connect to.
-        - parameter setDefault: If `true`, stores the specified player as default. Defaults to `false`.
+        - Parameter player: Player to connect to.
+        - Parameter setDefault: If `true`, stores the specified player as default. Defaults to `false`.
+        - Returns: The player to be connected to.
     */
-    func connect(to player: Player, setDefault: Bool = false) {
+    @discardableResult
+    func connect(to player: Player, setDefault: Bool = false) -> Player {
         Log.entry(self, message: "connects to \(player)")
 
         closeConnection()
         
         if setDefault {
-            Defaults[.selectedPlayer] = player
+            defaultPlayer = player
         }
-
         currentPlayer = player
+        
         socket = SocketIOClient(for: player)
+
         establishConnection()
+        
+        return player
     }
     
     /**
         Connects to the current player.
+        - Returns: The player to be connected to or nil if there is no current player.
     */
-    func connectCurrent() {
+    @discardableResult
+    func connectCurrent() -> Player? {
         Log.entry(self, message: "connects to current player")
         
         if let player = currentPlayer {
-            connect(to: player)
+            return connect(to: player)
         }
         else {
             Log.exit(self, message: "has no current player")
             closeConnection()
             isDisconnected()
+            return nil
         }
     }
 
     /**
         Connects to the default player.
+        - Returns: The player to be connected to or nil if there is no default player.
     */
-    func connectDefault() {
+    @discardableResult
+    func connectDefault() -> Player? {
         Log.entry(self, message: "connects to default player")
 
-        if let player = Defaults[.selectedPlayer] {
-            connect(to: player)
+        if let player = defaultPlayer {
+            return connect(to: player)
         }
         else {
             Log.exit(self, message: "has no default player")
             closeConnection()
             isDisconnected()
+            return nil
         }
     }
     
@@ -124,7 +144,7 @@ class VolumioIOManager: NSObject {
         Log.entry(self, message: "disconnects from \(currentPlayer~?)")
 
         if unsetDefault {
-            Defaults.remove(.selectedPlayer)
+            defaultPlayer = nil
         }
 
         closeConnection()

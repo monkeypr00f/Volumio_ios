@@ -14,7 +14,9 @@ import Eureka
  This class extends `FromViewcontroller` to handle a connection to a volumio server.
  - Note: Because this has to be implemented via subclassing, this code is duplicated across serveral view controller subtypes. See `VolumioViewController`, `VolumioTableViewController`.
  */
-class VolumioFormViewController: FormViewController, VolumioController, ObservesNotifications, ShowsNotices {
+class VolumioFormViewController: FormViewController,
+    VolumioController, ObservesNotifications, ShowsNotices
+{
     
     var observers: [AnyObject] = []
     
@@ -33,13 +35,17 @@ class VolumioFormViewController: FormViewController, VolumioController, Observes
         super.viewDidDisappear(animated)
     }
     
+    // if a subclass wants to act on a connecting event, it can override this method
+    func volumioWillConnect() {
+    }
+    
     // if a subclass wants to act on a connected event, it can override this method (but it has to call this super methd)
-    func volumioConnected() {
+    func volumioDidConnect() {
         self._volumioConnected()
     }
     
     // if a subclass wants to act on a disconnected event, it can override this method (but it has to call this super methd)
-    func volumioDisconnected() {
+    func volumioDidDisconnect() {
         self._volumioDisconnected()
     }
     

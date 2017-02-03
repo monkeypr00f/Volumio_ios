@@ -10,19 +10,22 @@ import UIKit
 
 protocol VolumioController {
     func connectToVolumio()
-    func volumioConnected()
-    func volumioDisconnected()
+    
+    func volumioWillConnect()
+    func volumioDidConnect()
+    func volumioDidDisconnect()
 }
 
 extension VolumioController where Self: UIViewController, Self: ObservesNotifications {
     
-    /// Connects to volumio if there is no connection yet or tries to get current state otherwise.
+    /// Connects to Volumio player if there is no connection yet or tries to get current state otherwise.
     func connectToVolumio() {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
+            volumioWillConnect()
             VolumioIOManager.shared.connectDefault()
         }
         else {
-            VolumioIOManager.shared.getState()
+            volumioDidConnect()
         }
     }
     
@@ -30,10 +33,10 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     
     func _viewWillAppear() {
         registerObserver(forName: .connected) { (notification) in
-            self.volumioConnected()
+            self.volumioDidConnect()
         }
         registerObserver(forName: .disconnected) { (notification) in
-            self.volumioDisconnected()
+            self.volumioDidDisconnect()
         }
     }
 
@@ -54,8 +57,18 @@ extension VolumioController where Self: UIViewController, Self: ObservesNotifica
     func _volumioDisconnected() {
         Log.entry(self, message: "- Volumio is disconnected")
         
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
+        // Search for Volumio players
+
+        let controller = UIViewController.instantiate(
+            fromStoryboard: "SearchVolumio",
+            withIdentifier: "SearchVolumioViewController"
+        ) as! SearchVolumioViewController
+        controller.finished = { [unowned self] (player) in
+            controller.dismiss(animated: true, completion: nil)
+            guard let player = player else { return }
+            self.volumioWillConnect()
+            VolumioIOManager.shared.connect(to: player, setDefault: true)
+        }
         present(controller, animated: true, completion: nil)
     }
     

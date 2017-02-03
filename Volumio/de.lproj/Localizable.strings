@@ -31,6 +31,9 @@
 /* [trigger] cancel action */
 "CANCEL" = "Abbrechen";
 
+/* [trigger] connect action */
+"CONNECT" = "Verbinden";
+
 /* [trigger] more actions */
 "MORE" = "Mehr";
 
@@ -140,3 +143,23 @@
 /* [trigger](short) show settings view */
 "TAB_SETTINGS" = "Einstellungen";
 
+/* [input] label for player name setting */
+"PLAYER_SETTINGS_NAME_TITLE" = "Name";
+
+/* [input] placeholder for player name setting */
+"PLAYER_SETTINGS_NAME_PLACEHOLDER" = "Name des Abspielers";
+
+/* [input] label for player host setting */
+"PLAYER_SETTINGS_HOST_TITLE" = "Adresse";
+
+/* [input] placeholder for player host setting */
+"PLAYER_SETTINGS_HOST_PLACEHOLDER" = "IP-Adresse des Abspielers";
+
+/* [input] label for player port setting */
+"PLAYER_SETTINGS_PORT_TITLE" = "Port";
+
+/* [input] placeholder for player port setting */
+"PLAYER_SETTINGS_PORT_PLACEHOLDER" = "Port-Nummer des Abspielers";
+
+/* settings (name, host or port) for player are invalid */
+"PLAYER_INVALID_SETTINGS" = "Ungültige Einstellungen für den Abspieler";

@@ -99,12 +99,6 @@ class PlaybackViewController: VolumioViewController {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        pleaseWait()
-        
-        super.viewDidAppear(animated)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -351,8 +345,22 @@ class PlaybackViewController: VolumioViewController {
     
     // MARK: - Volumio Events
     
-    override func volumioDisconnected() {
-        super.volumioDisconnected()
+    override func volumioWillConnect() {
+        pleaseWait()
+        
+        super.volumioWillConnect()
+    }
+    
+    override func volumioDidConnect() {
+        super.volumioDidConnect()
+        
+        VolumioIOManager.shared.getState()
+    }
+
+    override func volumioDidDisconnect() {
+        clearAllNotice()
+        
+        super.volumioDidDisconnect()
         
         currentTrack = nil
         update()
