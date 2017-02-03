@@ -16,12 +16,12 @@ struct Player {
     var host: String
     var port: Int
 
-    /// Returns the player’s url for web ui
+    /// Returns the player’s url for web ui.
     var url: URL? {
         return URL(string: "http://\(host)")
     }
 
-    /// Validates this player’s properties
+    /// Validates this player’s properties. Currently accepts only ip addresses for the host property (because this is used to validate user input which accepts ip addresses only at the moment). Should be fixed sometimes to validate alphanumerical hostnames, too.
     var isValid: Bool {
         return validate(name: name) && validate(host: host) && validate(port: port)
     }
