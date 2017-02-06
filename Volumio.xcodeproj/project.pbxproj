@@ -16,7 +16,7 @@
 		097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E21E38CEA100A94A7A /* LastFMService.swift */; };
 		097522E61E38D8DE00A94A7A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E51E38D8DE00A94A7A /* Item.swift */; };
 		097522E81E38D8E800A94A7A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E71E38D8E800A94A7A /* Service.swift */; };
-		0986A4181E49E17200B8560C /* VolumioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4171E49E17200B8560C /* VolumioUITests.swift */; };
+		0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4171E49E17200B8560C /* LaunchTests.swift */; };
 		09DA7BEB1E421F5C00EB20EC /* ShowsNotices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */; };
 		09DA7BED1E42332F00EB20EC /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEC1E42332F00EB20EC /* Collection+.swift */; };
 		09DA7BEF1E42349700EB20EC /* DefaultStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */; };
@@ -110,7 +110,7 @@
 		097522E51E38D8DE00A94A7A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		097522E71E38D8E800A94A7A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		0986A4151E49E17100B8560C /* VolumioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VolumioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0986A4171E49E17200B8560C /* VolumioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumioUITests.swift; sourceTree = "<group>"; };
+		0986A4171E49E17200B8560C /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		0986A4191E49E17200B8560C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowsNotices.swift; sourceTree = "<group>"; };
 		09DA7BEC1E42332F00EB20EC /* Collection+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		0986A4161E49E17200B8560C /* VolumioUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0986A4171E49E17200B8560C /* VolumioUITests.swift */,
+				0986A4171E49E17200B8560C /* LaunchTests.swift */,
 				0986A4191E49E17200B8560C /* Info.plist */,
 			);
 			path = VolumioUITests;
@@ -674,7 +674,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0986A4181E49E17200B8560C /* VolumioUITests.swift in Sources */,
+				0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
