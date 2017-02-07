@@ -18,6 +18,8 @@ class TestCase: XCTestCase {
         super.setUp()
         
         continueAfterFailure = false
+        
+        sleep(1)
     }
 
     /// Waits for the specified element to appear or disappear.

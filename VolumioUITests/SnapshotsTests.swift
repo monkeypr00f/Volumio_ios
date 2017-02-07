@@ -37,6 +37,18 @@ class SnapshotsTests: TestCase {
         waitFor(element: blurOverlay, existance: false)
         
         snapshot("01Playback")
+        
+        app.tabBars.buttons["Queue"].tap()
+
+        snapshot("02Queue")
+
+        app.tabBars.buttons["Browse"].tap()
+
+        snapshot("03Browse")
+
+        app.tabBars.buttons["Settings"].tap()
+
+        snapshot("04Settings")
     }
 
 }

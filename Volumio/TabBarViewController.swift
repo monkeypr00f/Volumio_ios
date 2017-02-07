@@ -29,21 +29,25 @@ extension TabBarViewController {
                 item.title = NSLocalizedString("TAB_PLAYBACK",
                     comment: "[trigger](short) show playback view"
                 )
+                item.accessibilityLabel = "Playback"
             }
             if let item = items[safe: 1] {
                 item.title = NSLocalizedString("TAB_QUEUE",
                     comment: "[trigger](short) show queue view"
                 )
+                item.accessibilityLabel = "Queue"
             }
             if let item = items[safe: 2] {
                 item.title = NSLocalizedString("TAB_BROWSE",
                     comment: "[trigger](short) show browse view"
                 )
+                item.accessibilityLabel = "Browse"
             }
             if let item = items[safe: 3] {
                 item.title = NSLocalizedString("TAB_SETTINGS",
                     comment: "[trigger](short) show settings view"
                 )
+                item.accessibilityLabel = "Settings"
             }
         }
     }
