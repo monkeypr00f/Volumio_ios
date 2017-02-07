@@ -23,13 +23,7 @@ class LaunchConnectedTests: TestCase {
         
         // ensure the Playback’s view blur overlay will eventually disappear
         let blurOverlay = app.otherElements["blur-overlay"]
-        expectation(
-            for: NSPredicate.init(format: "exists == 0"),
-            evaluatedWith: blurOverlay,
-            handler: nil
-        )
-        waitForExpectations(timeout: 3, handler: nil)
-        XCTAssertFalse(blurOverlay.exists)
+        waitFor(element: blurOverlay, existance: false)
     }
     
 }
