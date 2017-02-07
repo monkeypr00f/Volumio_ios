@@ -81,6 +81,15 @@ extension AppDelegate {
         if ProcessInfo.shouldResetUserDefaults {
             Defaults.removeAll()
         }
+        if ProcessInfo.shouldDefaultUserDefaults {
+            Defaults.removeAll()
+            let defaultPlayer = Player(
+                name: "Volumio",
+                host: "volumio.local.",
+                port: 3000
+            )
+            Defaults[.selectedPlayer] = defaultPlayer
+        }
     }
 
 }
@@ -94,5 +103,14 @@ extension ProcessInfo {
      */
     class var shouldResetUserDefaults: Bool {
         return processInfo.arguments.contains("reset-user-defaults")
+    }
+    /**
+        Used to set user defaults to default values on startup.
+     
+        let app = XCUIApplication()
+        app.launchArguments.append("default-user-defaults")
+     */
+    class var shouldDefaultUserDefaults: Bool {
+        return processInfo.arguments.contains("default-user-defaults")
     }
 }

@@ -8,33 +8,18 @@
 
 import XCTest
 
-class LaunchTests: XCTestCase {
-    
-    lazy var app: XCUIApplication = {
-        return XCUIApplication()
-    }()
+class LaunchTests: TestCase {
     
     override func setUp() {
         super.setUp()
         
-        continueAfterFailure = false
-
         app.launchArguments.append("reset-user-defaults")
         app.launch()
     }
     
-    func waitFor(element: XCUIElement) {
-        expectation(
-            for: NSPredicate.init(format: "exists == 1"),
-            evaluatedWith: element,
-            handler: nil
-        )
-        waitForExpectations(timeout: 3, handler: nil)
-    }
-    
     func testLaunch() {
         // first view should be Playback view
-        // check for navigation item title (not visible, therefor not localized)
+        // check for navigation item title (not visible, therefore not localized)
         XCTAssertEqual(app.navigationBars.element.identifier, "Playback")
 
         // this is the SearchVolumio view’s close button
