@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search Volumio View Controller-->
+        <!--SearchVolumio-->
         <scene sceneID="s79-7c-27s">
             <objects>
                 <viewController storyboardIdentifier="SearchVolumioViewController" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="URx-vp-8MS" customClass="SearchVolumioViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
@@ -102,11 +102,15 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZq-ro-xoh">
                                 <rect key="frame" x="170" y="611" width="36" height="36"/>
+                                <accessibility key="accessibilityConfiguration" identifier="search-volumio-close"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="1SH-Ij-1h2"/>
                                     <constraint firstAttribute="width" constant="36" id="WSx-oo-2W0"/>
                                 </constraints>
                                 <state key="normal" image="close"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="search-volumio-close"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="closeButton:" destination="URx-vp-8MS" eventType="touchUpInside" id="SVC-ng-E5M"/>
                                 </connections>
@@ -141,7 +145,7 @@
                             <constraint firstItem="7Q1-LR-XZb" firstAttribute="leading" secondItem="IK6-xy-lMF" secondAttribute="leading" constant="40" id="zxO-8y-YTh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="9OJ-Zp-meA">
+                    <navigationItem key="navigationItem" title="SearchVolumio" id="9OJ-Zp-meA">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="LqE-cv-FyG">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

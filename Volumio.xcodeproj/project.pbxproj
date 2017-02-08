@@ -16,6 +16,9 @@
 		097522E31E38CEA100A94A7A /* LastFMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E21E38CEA100A94A7A /* LastFMService.swift */; };
 		097522E61E38D8DE00A94A7A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E51E38D8DE00A94A7A /* Item.swift */; };
 		097522E81E38D8E800A94A7A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097522E71E38D8E800A94A7A /* Service.swift */; };
+		0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4171E49E17200B8560C /* LaunchTests.swift */; };
+		0986A4211E4A2E8100B8560C /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4201E4A2E8100B8560C /* TestCase.swift */; };
+		0986A4231E4A2F1E00B8560C /* LaunchConnectedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */; };
 		09DA7BEB1E421F5C00EB20EC /* ShowsNotices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */; };
 		09DA7BED1E42332F00EB20EC /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEC1E42332F00EB20EC /* Collection+.swift */; };
 		09DA7BEF1E42349700EB20EC /* DefaultStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */; };
@@ -72,6 +75,16 @@
 		BC7FD76E9B1CFE1DE06081A4 /* Pods_Volumio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17DCEBEF3691DD5604EFC3CD /* Pods_Volumio.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0986A41A1E49E17200B8560C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6086E29F1D9133A50067A8B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6086E2A61D9133A50067A8B5;
+			remoteInfo = Volumio;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		602803BE1DA2C0CF00055D42 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -98,6 +111,11 @@
 		097522E21E38CEA100A94A7A /* LastFMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMService.swift; sourceTree = "<group>"; };
 		097522E51E38D8DE00A94A7A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		097522E71E38D8E800A94A7A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		0986A4151E49E17100B8560C /* VolumioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VolumioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0986A4171E49E17200B8560C /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
+		0986A4191E49E17200B8560C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0986A4201E4A2E8100B8560C /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
+		0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchConnectedTests.swift; sourceTree = "<group>"; };
 		09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowsNotices.swift; sourceTree = "<group>"; };
 		09DA7BEC1E42332F00EB20EC /* Collection+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
 		09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStringConvertible.swift; sourceTree = "<group>"; };
@@ -161,6 +179,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0986A4121E49E17100B8560C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A41D9133A50067A8B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,6 +226,25 @@
 				097522E21E38CEA100A94A7A /* LastFMService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		0986A4161E49E17200B8560C /* VolumioUITests */ = {
+			isa = PBXGroup;
+			children = (
+				0986A41F1E4A2E4E00B8560C /* Base */,
+				0986A4191E49E17200B8560C /* Info.plist */,
+				0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */,
+				0986A4171E49E17200B8560C /* LaunchTests.swift */,
+			);
+			path = VolumioUITests;
+			sourceTree = "<group>";
+		};
+		0986A41F1E4A2E4E00B8560C /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0986A4201E4A2E8100B8560C /* TestCase.swift */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		09DA7BF41E423E4300EB20EC /* ⚔ UI */ = {
@@ -399,6 +443,7 @@
 			children = (
 				6086E2A91D9133A50067A8B5 /* Volumio */,
 				097522DA1E38AC6600A94A7A /* VolumioConfigs */,
+				0986A4161E49E17200B8560C /* VolumioUITests */,
 				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
 				B86260B29102044B72DD60D9 /* Pods */,
 				6086E2A81D9133A50067A8B5 /* Products */,
@@ -409,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				6086E2A71D9133A50067A8B5 /* Volumio.app */,
+				0986A4151E49E17100B8560C /* VolumioUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -451,6 +497,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0986A4141E49E17100B8560C /* VolumioUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0986A41E1E49E17200B8560C /* Build configuration list for PBXNativeTarget "VolumioUITests" */;
+			buildPhases = (
+				0986A4111E49E17100B8560C /* Sources */,
+				0986A4121E49E17100B8560C /* Frameworks */,
+				0986A4131E49E17100B8560C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0986A41B1E49E17200B8560C /* PBXTargetDependency */,
+			);
+			name = VolumioUITests;
+			productName = VolumioUITests;
+			productReference = 0986A4151E49E17100B8560C /* VolumioUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		6086E2A61D9133A50067A8B5 /* Volumio */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6086E2BB1D9133A50067A8B5 /* Build configuration list for PBXNativeTarget "Volumio" */;
@@ -480,10 +544,16 @@
 		6086E29F1D9133A50067A8B5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Federico Sintucci";
 				TargetAttributes = {
+					0986A4141E49E17100B8560C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 4PF93A4DYX;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6086E2A61D9133A50067A8B5;
+					};
 					6086E2A61D9133A50067A8B5 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 7VJCA99LU5;
@@ -508,11 +578,19 @@
 			projectRoot = "";
 			targets = (
 				6086E2A61D9133A50067A8B5 /* Volumio */,
+				0986A4141E49E17100B8560C /* VolumioUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0986A4131E49E17100B8560C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A51D9133A50067A8B5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -606,6 +684,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0986A4111E49E17100B8560C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */,
+				0986A4211E4A2E8100B8560C /* TestCase.swift in Sources */,
+				0986A4231E4A2F1E00B8560C /* LaunchConnectedTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6086E2A31D9133A50067A8B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -669,6 +757,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0986A41B1E49E17200B8560C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6086E2A61D9133A50067A8B5 /* Volumio */;
+			targetProxy = 0986A41A1E49E17200B8560C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		09EBB6081E24FF180081654E /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -683,6 +779,35 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0986A41C1E49E17200B8560C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4PF93A4DYX;
+				INFOPLIST_FILE = VolumioUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.VolumioUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Volumio;
+			};
+			name = Debug;
+		};
+		0986A41D1E49E17200B8560C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 4PF93A4DYX;
+				INFOPLIST_FILE = VolumioUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fsintucci.volumio.VolumioUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Volumio;
+			};
+			name = Release;
+		};
 		6086E2B91D9133A50067A8B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 097522DC1E38AC9F00A94A7A /* Debug.xcconfig */;
@@ -815,6 +940,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0986A41E1E49E17200B8560C /* Build configuration list for PBXNativeTarget "VolumioUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0986A41C1E49E17200B8560C /* Debug */,
+				0986A41D1E49E17200B8560C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		6086E2A21D9133A50067A8B5 /* Build configuration list for PBXProject "Volumio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

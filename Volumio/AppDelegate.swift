@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import Fabric
 import Crashlytics
 
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Log.setLog(level: BundleInfo[.logLevel])
 
         Fabric.with([Crashlytics.self])
+        
+        handleArguments()
         
         UIBarButtonItem.appearance()
             .setTitleTextAttributes(
@@ -70,3 +73,44 @@ extension DefaultsKeys {
     static let selectedPlayer = DefaultsKey<Player?>("selectedPlayer")
 }
 
+// MARK: - App Launch Arguments
+
+extension AppDelegate {
+
+    func handleArguments() {
+        if ProcessInfo.shouldResetUserDefaults {
+            Defaults.removeAll()
+        }
+        if ProcessInfo.shouldDefaultUserDefaults {
+            Defaults.removeAll()
+            let defaultPlayer = Player(
+                name: "Volumio",
+                host: "volumio.local.",
+                port: 3000
+            )
+            Defaults[.selectedPlayer] = defaultPlayer
+        }
+    }
+
+}
+
+extension ProcessInfo {
+    /**
+        Used to reset user defaults on startup.
+     
+        let app = XCUIApplication()
+        app.launchArguments.append("reset-user-defaults")
+     */
+    class var shouldResetUserDefaults: Bool {
+        return processInfo.arguments.contains("reset-user-defaults")
+    }
+    /**
+        Used to set user defaults to default values on startup.
+     
+        let app = XCUIApplication()
+        app.launchArguments.append("default-user-defaults")
+     */
+    class var shouldDefaultUserDefaults: Bool {
+        return processInfo.arguments.contains("default-user-defaults")
+    }
+}
