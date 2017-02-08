@@ -15,45 +15,45 @@ protocol BrowseActionsDelegate: class {
 }
 
 class BrowseActions: UIView {
-    
-    @IBOutlet weak var view: UIView!
-    
-    weak var delegate: BrowseActionsDelegate?
 
-    @IBOutlet weak var addAndPlayLabel: UILabel!
-    @IBOutlet weak var addToQueueLabel: UILabel!
-    @IBOutlet weak var clearAndPlayLabel: UILabel!
+    @IBOutlet weak private var view: UIView!
+
+    @IBOutlet weak fileprivate var addAndPlayLabel: UILabel!
+    @IBOutlet weak fileprivate var addToQueueLabel: UILabel!
+    @IBOutlet weak fileprivate var clearAndPlayLabel: UILabel!
+
+    weak var delegate: BrowseActionsDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
         localize()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
         localize()
     }
-    
+
     private func initialize() {
         UINib(nibName: "BrowseActions", bundle: nil).instantiate(withOwner: self, options: nil)
         addSubview(view)
         view.frame = self.bounds
     }
-    
+
     @IBAction func didAddAndPlay(_ sender: Any) {
         delegate?.browseAddAndPlay()
     }
-    
+
     @IBAction func didAddToQueue(_ sender: Any) {
         delegate?.browseAddToQueue()
     }
-    
+
     @IBAction func didClearAndPlay(_ sender: Any) {
         delegate?.browseClearAndPlay()
     }
-    
+
 }
 
 // MARK: - Localization
