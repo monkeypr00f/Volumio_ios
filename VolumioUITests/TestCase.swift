@@ -18,17 +18,18 @@ class TestCase: XCTestCase {
         super.setUp()
         
         continueAfterFailure = false
+        
+        sleep(1)
     }
 
-    /// Waits for the specified element to appear.
-    func waitFor(element: XCUIElement) {
-        expectation(
-            for: NSPredicate.init(format: "exists == 1"),
-            evaluatedWith: element,
-            handler: nil
+    /// Waits for the specified element to appear or disappear.
+    func waitFor(element: XCUIElement, existance: Bool = true) {
+        let predicate = NSPredicate(
+            format: "exists == \(existance ? "1" : "0")"
         )
+        expectation(for: predicate, evaluatedWith: element, handler: nil)
         waitForExpectations(timeout: 3, handler: nil)
+        XCTAssertEqual(existance, element.exists)
     }
-    
 
 }

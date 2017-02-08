@@ -19,6 +19,8 @@
 		0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4171E49E17200B8560C /* LaunchTests.swift */; };
 		0986A4211E4A2E8100B8560C /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4201E4A2E8100B8560C /* TestCase.swift */; };
 		0986A4231E4A2F1E00B8560C /* LaunchConnectedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */; };
+		0986A4291E4B1F5400B8560C /* TabBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0986A4281E4B1F5400B8560C /* TabBarTests.swift */; };
+		0986A42D1E4B4D6800B8560C /* Fastlane in Resources */ = {isa = PBXBuildFile; fileRef = 0986A42C1E4B4D6800B8560C /* Fastlane */; };
 		09DA7BEB1E421F5C00EB20EC /* ShowsNotices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */; };
 		09DA7BED1E42332F00EB20EC /* Collection+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEC1E42332F00EB20EC /* Collection+.swift */; };
 		09DA7BEF1E42349700EB20EC /* DefaultStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */; };
@@ -36,6 +38,8 @@
 		4C8D3DED1E427499008511E1 /* SearchVolumio.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8D3DEC1E427499008511E1 /* SearchVolumio.storyboard */; };
 		4C8D3DEF1E427667008511E1 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D3DEE1E427667008511E1 /* UIViewController+.swift */; };
 		4C8D3DF11E427DAB008511E1 /* PlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D3DF01E427DAB008511E1 /* PlayerSettingsViewController.swift */; };
+		4CF615061E4A77B200DAECB2 /* SnapshotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF615051E4A77B200DAECB2 /* SnapshotsTests.swift */; };
+		4CF615091E4A784800DAECB2 /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF615081E4A784800DAECB2 /* Snapshots.swift */; };
 		6005E4EB1D9916A5000B80AE /* TrackObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6005E4EA1D9916A5000B80AE /* TrackObject.swift */; };
 		601424771D916F0C001159B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 601424761D916F0C001159B2 /* Assets.xcassets */; };
 		601424791D9173A3001159B2 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601424781D9173A3001159B2 /* PlaybackViewController.swift */; };
@@ -116,6 +120,8 @@
 		0986A4191E49E17200B8560C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0986A4201E4A2E8100B8560C /* TestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchConnectedTests.swift; sourceTree = "<group>"; };
+		0986A4281E4B1F5400B8560C /* TabBarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarTests.swift; sourceTree = "<group>"; };
+		0986A42C1E4B4D6800B8560C /* Fastlane */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fastlane; sourceTree = "<group>"; };
 		09DA7BEA1E421F5C00EB20EC /* ShowsNotices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowsNotices.swift; sourceTree = "<group>"; };
 		09DA7BEC1E42332F00EB20EC /* Collection+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+.swift"; sourceTree = "<group>"; };
 		09DA7BEE1E42349700EB20EC /* DefaultStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStringConvertible.swift; sourceTree = "<group>"; };
@@ -136,6 +142,8 @@
 		4C8D3DEC1E427499008511E1 /* SearchVolumio.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchVolumio.storyboard; sourceTree = "<group>"; };
 		4C8D3DEE1E427667008511E1 /* UIViewController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4C8D3DF01E427DAB008511E1 /* PlayerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSettingsViewController.swift; sourceTree = "<group>"; };
+		4CF615051E4A77B200DAECB2 /* SnapshotsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotsTests.swift; sourceTree = "<group>"; };
+		4CF615081E4A784800DAECB2 /* Snapshots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
 		6005E4EA1D9916A5000B80AE /* TrackObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackObject.swift; sourceTree = "<group>"; };
 		601424761D916F0C001159B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		601424781D9173A3001159B2 /* PlaybackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaybackViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -231,20 +239,55 @@
 		0986A4161E49E17200B8560C /* VolumioUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0986A41F1E4A2E4E00B8560C /* Base */,
-				0986A4191E49E17200B8560C /* Info.plist */,
-				0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */,
-				0986A4171E49E17200B8560C /* LaunchTests.swift */,
+				0986A4251E4B0E0200B8560C /* ⚒ Utilities */,
+				0986A41F1E4A2E4E00B8560C /* ⚔ Base */,
+				0986A4261E4B0E4200B8560C /* ⚜ LaunchTests */,
+				0986A4271E4B1F3600B8560C /* ⚜ NavigationTests */,
+				4CF615071E4A783800DAECB2 /* ⛓ Support */,
+				4CF615051E4A77B200DAECB2 /* SnapshotsTests.swift */,
 			);
 			path = VolumioUITests;
 			sourceTree = "<group>";
 		};
-		0986A41F1E4A2E4E00B8560C /* Base */ = {
+		0986A41F1E4A2E4E00B8560C /* ⚔ Base */ = {
 			isa = PBXGroup;
 			children = (
 				0986A4201E4A2E8100B8560C /* TestCase.swift */,
 			);
-			name = Base;
+			name = "⚔ Base";
+			sourceTree = "<group>";
+		};
+		0986A4241E4B0D6900B8560C /* ⛓ Support */ = {
+			isa = PBXGroup;
+			children = (
+				6086E2B81D9133A50067A8B5 /* Info.plist */,
+			);
+			name = "⛓ Support";
+			sourceTree = "<group>";
+		};
+		0986A4251E4B0E0200B8560C /* ⚒ Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4CF615081E4A784800DAECB2 /* Snapshots.swift */,
+			);
+			name = "⚒ Utilities";
+			sourceTree = "<group>";
+		};
+		0986A4261E4B0E4200B8560C /* ⚜ LaunchTests */ = {
+			isa = PBXGroup;
+			children = (
+				0986A4221E4A2F1E00B8560C /* LaunchConnectedTests.swift */,
+				0986A4171E49E17200B8560C /* LaunchTests.swift */,
+			);
+			name = "⚜ LaunchTests";
+			sourceTree = "<group>";
+		};
+		0986A4271E4B1F3600B8560C /* ⚜ NavigationTests */ = {
+			isa = PBXGroup;
+			children = (
+				0986A4281E4B1F5400B8560C /* TabBarTests.swift */,
+			);
+			name = "⚜ NavigationTests";
 			sourceTree = "<group>";
 		};
 		09DA7BF41E423E4300EB20EC /* ⚔ UI */ = {
@@ -286,15 +329,14 @@
 			name = "⚒ Utilities";
 			sourceTree = "<group>";
 		};
-		09DA7BF91E4247FB00EB20EC /* Assets */ = {
+		09DA7BF91E4247FB00EB20EC /* ⛓ Assets */ = {
 			isa = PBXGroup;
 			children = (
-				09EBB6081E24FF180081654E /* Localizable.strings */,
-				6086E2B81D9133A50067A8B5 /* Info.plist */,
-				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
 				601424761D916F0C001159B2 /* Assets.xcassets */,
+				09EBB6121E266D210081654E /* LaunchScreen.storyboard */,
+				09EBB6081E24FF180081654E /* Localizable.strings */,
 			);
-			name = Assets;
+			name = "⛓ Assets";
 			sourceTree = "<group>";
 		};
 		4C8D3DD91E3FF0DE008511E1 /* ⚜ Scenes */ = {
@@ -400,6 +442,14 @@
 			name = "Show Networks";
 			sourceTree = "<group>";
 		};
+		4CF615071E4A783800DAECB2 /* ⛓ Support */ = {
+			isa = PBXGroup;
+			children = (
+				0986A4191E49E17200B8560C /* Info.plist */,
+			);
+			name = "⛓ Support";
+			sourceTree = "<group>";
+		};
 		6005E4E91D99168A000B80AE /* ⚜ Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,11 +491,12 @@
 		6086E29E1D9133A50067A8B5 = {
 			isa = PBXGroup;
 			children = (
+				0986A42C1E4B4D6800B8560C /* Fastlane */,
 				6086E2A91D9133A50067A8B5 /* Volumio */,
 				097522DA1E38AC6600A94A7A /* VolumioConfigs */,
 				0986A4161E49E17200B8560C /* VolumioUITests */,
-				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
 				B86260B29102044B72DD60D9 /* Pods */,
+				9051AE3E5FA14F9AC25A3619 /* Frameworks */,
 				6086E2A81D9133A50067A8B5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -470,8 +521,9 @@
 				6014247B1D9173C4001159B2 /* ⚜ Manager */,
 				6005E4E91D99168A000B80AE /* ⚜ Models */,
 				4C8D3DD91E3FF0DE008511E1 /* ⚜ Scenes */,
+				09DA7BF91E4247FB00EB20EC /* ⛓ Assets */,
+				0986A4241E4B0D6900B8560C /* ⛓ Support */,
 				6086E2AA1D9133A50067A8B5 /* AppDelegate.swift */,
-				09DA7BF91E4247FB00EB20EC /* Assets */,
 				6072D0331DAD31A5006D7E45 /* QC */,
 			);
 			path = Volumio;
@@ -588,6 +640,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0986A42D1E4B4D6800B8560C /* Fastlane in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,8 +742,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0986A4181E49E17200B8560C /* LaunchTests.swift in Sources */,
+				4CF615061E4A77B200DAECB2 /* SnapshotsTests.swift in Sources */,
 				0986A4211E4A2E8100B8560C /* TestCase.swift in Sources */,
 				0986A4231E4A2F1E00B8560C /* LaunchConnectedTests.swift in Sources */,
+				4CF615091E4A784800DAECB2 /* Snapshots.swift in Sources */,
+				0986A4291E4B1F5400B8560C /* TabBarTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +1003,7 @@
 				0986A41D1E49E17200B8560C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6086E2A21D9133A50067A8B5 /* Build configuration list for PBXProject "Volumio" */ = {
 			isa = XCConfigurationList;
