@@ -10,22 +10,21 @@ import UIKit
 
 class AddToPlaylistTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var playlistBorder: UIView!
-    @IBOutlet weak var playlistName: UILabel!
-    
+    @IBOutlet weak private var borderView: UIView!
+    @IBOutlet weak private var titleLabel: UILabel!
+
+    var playlistTitle: String? {
+        didSet {
+            titleLabel.text = playlistTitle ?? ""
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        playlistBorder.layer.borderWidth = 0.5
-        playlistBorder.layer.borderColor = UIColor(red: 191.0/255.0, green: 184.0/255.0, blue: 185.0/255.0, alpha: 1).cgColor
-        playlistBorder.layer.cornerRadius = 5
+
+        borderView.layer.borderWidth = 0.5
+        borderView.layer.borderColor = UIColor.pinkFlare.cgColor
+        borderView.layer.cornerRadius = 5
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
+
 }

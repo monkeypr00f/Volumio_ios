@@ -1310,8 +1310,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="playlistBorder" destination="HRr-xo-LtA" id="83a-Hv-HPh"/>
-                                            <outlet property="playlistName" destination="Lzw-Ie-qF2" id="IPU-PK-XPo"/>
+                                            <outlet property="borderView" destination="HRr-xo-LtA" id="fpY-C6-Hhs"/>
+                                            <outlet property="titleLabel" destination="Lzw-Ie-qF2" id="uQd-on-ERI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1353,8 +1353,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="inputPlaylist" destination="mMM-LJ-QFk" id="1qP-cC-Tkp"/>
                         <outlet property="tableView" destination="bwT-Eq-IpY" id="F7q-AH-DOr"/>
+                        <outlet property="titleTextField" destination="mMM-LJ-QFk" id="cvN-Gf-nMq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTT-FK-p29" userLabel="First Responder" sceneMemberID="firstResponder"/>
