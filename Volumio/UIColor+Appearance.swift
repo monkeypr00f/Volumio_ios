@@ -11,12 +11,7 @@ import UIKit
 extension UIColor {
     
     class var pinkFlare: UIColor {
-        return UIColor(
-            red: 191.0 / 255.0,
-            green: 184.0 / 255.0,
-            blue: 185.0 / 255.0,
-            alpha: 1
-        )
+        return #colorLiteral(red: 0.7490196078, green: 0.7215686275, blue: 0.7254901961, alpha: 1)
     }
 
 }
