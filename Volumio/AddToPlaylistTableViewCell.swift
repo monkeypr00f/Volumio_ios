@@ -23,7 +23,7 @@ class AddToPlaylistTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
         borderView.layer.borderWidth = 0.5
-        borderView.layer.borderColor = UIColor.pinkFlare.cgColor
+        borderView.layer.borderColor = UIColor.addToPlaylistCellBorder.cgColor
         borderView.layer.cornerRadius = 5
     }
 

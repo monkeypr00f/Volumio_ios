@@ -15,17 +15,10 @@ class SelectPlayerTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         playerBorder.layer.borderWidth = 1
-        playerBorder.layer.borderColor = UIColor(red: 162.0/255.0, green: 155.0/255.0, blue: 154.0/255.0, alpha: 1).cgColor
+        playerBorder.layer.borderColor = UIColor.selectPlayerCellBorder.cgColor
         playerBorder.layer.cornerRadius = 5
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
