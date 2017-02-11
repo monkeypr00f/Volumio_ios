@@ -86,6 +86,7 @@ class NetworksTableViewController: UITableViewController {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "connection", for: indexPath)
+        
         let type = networksData[indexPath.section]
         let source = type[indexPath.row]
         

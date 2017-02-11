@@ -134,7 +134,10 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! QueueTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
+        guard let cell = anyCell as? QueueTableViewCell
+            else { fatalError() }
+
         let track = tracksList[indexPath.row]
         
         cell.trackTitle.text = track.localizedTitle

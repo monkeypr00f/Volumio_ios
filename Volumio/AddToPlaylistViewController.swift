@@ -88,11 +88,11 @@ class AddToPlaylistViewController: UIViewController,
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reusableCell = tableView.dequeueReusableCell(
+        let anyCell = tableView.dequeueReusableCell(
             withIdentifier: "playlist",
             for: indexPath
         )
-        guard let cell = reusableCell as? AddToPlaylistTableViewCell
+        guard let cell = anyCell as? AddToPlaylistTableViewCell
             else { fatalError() }
 
         cell.playlistTitle = playlistTitle(at: indexPath.row)

@@ -69,11 +69,13 @@ class SearchVolumioViewController: UIViewController,
     func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "service", for: indexPath) as! SelectPlayerTableViewCell
-        
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "service", for: indexPath)
+        guard let cell = anyCell as? SelectPlayerTableViewCell
+            else { fatalError() }
+
         let service = services[indexPath.row]
+
         cell.playerName.text = service.name
-        
         return cell
     }
     
@@ -148,11 +150,13 @@ class SearchVolumioViewController: UIViewController,
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "presentPlayerSettings" {
-            let navigationController = segue.destination
-                as! UINavigationController
-            let viewController = navigationController.topViewController
-                as! PlayerSettingsViewController
-            viewController.delegate = self
+            guard let navigationController = segue.destination as? UINavigationController
+                else { fatalError() }
+            guard let destinationController = navigationController.topViewController
+                    as? PlayerSettingsViewController
+                else { fatalError() }
+
+            destinationController.delegate = self
         }
     }
     

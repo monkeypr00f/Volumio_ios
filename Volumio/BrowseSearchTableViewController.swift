@@ -12,21 +12,21 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     ObservesNotifications, ShowsNotices
 {
 
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    var sourcesList : [SearchResultObject] = []
-    
+    @IBOutlet weak private var searchBar: UISearchBar!
+
+    var sourcesList: [SearchResultObject] = []
+
     var observers: [AnyObject] = []
 
     // MARK: - View Callbacks
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         localize()
 
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+
         searchBar.delegate = self
 
         refreshControl?.addTarget(self,
@@ -34,13 +34,13 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             for: UIControlEvents.valueChanged
         )
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         registerObserver(forName: .browseSearch) { (notification) in
             self.clearAllNotice()
-            
+
             guard let sources = notification.object as? [SearchResultObject]
                 else { return }
             self.update(sources: sources)
@@ -51,32 +51,32 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             self.notice(playlistAdded: object)
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             _ = navigationController?.popToRootViewController(animated: animated)
         }
-    
+
         super.viewDidAppear(animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         clearAllNotice()
-        
+
         NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - View Updates
-    
+
     func update(sources: [SearchResultObject]? = nil) {
         if let sources = sources {
             sourcesList = sources
         }
         tableView.reloadData()
     }
-    
+
     func notice(playlistAdded item: Any, delayed time: Double? = nil) {
         notice(localizedAddedItemToPlaylistNotice(name: String(describing: item)), delayed: time)
     }
@@ -86,7 +86,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sourcesList.count
     }
-    
+
     override func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
@@ -96,94 +96,100 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         }
         return 0
     }
-    
+
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        
+
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
-        
+
         if item.type == .song || item.type == .track {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
-            
+            let anyCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
+            guard let cell = anyCell as? TrackTableViewCell
+                else { fatalError() }
+
             cell.trackTitle.text = item.localizedTitle
             cell.trackArtist.text = item.localizedArtistAndAlbum
             cell.trackImage.setAlbumArt(for: item)
             return cell
-            
+
         } else if item.type.isRadio {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! RadioTableViewCell
-            
+            let anyCell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath)
+            guard let cell = anyCell as? RadioTableViewCell
+                else { fatalError() }
+
             cell.radioTitle.text = item.localizedTitle
             cell.radioImage.setAlbumArt(for: item)
             return cell
-            
+
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
-            
+            let anyCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
+            guard let cell = anyCell as? FolderTableViewCell
+                else { fatalError() }
+
             cell.folderTitle.text = item.localizedTitle
             cell.folderImage.setAlbumArt(for: item)
             return cell
-            
+
         }
     }
-    
+
     override func tableView(_ tableView: UITableView,
         titleForHeaderInSection section: Int
     ) -> String? {
         return sourcesList[section].title
     }
-    
+
     override func tableView(_ tableView: UITableView,
         commit editingStyle: UITableViewCellEditingStyle,
         forRowAt indexPath: IndexPath
     ) {
     }
-    
+
     override func tableView(_ tableView: UITableView,
         editActionsForRowAt indexPath: IndexPath
     ) -> [UITableViewRowAction]? {
-        
+
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
-        
+
         let play = UITableViewRowAction(
             style: .normal,
             title: localizedPlayTitle
-        ) { (action, index) in
+        ) { _ in
             guard let uri = item.uri, let title = item.title, let service = item.service
                 else { return }
             VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
             tableView.setEditing(false, animated: true)
         }
         play.backgroundColor = UIColor(red: 74.0/255.0, green: 190.0/255.0, blue: 134.0/255.0, alpha: 1)
-        
+
         let more = UITableViewRowAction(
             style: .normal,
             title: localizedMoreTitle
-        ) { (action, index) in
+        ) { _ in
             self.playlistActions(item: item)
             tableView.setEditing(false, animated: true)
         }
         more.backgroundColor = UIColor(red: 76.0/255.0, green: 71.0/255.0, blue: 70.0/255.0, alpha: 1)
-        
+
         return [more, play]
     }
-    
+
     override func tableView(_ tableView: UITableView,
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
         return 54.0
     }
-    
+
     func handleRefresh(refreshControl: UIRefreshControl) {
         if let text = searchBar.text {
             VolumioIOManager.shared.browseSearch(text: text)
         }
         refreshControl.endRefreshing()
     }
-    
+
     func playlistActions(item: LibraryObject) {
         guard let itemUri = item.uri,
               let itemTitle = item.title,
@@ -193,8 +199,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         alert.addAction(
-            UIAlertAction(title: localizedPlayTitle, style: .default) {
-                (action) in
+            UIAlertAction(title: localizedPlayTitle, style: .default) { _ in
                     VolumioIOManager.shared.addAndPlay(
                         uri: itemUri,
                         title: itemTitle,
@@ -202,8 +207,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                     )
         })
         alert.addAction(
-            UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
-                (action) in
+            UIAlertAction(title: localizedAddToQueueTitle, style: .default) { _ in
                     VolumioIOManager.shared.addToQueue(
                         uri: itemUri,
                         title: itemTitle,
@@ -211,8 +215,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                     )
         })
         alert.addAction(
-            UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
-                (action) in
+            UIAlertAction(title: localizedClearAndPlayTitle, style: .default) { _ in
                     VolumioIOManager.shared.clearAndPlay(
                         uri: itemUri,
                         title: itemTitle,
@@ -220,28 +223,29 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                     )
         })
         alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
-        
+
         present(alert, animated: true, completion: nil)
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.pleaseWait()
         VolumioIOManager.shared.browseSearch(text: searchBar.text!)
         searchBar.resignFirstResponder()
     }
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "browseFolder" {
+            guard let destinationController = segue.destination as? BrowseFolderTableViewController
+                else { fatalError() }
+
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-                
+
             let itemList = sourcesList[indexPath.section]
             let items = itemList.items
             if let items = items {
                 let item = items[indexPath.row] as LibraryObject
-            
-                let destinationController = segue.destination as! BrowseFolderTableViewController
 
                 switch item.type {
                 case .folder:
@@ -262,7 +266,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
 // MARK: - Localization
 
 extension BrowseSearchTableViewController {
-    
+
     fileprivate func localize() {
         navigationItem.title = NSLocalizedString("BROWSE_SEARCH",
             comment: "browse search view title"
@@ -272,21 +276,21 @@ extension BrowseSearchTableViewController {
     fileprivate var localizedMoreTitle: String {
         return NSLocalizedString("MORE", comment: "[trigger] more actions")
     }
-    
+
     fileprivate var localizedCancelTitle: String {
         return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
     }
-    
+
     fileprivate var localizedPlayTitle: String {
         return NSLocalizedString("PLAY", comment: "[trigger] play anything")
     }
-    
+
     fileprivate var localizedAddAndPlayTitle: String {
         return NSLocalizedString("BROWSE_ADD_TO_QUEUE_AND_PLAY",
             comment: "[trigger] add item to queue and start playing"
         )
     }
-    
+
     fileprivate var localizedAddToQueueTitle: String {
         return NSLocalizedString("BROWSE_ADD_TO_QUEUE",
             comment: "[trigger] add item to queue"
@@ -305,7 +309,7 @@ extension BrowseSearchTableViewController {
             name
         )
     }
-    
+
     fileprivate var localizedAddedItemToPlaylistNotice: String {
         return NSLocalizedString("PLAYLIST_ADDED_ITEM",
             comment: "[hint](format) added item(%@) to playlist"

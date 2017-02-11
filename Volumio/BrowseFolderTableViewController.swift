@@ -187,8 +187,8 @@ class BrowseFolderTableViewController: UITableViewController,
         cellForTrack item: Item,
         forRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
-        guard let cell = reuseableCell as? TrackTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
+        guard let cell = anyCell as? TrackTableViewCell
             else { fatalError() }
 
         cell.trackTitle.text = item.localizedTitle
@@ -201,8 +201,8 @@ class BrowseFolderTableViewController: UITableViewController,
         cellForRadio item: Item,
         forRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath)
-        guard let cell = reuseableCell as? RadioTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath)
+        guard let cell = anyCell as? RadioTableViewCell
             else { fatalError() }
 
         cell.radioTitle.text = item.localizedTitle
@@ -214,8 +214,8 @@ class BrowseFolderTableViewController: UITableViewController,
         cellForFolder item: Item,
         forRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
-        guard let cell = reuseableCell as? FolderTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
+        guard let cell = anyCell as? FolderTableViewCell
             else { fatalError() }
 
         cell.folderTitle.text = item.localizedTitle

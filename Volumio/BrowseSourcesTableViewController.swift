@@ -95,6 +95,7 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "source", for: indexPath)
+        
         let source = sourcesList[indexPath.row]
         
         cell.textLabel?.text = source.name
@@ -110,12 +111,13 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFolder" {
+            guard let destinationController = segue.destination as? BrowseFolderTableViewController
+                else { fatalError() }
+
             guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
             
             let item = sourcesList[indexPath.row]
             
-            let destinationController = segue.destination as! BrowseFolderTableViewController
-
             switch item.plugin_type {
             case .some("music_service"):
                 destinationController.serviceType = .music_service

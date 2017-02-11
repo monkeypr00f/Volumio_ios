@@ -81,7 +81,10 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath) as! PluginTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath)
+        guard let cell = anyCell as? PluginTableViewCell
+            else { fatalError() }
+
         let source = pluginsList[indexPath.row]
         
         cell.pluginName.text = source.prettyName
@@ -103,9 +106,11 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pluginDetail" {
+            guard let destinationController = segue.destination as? PluginDetailViewController
+                else { fatalError() }
+
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             
-            let destinationController = segue.destination as! PluginDetailViewController
             destinationController.plugin = pluginsList[indexPath.row]
         }
     }
