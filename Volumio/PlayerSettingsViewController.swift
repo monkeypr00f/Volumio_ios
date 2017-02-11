@@ -9,7 +9,6 @@
 import UIKit
 
 import Eureka
-import Kingfisher
 
 protocol PlayerSettingsDelegate: class {
     
