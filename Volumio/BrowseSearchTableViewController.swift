@@ -199,7 +199,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                         title: itemTitle,
                         service: itemService
                     )
-        })
+            })
         alert.addAction(
             UIAlertAction(title: localizedAddToQueueTitle, style: .default) { _ in
                     VolumioIOManager.shared.addToQueue(
@@ -207,7 +207,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                         title: itemTitle,
                         service: itemService
                     )
-        })
+            })
         alert.addAction(
             UIAlertAction(title: localizedClearAndPlayTitle, style: .default) { _ in
                     VolumioIOManager.shared.clearAndPlay(
@@ -215,7 +215,7 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
                         title: itemTitle,
                         service: itemService
                     )
-        })
+            })
         alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
 
         present(alert, animated: true, completion: nil)
