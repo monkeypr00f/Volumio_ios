@@ -8,100 +8,139 @@
 
 import UIKit
 
-class AddToPlaylistViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class AddToPlaylistViewController: UIViewController,
+    UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,
+    ObservesNotifications
+{
+    var observers: [AnyObject] = []
     
-    @IBOutlet weak var tableView: UITableView!
-    var playlists : [Any] = []
-    var track : TrackObject!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var titleTextField: UITextField!
 
-    @IBOutlet weak var inputPlaylist: UITextField!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerObservers()
+    var track: TrackObject?
+
+    var playlists: [Any] = []
+
+    func playlistTitle(at index: Int) -> String? {
+        return playlists[safe: index] as? String
     }
     
+    // MARK: - View Callbacks
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        pleaseWait()
-        
-        VolumioIOManager.shared.listPlaylist()
-        if let currentTrackInfo = VolumioIOManager.shared.currentTrack {
-            track = currentTrackInfo
-        }
-        
+
+        track = VolumioIOManager.shared.currentTrack
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        inputPlaylist.delegate = self
+
+        titleTextField.delegate = self
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        registerObserver(forName: .listPlaylists) { (notification) in
+            self.clearAllNotice()
+
+            guard let playlists = notification.object as? [Any]
+                else { return }
+            self.update(playlists: playlists)
+        }
+
+        pleaseWait()
     }
-    
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(self,
-            selector: #selector(getPlaylist(notification:)),
-            name: .listPlaylists,
-            object: nil
-        )
+    override func viewDidAppear(_ animated: Bool) {
+        if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
+            dismiss(animated: true, completion: nil)
+        }
+        else {
+            VolumioIOManager.shared.listPlaylist()
+        }
+        super.viewDidAppear(animated)
     }
-    
-    func getPlaylist(notification: NSNotification) {
-        guard let sources = notification.object as? [Any] else { return }
-        
-        playlists = sources
+
+    override func viewDidDisappear(_ animated: Bool) {
+        unregisterObservers()
+
+        super.viewDidDisappear(animated)
+    }
+
+    // MARK: - View Update
+
+    func update(playlists: [Any]? = nil) {
+        if let playlists = playlists {
+            self.playlists = playlists
+        }
         tableView.reloadData()
-        clearAllNotice()
+    }
+
+    // MARK: - Table View
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return playlists.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54.0
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playlists.count
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "playlist", for: indexPath) as! AddToPlaylistTableViewCell
-        let playlist = playlists[indexPath.row] as! String
-        
-        cell.playlistName.text = playlist
-        
+        let reusableCell = tableView.dequeueReusableCell(
+            withIdentifier: "playlist",
+            for: indexPath
+        )
+        guard let cell = reusableCell as? AddToPlaylistTableViewCell
+            else { fatalError() }
+
+        cell.playlistTitle = playlistTitle(at: indexPath.row)
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedPlaylist = playlists[indexPath.row] as! String
-        if let currentTrackUri = track.uri,
-            let currentTrackService = track.service {
-            VolumioIOManager.shared.addToPlaylist(name: selectedPlaylist, uri: currentTrackUri, service: currentTrackService)
-            self.dismiss(animated: true, completion: nil)
-        }
+        guard let playlistTitle = playlistTitle(at: indexPath.row),
+              let currentTrackUri = track?.uri,
+              let currentTrackService = track?.service
+            else { return }
+
+        VolumioIOManager.shared.addToPlaylist(
+            name: playlistTitle,
+            uri: currentTrackUri,
+            service: currentTrackService
+        )
+
+        dismiss(animated: true, completion: nil)
     }
+
+    // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let name = inputPlaylist.text {
-            if let currentTrackTitle = track.title,
-                let currentTrackUri = track.uri,
-                let currentTrackService = track.service {
-                
-                VolumioIOManager.shared.createPlaylist(name: name, title:currentTrackTitle, uri:currentTrackUri, service:currentTrackService)
-                self.dismiss(animated: true, completion: nil)
-                inputPlaylist.resignFirstResponder()
-            }
-        }
-        return true
+        guard let playlistTitle = titleTextField.text,
+              let currentTrackTitle = track?.title,
+              let currentTrackUri = track?.uri,
+              let currentTrackService = track?.service
+            else { return true }
+
+        VolumioIOManager.shared.createPlaylist(
+            name: playlistTitle,
+            title: currentTrackTitle,
+            uri: currentTrackUri,
+            service: currentTrackService
+        )
+
+        titleTextField.resignFirstResponder()
+
+        dismiss(animated: true, completion: nil)
+
+        return false
     }
 
     @IBAction func closeButton(_ sender: UIButton) {
         clearAllNotice()
+
         dismiss(animated: true, completion: nil)
     }
 

@@ -109,54 +109,21 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
             
             cell.trackTitle.text = item.localizedTitle
             cell.trackArtist.text = item.localizedArtistAndAlbum
-            
-            cell.trackImage.image = nil // TODO: quickfix for cell reuse
-
-            if item.albumArt?.range(of:"http") != nil{
-                cell.trackImage.contentMode = .scaleAspectFill
-                cell.trackImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-            } else {
-                
-                if let artist = item.artist, let album = item.album {
-                    LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
-                        if let albumUrl = albumUrl {
-                            DispatchQueue.main.async {
-                                cell.trackImage.contentMode = .scaleAspectFill
-                                cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                            }
-                        }
-                    })
-                }
-            }
-            
+            cell.trackImage.setAlbumArt(for: item)
             return cell
             
         } else if item.type.isRadio {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! RadioTableViewCell
             
-            cell.folderTitle.text = item.localizedTitle
-            
-            if item.albumArt?.range(of:"http") != nil{
-                cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "radio"), options: [.transition(.fade(0.2))])
-            } else {
-                cell.folderImage.contentMode = .center
-                cell.folderImage.image = UIImage(named: "radio")
-            }
+            cell.radioTitle.text = item.localizedTitle
+            cell.radioImage.setAlbumArt(for: item)
             return cell
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
             
             cell.folderTitle.text = item.localizedTitle
-            
-            if item.albumArt?.range(of:"http") != nil{
-                cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "folder"), options: [.transition(.fade(0.2))])
-            } else {
-                cell.folderImage.contentMode = .center
-                cell.folderImage.image = UIImage(named: "folder")
-            }
+            cell.folderImage.setAlbumArt(for: item)
             return cell
             
         }

@@ -8,8 +8,6 @@
 
 import UIKit
 
-import Kingfisher
-
 /**
  Controller for queue table view. Inherits automatic connection handling from `VolumioTableViewController`.
  */
@@ -141,6 +139,7 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
         
         cell.trackTitle.text = track.localizedTitle
         cell.trackArtist.text = track.localizedArtistAndAlbum
+        cell.trackImage.setAlbumArt(for: track)
         
         cell.trackPosition.text = "\(indexPath.row + 1)"
                 
@@ -151,23 +150,7 @@ class QueueTableViewController: VolumioTableViewController, QueueActionsDelegate
             cell.trackPlaying.isHidden = true
             cell.backgroundColor = UIColor.white
         }
-        
-        cell.trackImage.image = nil // TODO: quickfix for cell reuse
 
-        if track.albumArt!.range(of:"http") != nil{
-            cell.trackImage.kf.setImage(with: URL(string: (track.albumArt)!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-        } else {
-            if let artist = track.artist, let album = track.album {
-                LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
-                    if let albumUrl = albumUrl {
-                        DispatchQueue.main.async {
-                            cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                        }
-                    }
-                })
-            }
-        }
-        
         return cell
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -32,10 +32,10 @@
             </objects>
             <point key="canvasLocation" x="1057" y="-900"/>
         </scene>
-        <!--Browse-->
+        <!--Browse Sources-->
         <scene sceneID="dxC-Vu-dfx">
             <objects>
-                <tableViewController id="ggY-I4-OfM" customClass="BrowseSourcesTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Browse Sources" id="ggY-I4-OfM" customClass="BrowseSourcesTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="J6a-oS-Tmf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,10 +84,10 @@
             </objects>
             <point key="canvasLocation" x="2935.1999999999998" y="-899.10044977511257"/>
         </scene>
-        <!--Browse Folder Table View Controller-->
+        <!--Browse Folder-->
         <scene sceneID="XbR-ZG-M66">
             <objects>
-                <tableViewController storyboardIdentifier="browseFolderController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TtZ-K2-3xW" customClass="BrowseFolderTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="browseFolderController" title="Browse Folder" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TtZ-K2-3xW" customClass="BrowseFolderTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gi4-Ia-GbS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,7 +120,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-DZ-gy4">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EIK-DZ-gy4" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="EIK-DZ-gy4" secondAttribute="height" multiplier="1:1" id="uTR-IL-cTT"/>
@@ -142,7 +142,7 @@
                                     <segue destination="TtZ-K2-3xW" kind="show" identifier="segueFolder" id="1Md-Oc-w4z"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="radio" id="7qA-Af-PjU" customClass="FolderTableViewCell" customModule="Volumio" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="radio" id="7qA-Af-PjU" customClass="RadioTableViewCell" customModule="Volumio" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7qA-Af-PjU" id="Dvx-hF-yUY">
@@ -169,7 +169,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TAp-g4-T8G">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TAp-g4-T8G" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="TAp-g4-T8G" secondAttribute="height" multiplier="1:1" id="ACq-Oq-tRI"/>
@@ -186,8 +186,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="folderImage" destination="TAp-g4-T8G" id="328-lU-Oki"/>
-                                    <outlet property="folderTitle" destination="jDV-On-NWd" id="8fY-B7-K3m"/>
+                                    <outlet property="radioImage" destination="TAp-g4-T8G" id="jYp-q2-uBU"/>
+                                    <outlet property="radioTitle" destination="jDV-On-NWd" id="Dia-S2-uln"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="track" id="2Bd-1p-J0J" customClass="TrackTableViewCell" customModule="Volumio" customModuleProvider="target">
@@ -242,7 +242,7 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ziH-Gh-2f3">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ziH-Gh-2f3" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="ziH-Gh-2f3" secondAttribute="height" multiplier="1:1" id="8bw-te-Yfa"/>
@@ -682,7 +682,7 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cLy-xc-fgv">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cLy-xc-fgv" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="30" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="cLy-xc-fgv" secondAttribute="height" multiplier="1:1" id="L78-53-ZHf"/>
@@ -1005,10 +1005,10 @@
             </objects>
             <point key="canvasLocation" x="1057" y="1419"/>
         </scene>
-        <!--Search-->
+        <!--Browse Search-->
         <scene sceneID="nav-BW-xdC">
             <objects>
-                <tableViewController id="1oo-LB-50l" customClass="BrowseSearchTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="browseSearchController" title="Browse Search" id="1oo-LB-50l" customClass="BrowseSearchTableViewController" customModule="Volumio" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Cbc-IV-71h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1046,7 +1046,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xf7-hx-g81">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xf7-hx-g81" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="xf7-hx-g81" secondAttribute="height" multiplier="1:1" id="BXP-Zg-GVI"/>
@@ -1068,7 +1068,7 @@
                                     <segue destination="TtZ-K2-3xW" kind="show" identifier="browseFolder" id="jT5-cF-hid"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="radio" id="6h7-BH-6gJ" customClass="FolderTableViewCell" customModule="Volumio" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="radio" id="6h7-BH-6gJ" customClass="RadioTableViewCell" customModule="Volumio" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="144" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6h7-BH-6gJ" id="qg0-zq-CTW">
@@ -1095,7 +1095,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GTj-kP-Tn6">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GTj-kP-Tn6" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="GTj-kP-Tn6" secondAttribute="height" multiplier="1:1" id="ODf-7z-FK8"/>
@@ -1112,8 +1112,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="folderImage" destination="GTj-kP-Tn6" id="J0n-l8-fHw"/>
-                                    <outlet property="folderTitle" destination="BTh-o0-BNC" id="7be-q9-ByO"/>
+                                    <outlet property="radioImage" destination="GTj-kP-Tn6" id="TUv-cu-VLi"/>
+                                    <outlet property="radioTitle" destination="BTh-o0-BNC" id="Guu-OL-hT7"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="track" id="epK-f1-svM" customClass="TrackTableViewCell" customModule="Volumio" customModuleProvider="target">
@@ -1168,7 +1168,7 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="53V-nh-w01">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="53V-nh-w01" customClass="AlbumArtMiniImageView" customModule="Volumio" customModuleProvider="target">
                                             <rect key="frame" x="5" y="5" width="33.5" height="33.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="53V-nh-w01" secondAttribute="height" multiplier="1:1" id="dxh-6y-OnZ"/>
@@ -1310,8 +1310,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="playlistBorder" destination="HRr-xo-LtA" id="83a-Hv-HPh"/>
-                                            <outlet property="playlistName" destination="Lzw-Ie-qF2" id="IPU-PK-XPo"/>
+                                            <outlet property="borderView" destination="HRr-xo-LtA" id="fpY-C6-Hhs"/>
+                                            <outlet property="titleLabel" destination="Lzw-Ie-qF2" id="uQd-on-ERI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1353,8 +1353,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="inputPlaylist" destination="mMM-LJ-QFk" id="1qP-cC-Tkp"/>
                         <outlet property="tableView" destination="bwT-Eq-IpY" id="F7q-AH-DOr"/>
+                        <outlet property="titleTextField" destination="mMM-LJ-QFk" id="cvN-Gf-nMq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTT-FK-p29" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1384,6 +1384,6 @@
         <image name="volume_min" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cbZ-c5-aHw"/>
+        <segue reference="jT5-cF-hid"/>
     </inferredMetricsTieBreakers>
 </document>
