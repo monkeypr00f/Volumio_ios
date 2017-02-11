@@ -8,15 +8,11 @@
 
 import UIKit
 
-class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegate,
-    ObservesNotifications, ShowsNotices
-{
+class BrowseSearchTableViewController: BrowseTableViewController, UISearchBarDelegate {
 
     @IBOutlet weak private var searchBar: UISearchBar!
 
     var sourcesList: [SearchResultObject] = []
-
-    var observers: [AnyObject] = []
 
     // MARK: - View Callbacks
 
@@ -104,35 +100,17 @@ class BrowseSearchTableViewController: UITableViewController, UISearchBarDelegat
         let itemList = sourcesList[indexPath.section]
         let item = itemList.items![indexPath.row] as LibraryObject
 
-        if item.type == .song || item.type == .track {
-            let anyCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
-            guard let cell = anyCell as? TrackTableViewCell
-                else { fatalError() }
-
-            cell.trackTitle.text = item.localizedTitle
-            cell.trackArtist.text = item.localizedArtistAndAlbum
-            cell.trackImage.setAlbumArt(for: item)
-            return cell
-
-        } else if item.type.isRadio {
-            let anyCell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath)
-            guard let cell = anyCell as? RadioTableViewCell
-                else { fatalError() }
-
-            cell.radioTitle.text = item.localizedTitle
-            cell.radioImage.setAlbumArt(for: item)
-            return cell
-
-        } else {
-            let anyCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
-            guard let cell = anyCell as? FolderTableViewCell
-                else { fatalError() }
-
-            cell.folderTitle.text = item.localizedTitle
-            cell.folderImage.setAlbumArt(for: item)
-            return cell
-
+        switch item.type {
+        case _ where item.type.isTrack:
+            return self.tableView(tableView, cellForTrack: item, forRowAt: indexPath)
+        case _ where item.type.isSong:
+            return self.tableView(tableView, cellForTrack: item, forRowAt: indexPath)
+        case _ where item.type.isRadio:
+            return self.tableView(tableView, cellForRadio: item, forRowAt: indexPath)
+        default:
+            return self.tableView(tableView, cellForFolder: item, forRowAt: indexPath)
         }
+
     }
 
     override func tableView(_ tableView: UITableView,
