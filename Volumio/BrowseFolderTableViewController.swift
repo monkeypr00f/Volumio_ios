@@ -12,29 +12,17 @@ class BrowseFolderTableViewController: UITableViewController,
     ObservesNotifications, ShowsNotices,
     BrowseActionsDelegate, PlaylistActionsDelegate
 {
-
-    var serviceType : ServiceType!
-    var serviceName : String!
-    var serviceUri : String!
-    var serviceService : String!
+    var serviceType: ServiceType?
+    var serviceName: String!
+    var serviceUri: String!
+    var serviceService: String!
 
     var browseHeaderView: BrowseActions?
     var playlistHeaderView: PlaylistActions?
-    var sourceLibrary : [LibraryObject] = []
 
-    var sourceLibrarySections = [LibraryObject]()
-    var sourceLibraryDict = [String: [String]]()
+    var sourceLibrary: [LibraryObject] = []
 
     var observers: [AnyObject] = []
-
-//    func generateLibraryDict() {
-//        for source in sourceLibrary {
-//            let key = "\(source[(source.title?.startIndex)!])"
-//            if var sourceValues = sourceLibraryDict[key] {
-//                sourceValue
-//            }
-//        }
-//    }
 
     // MARK: - View Callbacks
 
@@ -42,10 +30,6 @@ class BrowseFolderTableViewController: UITableViewController,
         super.viewDidLoad()
 
         title = serviceName
-
-        pleaseWait()
-
-        tableView.tableFooterView = UIView(frame: CGRect.zero)
 
         refreshControl?.addTarget(self,
             action: #selector(handleRefresh),
@@ -102,13 +86,14 @@ class BrowseFolderTableViewController: UITableViewController,
 
             VolumioIOManager.shared.browseLibrary(uri: self.serviceUri)
         }
+
+        pleaseWait()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             _ = navigationController?.popToRootViewController(animated: animated)
-        }
-        else {
+        } else {
             VolumioIOManager.shared.browseLibrary(uri: serviceUri)
         }
         super.viewDidAppear(animated)
@@ -174,65 +159,119 @@ class BrowseFolderTableViewController: UITableViewController,
     ) -> UITableViewCell {
         let item = sourceLibrary[indexPath.row]
 
-        if item.type == .song || item.type == .track {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath) as! TrackTableViewCell
+        switch item.type {
+        case .title:
+            return self.tableView(tableView, cellForTitle: item, forRowAt: indexPath)
+        case _ where item.type.isTrack:
+            return self.tableView(tableView, cellForTrack: item, forRowAt: indexPath)
+        case _ where item.type.isSong:
+            return self.tableView(tableView, cellForTrack: item, forRowAt: indexPath)
+        case _ where item.type.isRadio:
+            return self.tableView(tableView, cellForRadio: item, forRowAt: indexPath)
+        default:
+            return self.tableView(tableView, cellForFolder: item, forRowAt: indexPath)
+        }
+    }
 
-            cell.trackTitle.text = item.localizedTitle
-            cell.trackArtist.text = item.localizedArtistAndAlbum
+    func tableView(_ tableView: UITableView,
+        cellForTitle item: Item,
+        forRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
 
-            cell.trackImage.image = nil // TODO: quickfix for cell reuse
+        cell.textLabel?.text = item.localizedTitle
+        return cell
+    }
 
-            if item.albumArt?.range(of:"http") != nil{
-                cell.trackImage.contentMode = .scaleAspectFill
-                cell.trackImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-            } else {
-                // FIXME: this will fail for songs without artist or album field
-                LastFMService.shared.albumGetImageURL(artist: item.artist!, album: item.album!, completion: { (albumUrl) in
+    func tableView(_ tableView: UITableView,
+        cellForTrack item: Item,
+        forRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
+        guard let cell = reuseableCell as? TrackTableViewCell
+            else { fatalError() }
+
+        cell.trackTitle.text = item.localizedTitle
+        cell.trackArtist.text = item.localizedArtistAndAlbum
+
+        cell.trackImage.image = nil // TODO: quickfix for cell reuse
+
+        if item.albumArt?.range(of:"http") != nil{
+            cell.trackImage.contentMode = .scaleAspectFill
+            cell.trackImage.kf.setImage(
+                with: URL(string: item.albumArt!),
+                placeholder: UIImage(named: "background"),
+                options: [.transition(.fade(0.2))]
+            )
+        } else {
+            // FIXME: this will fail for songs without artist or album field
+            LastFMService.shared.albumGetImageURL(
+                artist: item.artist!,
+                album: item.album!,
+                completion: { (albumUrl) in
                     if let albumUrl = albumUrl {
                         DispatchQueue.main.async {
                             cell.trackImage.contentMode = .scaleAspectFill
-                            cell.trackImage.kf.setImage(with: albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+                            cell.trackImage.kf.setImage(
+                                with: albumUrl,
+                                placeholder: UIImage(named: "background"),
+                                options: [.transition(.fade(0.2))]
+                            )
                         }
                     }
-                })
-            }
-            return cell
-
-        } else if item.type.isRadio {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath) as! FolderTableViewCell
-
-            cell.folderTitle.text = item.localizedTitle
-
-            if item.albumArt?.range(of:"http") != nil{
-                cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "radio"), options: [.transition(.fade(0.2))])
-            } else {
-                cell.folderImage.contentMode = .center
-                cell.folderImage.image = UIImage(named: "radio")
-            }
-            return cell
-
-        } else if item.type == .title {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
-
-            cell.textLabel?.text = item.localizedTitle
-
-            return cell
-
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath) as! FolderTableViewCell
-
-            cell.folderTitle.text = item.localizedTitle
-
-            if item.albumArt?.range(of:"http") != nil{
-                cell.folderImage.contentMode = .scaleAspectFill
-                cell.folderImage.kf.setImage(with: URL(string: item.albumArt!), placeholder: UIImage(named: "folder"), options: [.transition(.fade(0.2))])
-            } else {
-                cell.folderImage.contentMode = .center
-                cell.folderImage.image = UIImage(named: "folder")
-            }
-            return cell
+                }
+            )
         }
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView,
+        cellForRadio item: Item,
+        forRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
+        guard let cell = reuseableCell as? RadioTableViewCell
+            else { fatalError() }
+
+        cell.radioTitle.text = item.localizedTitle
+
+        if item.albumArt?.range(of:"http") != nil{
+            cell.radioImage.contentMode = .scaleAspectFill
+            cell.radioImage.kf.setImage(
+                with: URL(string: item.albumArt!),
+                placeholder: UIImage(named: "radio"),
+                options: [.transition(.fade(0.2))]
+            )
+        } else {
+            cell.radioImage.contentMode = .center
+            cell.radioImage.image = UIImage(named: "radio")
+        }
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView,
+        cellForFolder item: Item,
+        forRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
+        guard let cell = reuseableCell as? FolderTableViewCell
+            else { fatalError() }
+
+        cell.folderTitle.text = item.localizedTitle
+
+        if item.albumArt?.range(of: "http") != nil{
+            cell.folderImage.contentMode = .scaleAspectFill
+            cell.folderImage.kf.setImage(
+                with: URL(string: item.albumArt!),
+                placeholder: UIImage(named: "folder"),
+                options: [.transition(.fade(0.2))]
+            )
+        } else {
+            cell.folderImage.contentMode = .center
+            cell.folderImage.image = UIImage(named: "folder")
+        }
+
+        return cell
     }
 
     override func tableView(_ tableView: UITableView,
@@ -268,22 +307,24 @@ class BrowseFolderTableViewController: UITableViewController,
     override func tableView(_ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
-        if serviceType == .folder {
+        switch serviceType {
+        case .some(.folder):
             return browseHeaderView
-        } else if serviceType == .playlist {
+        case .some(.playlist):
             return playlistHeaderView
-        } else {
-            let emptyView = UIView()
-            return emptyView
+        default:
+            return nil
         }
     }
 
     override func tableView(_ tableView: UITableView,
         heightForHeaderInSection section: Int
     ) -> CGFloat {
-        if serviceType == .folder || serviceType == .playlist {
+        switch serviceType {
+        case .some(.folder),
+             .some(.playlist):
             return 56.0
-        } else {
+        default:
             return 0
         }
     }
@@ -298,17 +339,14 @@ class BrowseFolderTableViewController: UITableViewController,
 
     func songActions(uri: String, title: String, service: String) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: localizedAddAndPlayTitle, style: .default) {
-            (action) in
-                VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
+        alert.addAction(UIAlertAction(title: localizedAddAndPlayTitle, style: .default) { (_) in
+            VolumioIOManager.shared.addAndPlay(uri: uri, title: title, service: service)
         })
-        alert.addAction(UIAlertAction(title: localizedAddToQueueTitle, style: .default) {
-            (action) in
-                VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
+        alert.addAction(UIAlertAction(title: localizedAddToQueueTitle, style: .default) { (_) in
+            VolumioIOManager.shared.addToQueue(uri: uri, title: title, service: service)
         })
-        alert.addAction(UIAlertAction(title: localizedClearAndPlayTitle, style: .default) {
-            (action) in
-                VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
+        alert.addAction(UIAlertAction(title: localizedClearAndPlayTitle, style: .default) { (_) in
+            VolumioIOManager.shared.clearAndPlay(uri: uri, title: title, service: service)
         })
         alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel))
 
@@ -322,7 +360,35 @@ class BrowseFolderTableViewController: UITableViewController,
         refreshControl.endRefreshing()
     }
 
-    // MARK: - BrowseActionsDelegate
+    // MARK: - Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueFolder" {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+
+            let item = sourceLibrary[indexPath.row] as LibraryObject
+
+            if let destinationController = segue.destination as? BrowseFolderTableViewController {
+                switch item.type {
+                case .folder:
+                    destinationController.serviceType = .folder
+                case .playlist:
+                    destinationController.serviceType = .playlist
+                default:
+                    destinationController.serviceType = .generic
+                }
+                destinationController.serviceName = item.title
+                destinationController.serviceUri = item.uri
+                destinationController.serviceService = item.service
+            }
+        }
+    }
+
+}
+
+// MARK: - BrowseActionsDelegate
+
+extension BrowseFolderTableViewController {
 
     func browseAddAndPlay() {
         VolumioIOManager.shared.addAndPlay(
@@ -349,7 +415,11 @@ class BrowseFolderTableViewController: UITableViewController,
         )
     }
 
-    // MARK: - PlaylistActionsDelegate
+}
+
+// MARK: - PlaylistActionsDelegate
+
+extension BrowseFolderTableViewController {
 
     func playlistAddAndPlay() {
         if serviceService == "mpd" {
@@ -365,30 +435,6 @@ class BrowseFolderTableViewController: UITableViewController,
 
     func playlistEdit() {
         self.isEditing = !self.isEditing
-    }
-
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueFolder" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
-
-            let item = sourceLibrary[indexPath.row] as LibraryObject
-
-            let destinationController = segue.destination as! BrowseFolderTableViewController
-
-            switch item.type {
-            case .folder:
-                destinationController.serviceType = .folder
-            case .playlist:
-                destinationController.serviceType = .playlist
-            default:
-                destinationController.serviceType = .generic
-            }
-            destinationController.serviceName = item.title
-            destinationController.serviceUri = item.uri
-            destinationController.serviceService = item.service
-        }
     }
 
 }

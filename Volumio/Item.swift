@@ -41,6 +41,10 @@ enum ItemType: String {
     case radio_category = "radio-category"
     case unknown
     
+    var isTrack: Bool {
+        return self == .track
+    }
+
     var isSong: Bool {
         return self == .song || self == .cuesong
     }
