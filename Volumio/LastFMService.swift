@@ -41,19 +41,24 @@ class LastFMService {
         Alamofire.request(albumGetInfo)
             .validate()
             .responseJSON(queue: queue) { (response) in
-                let infoJSON = JSON(string: response.result.value as Any)
+                switch response.result {
+                case .success(let value):
+                    let infoJSON = JSON(string: value as Any)
 
-                // find album image json for image of size 'large'
-                let imageJSON = infoJSON["album"]["image"].arrayValue.first(where: { (json) in
-                    return json["size"] == "large"
-                })
+                    // find album image json for image of size 'large'
+                    let imageJSON = infoJSON["album"]["image"].arrayValue.first(where: { (json) in
+                        return json["size"] == "large"
+                    })
 
-                // get url from album image json
-                var imageURL: URL? = nil
-                if let urlString = imageJSON?["#text"].string {
-                    imageURL = URL(string: urlString)
+                    // get url from album image json
+                    var imageURL: URL? = nil
+                    if let urlString = imageJSON?["#text"].string {
+                        imageURL = URL(string: urlString)
+                    }
+                    completion(imageURL)
+                case .failure(_):
+                    completion(nil)
                 }
-                completion(imageURL)
             }
     }
 
@@ -85,4 +90,5 @@ enum LastFMRequest: URLRequestConvertible {
         let urlRequest = URLRequest(url: url.appendingPathComponent(result.path))
         return try URLEncoding.default.encode(urlRequest, with: result.parameters)
     }
+
 }
