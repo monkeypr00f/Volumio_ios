@@ -10,7 +10,7 @@ import UIKit
 
 class BrowseSearchTableViewController: BrowseTableViewController, UISearchBarDelegate {
 
-    @IBOutlet weak private var searchBar: UISearchBar!
+    @IBOutlet weak fileprivate var searchBar: UISearchBar!
 
     var sourcesList: [SearchResultObject] = []
 

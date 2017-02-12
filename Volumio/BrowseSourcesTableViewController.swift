@@ -118,7 +118,7 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
 
             let item = sourcesList[indexPath.row]
 
-            switch item.plugin_type {
+            switch item.pluginType {
             case .some("music_service"):
                 destinationController.serviceType = .music_service
             default:

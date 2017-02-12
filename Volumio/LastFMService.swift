@@ -15,11 +15,11 @@ import SwiftyJSON
  Manager to get metadata and tracklist for an album from Last.fm webservice.
 */
 class LastFMService {
-    
+
     static let shared = LastFMService()
 
     private var queue: DispatchQueue!
-    
+
     init() {
         queue = DispatchQueue(
             label: "LastFMServiceQueue",
@@ -27,7 +27,7 @@ class LastFMService {
             attributes: .concurrent
         )
     }
-    
+
     /**
         Asynchronously requests an URL to the album image for the specified artist and the specified album from Last.fm webservice.
         - Parameter artist: Name of the artist.
@@ -35,19 +35,19 @@ class LastFMService {
         - Parameter completionHandler: Callback, which will be called with a cover image url on success or nil otherwise.
         - Note: While Last.fm offers various sizes of the cover image, this method will only return the url to the cover image of size 'large'.
     */
-    func albumGetImageURL(artist: String, album: String, completion: @escaping (URL?) -> ()) {
+    func albumGetImageURL(artist: String, album: String, completion: @escaping (URL?) -> Void) {
         let albumGetInfo = LastFMRequest.albumGetInfo(artist: artist, album: album)
-        
+
         Alamofire.request(albumGetInfo)
             .validate()
             .responseJSON(queue: queue) { (response) in
                 let infoJSON = JSON(string: response.result.value as Any)
-                
+
                 // find album image json for image of size 'large'
                 let imageJSON = infoJSON["album"]["image"].arrayValue.first(where: { (json) in
                     return json["size"] == "large"
                 })
-                
+
                 // get url from album image json
                 var imageURL: URL? = nil
                 if let urlString = imageJSON?["#text"].string {
@@ -56,16 +56,16 @@ class LastFMService {
                 completion(imageURL)
             }
     }
-    
+
 }
 
 /// Request router for Last.fm webservice.
 enum LastFMRequest: URLRequestConvertible {
-    
+
     case albumGetInfo(artist: String, album: String)
 
     static let baseURLString = "http://ws.audioscrobbler.com/2.0/"
-    
+
     static let apiKey = "6ebfdd6251d6554e578b03c642d93ada"
 
     func asURLRequest() throws -> URLRequest {
@@ -77,7 +77,7 @@ enum LastFMRequest: URLRequestConvertible {
                     "artist": artist,
                     "album": album,
                     "format": "json",
-                    "api_key": LastFMRequest.apiKey,
+                    "api_key": LastFMRequest.apiKey
                 ])
             }
         }()

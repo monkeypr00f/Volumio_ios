@@ -13,9 +13,9 @@ class BrowseTableViewController: UITableViewController,
     ObservesNotifications, ShowsNotices
 {
     var observers: [AnyObject] = []
-    
+
     // MARK: - Common Table View Cells
-    
+
     func tableView(_ tableView: UITableView,
         cellForTitle item: Item,
         forRowAt indexPath: IndexPath

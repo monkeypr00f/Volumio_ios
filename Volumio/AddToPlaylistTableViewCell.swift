@@ -10,8 +10,8 @@ import UIKit
 
 class AddToPlaylistTableViewCell: UITableViewCell {
 
-    @IBOutlet weak private var borderView: UIView!
-    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak fileprivate var borderView: UIView!
+    @IBOutlet weak fileprivate var titleLabel: UILabel!
 
     var playlistTitle: String? {
         didSet {

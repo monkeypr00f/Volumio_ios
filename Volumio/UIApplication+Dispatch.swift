@@ -10,14 +10,13 @@ import UIKit
 // MARK: - Convenience (GCD)
 
 public extension UIApplication {
-    
-    public class func main(after seconds: Double? = nil, block: @escaping () -> ()) {
+
+    public class func main(after seconds: Double? = nil, block: @escaping () -> Void) {
         if let seconds = seconds {
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { block() }
-        }
-        else {
+        } else {
             DispatchQueue.main.async { block() }
         }
     }
-    
+
 }

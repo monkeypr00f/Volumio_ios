@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIColor {
-    
+
     class var playButtonBackground: UIColor {
         return #colorLiteral(red: 0.2901960784, green: 0.7450980392, blue: 0.5254901961, alpha: 1)
     }
-    
+
     class var moreButtonBackground: UIColor {
         return #colorLiteral(red: 0.2980392157, green: 0.2784313725, blue: 0.2745098039, alpha: 1)
     }

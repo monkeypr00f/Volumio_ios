@@ -1,0 +1,59 @@
+included:
+  - Volumio
+  - VolumioTests
+excluded:
+  - Pods
+  - Volumio/SwiftNotice.swift
+  - Volumio/QCMethod.swift
+
+opt_in_rules:
+  - explicit_init
+  - closure_spacing
+  - overridden_super_call
+  - redundant_nil_coalescing
+  - private_outlet
+  - nimble_operator
+  - attributes
+  - operator_usage_whitespace
+  - closure_end_indentation
+  - first_where
+  - number_separator
+  - prohibited_super_call
+disabled_rules:
+  - todo
+  - opening_brace
+  - vertical_parameter_alignment
+
+ignores_comments: true
+
+force_cast: warning
+force_try:
+  severity: warning
+line_length: 100
+type_body_length:
+  - 300
+  - 400
+file_length:
+  warning: 500
+  error: 1200
+type_name:
+  min_length: 4
+  max_length:
+    warning: 40
+    error: 50
+  excluded:
+variable_name:
+  min_length:
+    error: 3
+  excluded:
+    - id
+    - ip
+    - fn
+    - to
+    - Log
+    - Defaults
+    - BundleInfo
+reporter: "xcode"
+
+number_separator:
+  minimum_length: 5

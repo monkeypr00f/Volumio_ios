@@ -25,11 +25,11 @@ struct Player {
     var isValid: Bool {
         return validate(name: name) && validate(host: host) && validate(port: port)
     }
-    
+
     private func validate(name: String) -> Bool {
         return name.characters.count > 0
     }
-    
+
     private func validate(host: String) -> Bool {
         // ip v6 addr
         var sin6 = sockaddr_in6()
@@ -43,14 +43,14 @@ struct Player {
         }
         return false
     }
-    
+
     private func validate(port: Int) -> Bool {
-        return port > 0 && port < 65536
+        return port > 0 && port < 65_536
     }
 }
 
 extension SafeUserDefaults {
-    
+
     subscript(key: DefaultsKey<Player?>) -> Player? {
         get {
             guard let dict = self[key.key].dictionary,
@@ -68,11 +68,10 @@ extension SafeUserDefaults {
                     "port": player.port
                 ] as [String : Any]
                 set(key, dict)
-            }
-            else {
+            } else {
                 set(key, nil)
             }
         }
     }
-    
+
 }

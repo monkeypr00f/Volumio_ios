@@ -19,7 +19,7 @@ extension UIImageView {
      */
     func setAlbumArt(for item: Item) {
         let defaultAlbumArt = UIImage.defaultImage(for: item)
-        
+
         if item.albumArt?.range(of:"http") != nil{
             self.kf.setImage(
                 with: URL(string: item.albumArt!),
@@ -27,7 +27,7 @@ extension UIImageView {
                 options: [.transition(.fade(0.2))]
             )
         } else {
-            if item.type == .track || item.type == .song {
+            if item.type.isTrack || item.type.isSong {
                 // FIXME: this will fail for songs without artist or album field
                 LastFMService.shared.albumGetImageURL(
                     artist: item.artist!,
@@ -41,11 +41,12 @@ extension UIImageView {
                                     options: [.transition(.fade(0.2))]
                                 )
                             }
+                        } else {
+                            self.image = defaultAlbumArt
                         }
                     }
                 )
-            }
-            else {
+            } else {
                 self.image = defaultAlbumArt
             }
         }
@@ -54,7 +55,7 @@ extension UIImageView {
 }
 
 extension UIImage {
-    
+
     class func defaultImage(for item: Item) -> UIImage {
         var defaultName: String
         switch item.type {
@@ -74,5 +75,5 @@ extension UIImage {
         }
         return defaultImage
     }
-    
+
 }

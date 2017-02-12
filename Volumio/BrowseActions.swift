@@ -16,7 +16,7 @@ protocol BrowseActionsDelegate: class {
 
 class BrowseActions: UIView {
 
-    @IBOutlet weak private var view: UIView!
+    @IBOutlet weak fileprivate var view: UIView!
 
     @IBOutlet weak fileprivate var addAndPlayLabel: UILabel!
     @IBOutlet weak fileprivate var addToQueueLabel: UILabel!

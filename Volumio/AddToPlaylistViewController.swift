@@ -14,8 +14,8 @@ class AddToPlaylistViewController: UIViewController,
 {
     var observers: [AnyObject] = []
 
-    @IBOutlet weak private var tableView: UITableView!
-    @IBOutlet weak private var titleTextField: UITextField!
+    @IBOutlet weak fileprivate var tableView: UITableView!
+    @IBOutlet weak fileprivate var titleTextField: UITextField!
 
     var track: TrackObject?
 

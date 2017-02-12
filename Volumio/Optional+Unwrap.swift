@@ -7,7 +7,7 @@
 
 /**
  Operator to unwrap an Optional to a String.
- 
+
  **Example**
  ````
  let a: Int? = 5
@@ -16,14 +16,14 @@
  b ~? "is nil"  // "is nil"
  ````
  */
-public func ~?<X: Unwrapable>(x: X, stringForNil: String) -> String {
-    return x.unwrap(else: stringForNil)
+public func ~?<X: Unwrapable>(unwrapable: X, stringForNil: String) -> String {
+    return unwrapable.unwrap(else: stringForNil)
 }
 infix operator ~? : NilCoalescingPrecedence
 
 /**
 	Operator to unwrap an Optional to a String.
- 
+
 	**Example**
 	````
  let a: Int? = 5
@@ -32,8 +32,8 @@ infix operator ~? : NilCoalescingPrecedence
  b~?  // "none"
 	````
  */
-public postfix func ~?<X: Unwrapable>(x: X) -> String {
-    return x.unwrap(else: "none")
+public postfix func ~?<X: Unwrapable>(unwrapable: X) -> String {
+    return unwrapable.unwrap(else: "none")
 }
 postfix operator ~?
 
@@ -42,7 +42,7 @@ public protocol Unwrapable {
 }
 
 extension Optional: Unwrapable {
-    
+
     public func unwrap(else stringForNil: String) -> String {
         switch self {
         case .some(let wrapped as Unwrapable):
@@ -53,5 +53,5 @@ extension Optional: Unwrapable {
             return stringForNil
         }
     }
-    
+
 }

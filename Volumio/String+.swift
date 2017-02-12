@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    
+
     /// Returns true if the specified string contains only whitespace characters or is empty.
     var isBlank: Bool {
         return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty

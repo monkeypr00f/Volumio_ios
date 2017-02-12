@@ -10,12 +10,13 @@ import UIKit
 
 class SelectPlayerTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var playerBorder: UIView!
+    @IBOutlet weak fileprivate var playerBorder: UIView!
+
     @IBOutlet weak var playerName: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         playerBorder.layer.borderWidth = 1
         playerBorder.layer.borderColor = UIColor.selectPlayerCellBorder.cgColor
         playerBorder.layer.cornerRadius = 5

@@ -11,34 +11,34 @@ import Eureka
 
 class PluginDetailViewController: FormViewController {
 
-    var plugin : PluginObject!
-    
+    var plugin: PluginObject!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.title = plugin.prettyName
-        
+
         form +++ Section("")
-            <<< LabelRow() {
+            <<< LabelRow {
                 $0.title = localizedVersionTitle
                 $0.value = plugin.version
             }
-        
-            <<< SwitchRow() {
+
+            <<< SwitchRow {
                 $0.title = localizedStatusTitle
                 $0.value = plugin.enabled == 1
-                }.onChange { [weak self] row in
-                    guard let plugin = self?.plugin
-                        else { return }
-                    guard let name = plugin.name, let category = plugin.category
-                        else { return }
-                    
-                    VolumioIOManager.shared.togglePlugin(
-                        name: name,
-                        category: category,
-                        action: (row.value ?? false) ? "enable" : "disable"
-                    )
-                }
+            }.onChange { [weak self] (row) in
+                guard let plugin = self?.plugin
+                    else { return }
+                guard let name = plugin.name, let category = plugin.category
+                    else { return }
+
+                VolumioIOManager.shared.togglePlugin(
+                    name: name,
+                    category: category,
+                    action: (row.value ?? false) ? "enable" : "disable"
+                )
+            }
     }
 
 }
@@ -46,7 +46,7 @@ class PluginDetailViewController: FormViewController {
 // MARK: - Localization
 
 extension PluginDetailViewController {
-    
+
     fileprivate func localize() {
         navigationItem.title = NSLocalizedString("PLUGIN",
             comment: "plugin view title"
@@ -56,9 +56,9 @@ extension PluginDetailViewController {
     fileprivate var localizedVersionTitle: String {
         return NSLocalizedString("PLUGIN_VERSION", comment: "volumio player’s plugin version")
     }
-    
+
     fileprivate var localizedStatusTitle: String {
         return NSLocalizedString("PLUGIN_STATUS", comment: "volumio player’s plugin status")
     }
-    
+
 }

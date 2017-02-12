@@ -11,13 +11,13 @@ import ObjectMapper
 class SearchResultObject: Mappable {
     var items: [LibraryObject]?
     var title: String?
-    
+
     required init?(map: Map) {
     }
-    
+
     // Mappable
     func mapping(map: Map) {
-        items      <- map["items"]
-        title      <- map["title"]
+        items <- map["items"]
+        title <- map["title"]
     }
 }
