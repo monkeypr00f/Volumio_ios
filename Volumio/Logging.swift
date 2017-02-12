@@ -12,13 +12,13 @@ public var Log = Logger(name: "Logger")
 // MARK: - Enumeration LogLevel
 
 public enum LogLevel: Int, Comparable {
-    case trace  = 100
-    case debug  = 200
-    case info   = 300
-    case warn   = 400
-    case error  = 500
+    case  trace = 100
+    case  debug = 200
+    case   info = 300
+    case   warn = 400
+    case  error = 500
     case always = 999
-    
+
     var symbol: String? {
         switch self {
         case .trace:  return "📓" //"🔈"
@@ -29,29 +29,29 @@ public enum LogLevel: Int, Comparable {
         case .always: return "📚"
         }
     }
-    
+
 }
 
-public func <(a: LogLevel, b: LogLevel) -> Bool {
-    return a.rawValue < b.rawValue
+public func < (lval: LogLevel, rval: LogLevel) -> Bool {
+    return lval.rawValue < rval.rawValue
 }
 
 // MARK: - Class Logger
 
 open class Logger {
-    
+
     open let name: String
-    
+
     open var level: LogLevel
-    
+
     var enabled: Bool
-    
+
     init(name: String, level: LogLevel = .info) {
         self.name = name
         self.level = level
         self.enabled = true
     }
-    
+
     open func log<T>(
         level logLevel: LogLevel,
         message logMessage: @autoclosure () -> T,
@@ -84,7 +84,7 @@ open class Logger {
             print(levelString, messageString, separator: " ")
         }
     }
-    
+
     open func trace<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -93,7 +93,7 @@ open class Logger {
     ) {
         self.log(level: .trace, message: message, file: file, line: line, function: function)
     }
-    
+
     open func debug<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -102,7 +102,7 @@ open class Logger {
     ) {
         self.log(level: .debug, message: message, file: file, line: line, function: function)
     }
-    
+
     open func info<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -111,7 +111,7 @@ open class Logger {
     ) {
         self.log(level: .info, message: message, file: file, line: line, function: function)
     }
-    
+
     open func warn<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -120,7 +120,7 @@ open class Logger {
     ) {
         self.log(level: .warn, message: message, file: file, line: line, function: function)
     }
-    
+
     open func error<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -129,7 +129,7 @@ open class Logger {
     ) {
         self.log(level: .error, message: message, file: file, line: line, function: function)
     }
-    
+
     open func always<T>(
         _ message: @autoclosure () -> T,
         file: String? = #file,
@@ -138,7 +138,7 @@ open class Logger {
     ) {
         self.log(level: .always, message: message, file: file, line: line, function: function)
     }
-    
+
     open func log(_ level: LogLevel,
         file: String? = #file,
         line: Int? = #line,
@@ -149,7 +149,7 @@ open class Logger {
             self.log(level: level, message: fn())
         }
     }
-    
+
     open func trace(
         _ file: String? = #file,
         line: Int? = #line,
@@ -158,7 +158,7 @@ open class Logger {
     ) {
         log(.trace, file: file, line: line, function: function, fn: fn)
     }
-    
+
     open func debug(
         _ file: String? = #file,
         line: Int? = #line,
@@ -167,7 +167,7 @@ open class Logger {
     ) {
         log(.debug, file: file, line: line, function: function, fn: fn)
     }
-    
+
     open func info(
         _ file: String? = #file,
         line: Int? = #line,
@@ -176,7 +176,7 @@ open class Logger {
     ) {
         log(.info, file: file, line: line, function: function, fn: fn)
     }
-    
+
     open func warn(
         _ file: String? = #file,
         line: Int? = #line,
@@ -185,7 +185,7 @@ open class Logger {
     ) {
         log(.warn, file: file, line: line, function: function, fn: fn)
     }
-    
+
     open func error(
         _ file: String? = #file,
         line: Int? = #line,
@@ -194,7 +194,7 @@ open class Logger {
     ) {
         log(.error, file: file, line: line, function: function, fn: fn)
     }
-    
+
     open func always(
         _ file: String? = #file,
         line: Int? = #line,
@@ -203,7 +203,7 @@ open class Logger {
     ) {
         log(.always, file: file, line: line, function: function, fn: fn)
     }
-    
+
 }
 
 extension Logger {
@@ -215,7 +215,7 @@ extension Logger {
     ) {
         applog(.info, sender, items, file: file, line: line, function: function)
     }
-    
+
     public func exit(_ sender: Any, message items: Any...,
         file: String? = #file,
         line: Int? = #line,
@@ -223,7 +223,7 @@ extension Logger {
     ) {
         applog(.info, sender, items, file: file, line: line, function: function)
     }
-    
+
     public func exitWarn(_ sender: Any, message items: Any...,
         file: String? = #file,
         line: Int? = #line,
@@ -231,7 +231,7 @@ extension Logger {
     ) {
         applog(.warn, sender, items, file: file, line: line, function: function)
     }
-    
+
     public func exitFail(_ sender: Any, message items: Any...,
         file: String? = #file,
         line: Int? = #line,
@@ -239,7 +239,7 @@ extension Logger {
     ) {
         applog(.error, sender, items, file: file, line: line, function: function)
     }
-    
+
     public func abort(_ sender: Any, message items: Any...,
         file: String? = #file,
         line: Int? = #line,
@@ -247,40 +247,37 @@ extension Logger {
     ) {
         applog(.error, sender, items, file: file, line: line, function: function)
     }
-    
+
     fileprivate func applog(_ level: LogLevel, _ sender: Any? = nil, _ items: [Any],
         file: String?,
         line: Int?,
         function: String?
     ) {
         if items.count > 0 {
-            let i = items.map{String(describing: $0)}.joined(separator: " ")
+            let i = items.map { String(describing: $0) }.joined(separator: " ")
             if let sender = sender {
                 let m = "\(type(of: sender)) \(i)"
                 self.log(level: level, message: m, file: file, line: line, function: function)
-            }
-            else {
+            } else {
                 let m = "\(i)"
                 self.log(level: level, message: m, file: file, line: line, function: function)
             }
-        }
-        else {
+        } else {
             if let sender = sender {
                 let m = "\(type(of: sender))"
                 self.log(level: level, message: m, file: file, line: line, function: function)
-            }
-            else {
+            } else {
                 self.log(level: level, message: "", file: file, line: line, function: function)
             }
         }
     }
-    
+
 }
 
 // MARK: -
 
 extension Logger {
-    
+
     open func setLog(level: LogLevel,
         file: String? = #file,
         line: Int? = #line,
@@ -291,7 +288,7 @@ extension Logger {
             file: file, line: line, function: function
         )
     }
-    
+
     open func setLog(level string: String?,
         file: String? = #file,
         line: Int? = #line,
@@ -309,13 +306,12 @@ extension Logger {
                 level = .error
                 Log.error("Invalid log level: \(string)")
             }
-        }
-        else {
+        } else {
             level = .warn
         }
         self.log(level: .always, message: "Log level is \(level)",
             file: file, line: line, function: function
         )
     }
-    
+
 }

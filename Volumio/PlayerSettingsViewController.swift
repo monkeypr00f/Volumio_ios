@@ -11,29 +11,29 @@ import UIKit
 import Eureka
 
 protocol PlayerSettingsDelegate: class {
-    
+
     /// Called when the user cancelled the player settings view
     func didCancel(on playerSettings: PlayerSettingsViewController)
-    
+
     /// Called right after the user confirmed the player’s settings. Return true, if the settings are valid.
     func willAccept(player: Player,
         on playerSettings: PlayerSettingsViewController
     ) -> Bool
-    
+
     /// Called just before dismissing the player settings view after the user confirmed the player’s settings and they are valid.
     func didFinish(with player: Player,
         on playerSettings: PlayerSettingsViewController
     )
-    
+
 }
 
 class PlayerSettingsViewController: FormViewController, ShowsNotices {
-    
+
     weak var delegate: PlayerSettingsDelegate?
 
-    @IBOutlet var cancelBarButtonItem: UIBarButtonItem!
-    @IBOutlet var connectBarButtonItem: UIBarButtonItem!
-    
+    @IBOutlet weak fileprivate var cancelBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak fileprivate var connectBarButtonItem: UIBarButtonItem!
+
     var formName: String? {
         guard let row = form.rowBy(tag: "player_name") as? TextRow else { return nil }
         return row.value
@@ -43,21 +43,21 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
         guard let row = form.rowBy(tag: "player_host") as? TextRow else { return nil }
         return row.value
     }
-    
+
     var formPort: Int? {
         guard let row = form.rowBy(tag: "player_port") as? IntRow else { return nil }
         return row.value
     }
-    
+
     // MARK: - View Callbacks
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         localize()
 
         let defaultPlayer = VolumioIOManager.shared.defaultPlayer
-    
+
         form +++ Section()
             <<< TextRow("player_name") { row in
                 row.title = localizedPlayerNameTitle
@@ -91,7 +91,7 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
                 row.value = defaultPlayer?.port
                 row.add(rule: RuleRequired())
                 row.add(rule: RuleGreaterThan(min: 0))
-                row.add(rule: RuleSmallerThan(max: 65536))
+                row.add(rule: RuleSmallerThan(max: 65_536))
                 row.validationOptions = .validatesOnChange
                 let formatter = NumberFormatter()
                 formatter.groupingSeparator = ""
@@ -103,36 +103,35 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
                 }
                 self.updateConnectButtonState()
             }
-        
+
         updateConnectButtonState()
     }
 
     // MARK: - View Updates
-    
+
     func updateConnectButtonState() {
         connectBarButtonItem.isEnabled = form.validate().isEmpty
     }
-    
+
     // MARK: - View Actions
-    
+
     @IBAction func dismiss(_ sender: Any) {
         guard let delegate = delegate else { return }
-        
+
         delegate.didCancel(on: self)
     }
-    
+
     @IBAction func connect(_ sender: Any) {
         guard let delegate = delegate else { return }
-        
+
         guard let name = formName, let host = formHost, let port = formPort
             else { return }
-        
+
         let player = Player(name: name, host: host, port: port)
 
         if delegate.willAccept(player: player, on: self) {
             delegate.didFinish(with: player, on: self)
-        }
-        else {
+        } else {
             notice(error: localizedPlayerSettingsInvalid)
         }
     }
@@ -142,12 +141,12 @@ class PlayerSettingsViewController: FormViewController, ShowsNotices {
 // MARK: - Localization
 
 extension PlayerSettingsViewController {
-    
+
     fileprivate func localize() {
         cancelBarButtonItem.title = localizedCancelTitle
         connectBarButtonItem.title = localizedConnectTitle
     }
-    
+
     fileprivate var localizedPlayerNameTitle: String {
         return NSLocalizedString("PLAYER_SETTINGS_NAME_TITLE",
             comment: "[input] label for player name setting"
@@ -190,9 +189,9 @@ extension PlayerSettingsViewController {
     fileprivate var localizedCancelTitle: String {
         return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
     }
-    
+
     fileprivate var localizedConnectTitle: String {
         return NSLocalizedString("CONNECT", comment: "[trigger] connect action")
     }
-    
+
 }

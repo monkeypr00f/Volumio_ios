@@ -15,36 +15,36 @@ import UIKit
 class VolumioTableViewController: UITableViewController,
     VolumioController, ObservesNotifications, ShowsNotices
 {
-    
+
     var observers: [AnyObject] = []
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self._viewWillAppear()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         self._viewDidAppear()
         super.viewDidAppear(animated)
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         self._viewDidDisappear()
         super.viewDidDisappear(animated)
     }
-    
+
     // if a subclass wants to act on a connecting event, it can override this method
     func volumioWillConnect() {
     }
-    
+
     // if a subclass wants to act on a connected event, it can override this method (but it has to call this super methd)
     func volumioDidConnect() {
         self._volumioConnected()
     }
-    
+
     // if a subclass wants to act on a disconnected event, it can override this method (but it has to call this super methd)
     func volumioDidDisconnect() {
         self._volumioDisconnected()
     }
-    
+
 }

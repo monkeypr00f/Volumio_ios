@@ -16,19 +16,19 @@ class NetworkObject: Mappable {
     var ssid: String?
     var status: String?
     var type: String?
-    
+
     required init?(map: Map) {
     }
-    
+
     // Mappable
     func mapping(map: Map) {
-        ip          <- map["ip"]
-        inline      <- map["inline"]
-        signal      <- map["signal"]
-        speed       <- map["speed"]
-        ssid        <- map["ssid"]
-        status      <- map["status"]
-        type        <- map["type"]
+            ip <- map["ip"]
+        inline <- map["inline"]
+        signal <- map["signal"]
+         speed <- map["speed"]
+          ssid <- map["ssid"]
+        status <- map["status"]
+          type <- map["type"]
     }
 }
 

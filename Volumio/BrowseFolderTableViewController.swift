@@ -8,8 +8,7 @@
 
 import UIKit
 
-class BrowseFolderTableViewController: UITableViewController,
-    ObservesNotifications, ShowsNotices,
+class BrowseFolderTableViewController: BrowseTableViewController,
     BrowseActionsDelegate, PlaylistActionsDelegate
 {
     var serviceType: ServiceType?
@@ -21,8 +20,6 @@ class BrowseFolderTableViewController: UITableViewController,
     var playlistHeaderView: PlaylistActions?
 
     var sourceLibrary: [LibraryObject] = []
-
-    var observers: [AnyObject] = []
 
     // MARK: - View Callbacks
 
@@ -171,56 +168,6 @@ class BrowseFolderTableViewController: UITableViewController,
         default:
             return self.tableView(tableView, cellForFolder: item, forRowAt: indexPath)
         }
-    }
-
-    func tableView(_ tableView: UITableView,
-        cellForTitle item: Item,
-        forRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath)
-
-        cell.textLabel?.text = item.localizedTitle
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView,
-        cellForTrack item: Item,
-        forRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "track", for: indexPath)
-        guard let cell = reuseableCell as? TrackTableViewCell
-            else { fatalError() }
-
-        cell.trackTitle.text = item.localizedTitle
-        cell.trackArtist.text = item.localizedArtistAndAlbum
-        cell.trackImage.setAlbumArt(for: item)
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView,
-        cellForRadio item: Item,
-        forRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "radio", for: indexPath)
-        guard let cell = reuseableCell as? RadioTableViewCell
-            else { fatalError() }
-
-        cell.radioTitle.text = item.localizedTitle
-        cell.radioImage.setAlbumArt(for: item)
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView,
-        cellForFolder item: Item,
-        forRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let reuseableCell = tableView.dequeueReusableCell(withIdentifier: "folder", for: indexPath)
-        guard let cell = reuseableCell as? FolderTableViewCell
-            else { fatalError() }
-
-        cell.folderTitle.text = item.localizedTitle
-        cell.folderImage.setAlbumArt(for: item)
-        return cell
     }
 
     override func tableView(_ tableView: UITableView,

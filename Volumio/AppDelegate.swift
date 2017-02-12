@@ -16,24 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+    func application(_ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+    ) -> Bool {
+
         Log.setLog(level: BundleInfo[.logLevel])
 
         Fabric.with([Crashlytics.self])
-        
+
         handleArguments()
-        
+
         UIBarButtonItem.appearance()
             .setTitleTextAttributes(
-                [NSForegroundColorAttributeName:UIColor.clear], for: UIControlState.normal
+                [NSForegroundColorAttributeName: UIColor.clear], for: UIControlState.normal
         )
         UIBarButtonItem.appearance()
             .setTitleTextAttributes(
-                [NSForegroundColorAttributeName:UIColor.clear], for: UIControlState.highlighted
+                [NSForegroundColorAttributeName: UIColor.clear], for: UIControlState.highlighted
         )
         UINavigationBar.appearance().tintColor = UIColor.black
-        
+
         return true
     }
 
@@ -45,13 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
+
         VolumioIOManager.shared.closeConnection()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
+
         VolumioIOManager.shared.connectCurrent()
     }
 
@@ -62,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
 }
 
 extension InfoKeys {
@@ -97,7 +99,7 @@ extension AppDelegate {
 extension ProcessInfo {
     /**
         Used to reset user defaults on startup.
-     
+
         let app = XCUIApplication()
         app.launchArguments.append("reset-user-defaults")
      */
@@ -106,7 +108,7 @@ extension ProcessInfo {
     }
     /**
         Used to set user defaults to default values on startup.
-     
+
         let app = XCUIApplication()
         app.launchArguments.append("default-user-defaults")
      */

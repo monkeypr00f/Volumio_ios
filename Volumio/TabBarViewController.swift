@@ -9,12 +9,12 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         localize()
-        
+
         self.tabBar.tintColor = UIColor.black
     }
 }
@@ -22,7 +22,7 @@ class TabBarViewController: UITabBarController {
 // MARK: - Localization
 
 extension TabBarViewController {
-    
+
     fileprivate func localize() {
         if let items = self.tabBar.items {
             if let item = items[safe: 0] {
@@ -51,5 +51,5 @@ extension TabBarViewController {
             }
         }
     }
-    
+
 }

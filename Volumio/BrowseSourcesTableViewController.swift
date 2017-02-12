@@ -12,18 +12,18 @@ import UIKit
     Controller for browse sources table view. Inherits automatic connection handling from `VolumioTableViewController`.
  */
 class BrowseSourcesTableViewController: VolumioTableViewController {
-    
-    var sourcesList : [SourceObject] = []
-    
+
+    var sourcesList: [SourceObject] = []
+
     // MARK: - View Callbacks
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         localize()
 
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+
         refreshControl?.addTarget(self,
             action: #selector(handleRefresh),
             for: UIControlEvents.valueChanged
@@ -32,24 +32,24 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    
+
         registerObserver(forName: .browseSources) { (notification) in
             self.clearAllNotice()
-    
+
             guard let sources = notification.object as? [SourceObject]
                 else { return }
             self.update(sources: sources)
         }
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         clearAllNotice()
     }
-    
+
     // MARK: - View Update
-    
+
     func update(sources: [SourceObject]? = nil) {
         if let sources = sources {
             sourcesList = sources
@@ -58,24 +58,24 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
     }
 
     // MARK: - Volumio Events
-    
+
     override func volumioWillConnect() {
         pleaseWait()
-        
+
         super.volumioWillConnect()
     }
 
     override func volumioDidConnect() {
         super.volumioDidConnect()
-        
+
         VolumioIOManager.shared.browseSources()
     }
 
     override func volumioDidDisconnect() {
         clearAllNotice()
-        
+
         super.volumioDidDisconnect()
-        
+
         update(sources: [])
     }
 
@@ -95,28 +95,30 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "source", for: indexPath)
+
         let source = sourcesList[indexPath.row]
-        
+
         cell.textLabel?.text = source.name
         return cell
     }
-    
+
     func handleRefresh(refreshControl: UIRefreshControl) {
         VolumioIOManager.shared.browseSources()
         refreshControl.endRefreshing()
     }
-    
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFolder" {
-            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
-            
-            let item = sourcesList[indexPath.row]
-            
-            let destinationController = segue.destination as! BrowseFolderTableViewController
+            guard let destinationController = segue.destination as? BrowseFolderTableViewController
+                else { fatalError() }
 
-            switch item.plugin_type {
+            guard let indexPath = self.tableView.indexPathForSelectedRow else { return }
+
+            let item = sourcesList[indexPath.row]
+
+            switch item.pluginType {
             case .some("music_service"):
                 destinationController.serviceType = .music_service
             default:
@@ -132,11 +134,11 @@ class BrowseSourcesTableViewController: VolumioTableViewController {
 // MARK: - Localization
 
 extension BrowseSourcesTableViewController {
-    
+
     fileprivate func localize() {
         navigationItem.title = NSLocalizedString("BROWSE",
             comment: "browse sources view title"
         )
     }
-    
+
 }

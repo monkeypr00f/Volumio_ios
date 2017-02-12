@@ -13,9 +13,9 @@ class AddToPlaylistViewController: UIViewController,
     ObservesNotifications
 {
     var observers: [AnyObject] = []
-    
-    @IBOutlet weak private var tableView: UITableView!
-    @IBOutlet weak private var titleTextField: UITextField!
+
+    @IBOutlet weak fileprivate var tableView: UITableView!
+    @IBOutlet weak fileprivate var titleTextField: UITextField!
 
     var track: TrackObject?
 
@@ -24,7 +24,7 @@ class AddToPlaylistViewController: UIViewController,
     func playlistTitle(at index: Int) -> String? {
         return playlists[safe: index] as? String
     }
-    
+
     // MARK: - View Callbacks
 
     override func viewDidLoad() {
@@ -55,8 +55,7 @@ class AddToPlaylistViewController: UIViewController,
     override func viewDidAppear(_ animated: Bool) {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             dismiss(animated: true, completion: nil)
-        }
-        else {
+        } else {
             VolumioIOManager.shared.listPlaylist()
         }
         super.viewDidAppear(animated)
@@ -82,17 +81,17 @@ class AddToPlaylistViewController: UIViewController,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlists.count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reusableCell = tableView.dequeueReusableCell(
+        let anyCell = tableView.dequeueReusableCell(
             withIdentifier: "playlist",
             for: indexPath
         )
-        guard let cell = reusableCell as? AddToPlaylistTableViewCell
+        guard let cell = anyCell as? AddToPlaylistTableViewCell
             else { fatalError() }
 
         cell.playlistTitle = playlistTitle(at: indexPath.row)
@@ -116,7 +115,7 @@ class AddToPlaylistViewController: UIViewController,
     }
 
     // MARK: - UITextFieldDelegate
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let playlistTitle = titleTextField.text,
               let currentTrackTitle = track?.title,

@@ -10,8 +10,8 @@ import UIKit
 
 class AddToPlaylistTableViewCell: UITableViewCell {
 
-    @IBOutlet weak private var borderView: UIView!
-    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak fileprivate var borderView: UIView!
+    @IBOutlet weak fileprivate var titleLabel: UILabel!
 
     var playlistTitle: String? {
         didSet {
@@ -23,7 +23,7 @@ class AddToPlaylistTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
         borderView.layer.borderWidth = 0.5
-        borderView.layer.borderColor = UIColor.pinkFlare.cgColor
+        borderView.layer.borderColor = UIColor.addToPlaylistCellBorder.cgColor
         borderView.layer.cornerRadius = 5
     }
 

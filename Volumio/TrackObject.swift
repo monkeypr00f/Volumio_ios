@@ -16,7 +16,7 @@ class TrackObject: Mappable, Item {
     var artist: String?
     var album: String?
     var albumArt: String?
-    
+
     var uri: String?
     var service: String?
 
@@ -28,27 +28,27 @@ class TrackObject: Mappable, Item {
     var shuffle: Int?
     var consume: Int?
     var position: Int?
-    
+
     required init?(map: Map) {
     }
-    
+
     // Mappable
     func mapping(map: Map) {
-        title       <- map["title"]
-        name        <- map["name"]
-        artist      <- map["artist"]
-        album       <- map["album"]
-        albumArt    <- map["albumart"]
-        volume      <- map["volume"]
-        seek        <- map["seek"]
-        duration    <- map["duration"]
-        uri         <- map["uri"]
-        status      <- map["status"]
-        repetition  <- map["repeat"]
-        shuffle     <- map["random"]
-        consume     <- map["consume"]
-        service     <- map["service"]
-        position    <- map["position"]
+             title <- map["title"]
+              name <- map["name"]
+            artist <- map["artist"]
+             album <- map["album"]
+          albumArt <- map["albumart"]
+            volume <- map["volume"]
+              seek <- map["seek"]
+          duration <- map["duration"]
+               uri <- map["uri"]
+            status <- map["status"]
+        repetition <- map["repeat"]
+           shuffle <- map["random"]
+           consume <- map["consume"]
+           service <- map["service"]
+          position <- map["position"]
     }
 }
 

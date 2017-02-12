@@ -12,21 +12,21 @@ import Foundation
 // MARK: - Protocol: ObservesNotifications
 
 public protocol ObservesNotifications: class {
-    
+
     var observers: [AnyObject] { get set }
-    
+
     func registerObserver(
         forName name: NSNotification.Name,
         using block: @escaping (Notification) -> Void
     )
-    
+
     func unregisterObservers()
 }
 
 // MARK: - Extension: ObservesNotifications
 
 extension ObservesNotifications {
-    
+
     public func registerObserver(
         forName name: NSNotification.Name,
         using block: @escaping (Notification) -> Void
@@ -40,12 +40,12 @@ extension ObservesNotifications {
         )
         observers.append(observer)
     }
-    
+
     public func unregisterObservers() {
         for observer in observers {
             NotificationCenter.default.removeObserver(observer)
         }
         observers.removeAll()
     }
-    
+
 }

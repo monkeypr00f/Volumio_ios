@@ -14,7 +14,7 @@ import Foundation
 protocol Item {
     /// Type of this Volumio item (track, song, playlist, folder, ...)
     var type: ItemType { get }
-    
+
     /// Title for this item.
     var title: String? { get }
     /// Name for this item. Tracks have names, for all other items this is nil.
@@ -40,7 +40,7 @@ enum ItemType: String {
     case radio_favourites = "radio-favourites"
     case radio_category = "radio-category"
     case unknown
-    
+
     var isTrack: Bool {
         return self == .track
     }
@@ -60,7 +60,7 @@ enum ItemType: String {
 // Localized strings for this item. Note: Some of this methods don’t really localize anything, but return a resonable default string if data is missing.
 
 extension Item {
-    
+
     /// Returns the title of this item or an empty string if title data is missing.
     var localizedTitle: String {
         return title ?? name ?? ""
@@ -70,23 +70,21 @@ extension Item {
     var localizedArtist: String {
         return artist ?? ""
     }
-    
+
     /// Returns the album of this item or an empty string if album data is missing.
     var localizedAlbum: String {
         return album ?? ""
     }
-    
+
     /// Returns a combined string with artist and album information for this item.
     var localizedArtistAndAlbum: String {
         if let artist = artist, !artist.isBlank {
             if let album = album, !album.isBlank {
                 return "\(artist) - \(album)"
-            }
-            else {
+            } else {
                 return "\(artist) - No album"
             }
-        }
-        else {
+        } else {
             return album ?? ""
         }
     }

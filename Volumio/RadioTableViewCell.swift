@@ -9,8 +9,8 @@
 import UIKit
 
 class RadioTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var radioImage: UIImageView!
     @IBOutlet weak var radioTitle: UILabel!
-    
+
 }

@@ -9,32 +9,32 @@
 import UIKit
 
 class PluginsTableViewController: UITableViewController, ObservesNotifications {
-    
-    var pluginsList : [PluginObject] = []
+
+    var pluginsList: [PluginObject] = []
 
     var observers: [AnyObject] = []
-    
+
     // MARK: View Callbacks
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         localize()
-        
+
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+
         refreshControl?.addTarget(self,
             action: #selector(handleRefresh),
             for: UIControlEvents.valueChanged
         )
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         registerObserver(forName: .browsePlugins) { (notification) in
             self.clearAllNotice()
-    
+
             guard let plugins = notification.object as? [PluginObject]
                 else { return }
             self.pluginsList = plugins
@@ -47,8 +47,7 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
     override func viewDidAppear(_ animated: Bool) {
         if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
             _ = navigationController?.popToRootViewController(animated: animated)
-        }
-        else {
+        } else {
             VolumioIOManager.shared.getInstalledPlugins()
         }
         super.viewDidAppear(animated)
@@ -58,7 +57,7 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
         super.viewWillDisappear(animated)
 
         clearAllNotice()
-        
+
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -79,11 +78,13 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
         return pluginsList.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath) as! PluginTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath)
+        guard let cell = anyCell as? PluginTableViewCell
+            else { fatalError() }
+
         let source = pluginsList[indexPath.row]
-        
+
         cell.pluginName.text = source.prettyName
         if source.active == 1 {
             cell.pluginStatus.backgroundColor = UIColor.green
@@ -93,19 +94,21 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
 
         return cell
     }
-    
+
     func handleRefresh(refreshControl: UIRefreshControl) {
         VolumioIOManager.shared.getInstalledPlugins()
         refreshControl.endRefreshing()
     }
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pluginDetail" {
+            guard let destinationController = segue.destination as? PluginDetailViewController
+                else { fatalError() }
+
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            
-            let destinationController = segue.destination as! PluginDetailViewController
+
             destinationController.plugin = pluginsList[indexPath.row]
         }
     }
@@ -115,7 +118,7 @@ class PluginsTableViewController: UITableViewController, ObservesNotifications {
 // MARK: - Localization
 
 extension PluginsTableViewController {
-    
+
     fileprivate func localize() {
         navigationItem.title = NSLocalizedString("PLUGINS",
             comment: "plugins view title"

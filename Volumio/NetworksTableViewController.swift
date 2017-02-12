@@ -9,36 +9,36 @@
 import UIKit
 
 class NetworksTableViewController: UITableViewController {
-    
-    var networksData : [[NetworkObject]] = []
+
+    var networksData: [[NetworkObject]] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         networksData.removeAll()
-        
+
         registerObservers()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         VolumioIOManager.shared.getInfoNetwork()
         VolumioIOManager.shared.getWirelessNetworks()
-        
+
         pleaseWait()
-        
+
         refreshControl?.addTarget(self,
             action: #selector(handleRefresh),
             for: UIControlEvents.valueChanged
         )
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         clearAllNotice()
-        
+
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -54,22 +54,22 @@ class NetworksTableViewController: UITableViewController {
             object: nil
         )
     }
-    
+
     func getNetworks(notification: NSNotification) {
         guard let sources = notification.object as? [NetworkObject] else { return }
-        
+
         networksData.append(sources)
         tableView.reloadData()
     }
 
     func getWireless(notification: NSNotification) {
         guard let sources = notification.object as? [NetworkObject] else { return }
-        
+
         networksData.append(sources)
         tableView.reloadData()
         clearAllNotice()
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,19 +81,20 @@ class NetworksTableViewController: UITableViewController {
     ) -> Int {
         return networksData[section].count
     }
-    
+
     override func tableView(_ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "connection", for: indexPath)
+
         let type = networksData[indexPath.section]
         let source = type[indexPath.row]
-        
+
         cell.textLabel?.text = source.ssid
-        
+
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView,
         titleForHeaderInSection section: Int
     ) -> String? {
@@ -105,10 +106,10 @@ class NetworksTableViewController: UITableViewController {
     }
 
     func handleRefresh(refreshControl: UIRefreshControl) {
-        
+
         networksData.removeAll()
         tableView.reloadData()
-        
+
         VolumioIOManager.shared.getInfoNetwork()
         VolumioIOManager.shared.getWirelessNetworks()
 
@@ -120,13 +121,13 @@ class NetworksTableViewController: UITableViewController {
 // MARK: - Localization
 
 extension NetworksTableViewController {
-    
+
     fileprivate var localizedNetworkInfoTitle: String {
         return NSLocalizedString("NETWORKS_NETWORK_INFO",
             comment: "network info title"
         )
     }
-    
+
     fileprivate var localizedWirelessNetworksTitle: String {
         return NSLocalizedString("NETWORKS_WIRELESS_NETWORKS",
             comment: "wireless networks title"
