@@ -37,7 +37,6 @@ class LastFMService {
     */
     func albumGetImageURL(artist: String, album: String, completion: @escaping (URL?) -> Void) {
         let albumGetInfo = LastFMRequest.albumGetInfo(artist: artist, album: album)
-
         Alamofire.request(albumGetInfo)
             .validate()
             .responseJSON(queue: queue) { (response) in
