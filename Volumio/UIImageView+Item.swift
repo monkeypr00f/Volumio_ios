@@ -29,7 +29,7 @@ extension UIImageView {
         } else {
             guard item.type.isTrack || item.type.isSong,
                   let artist = item.artist,
-                  let album = item.albumArt
+                  let album = item.album
                 else {
                     self.image = defaultAlbumArt
                     return
