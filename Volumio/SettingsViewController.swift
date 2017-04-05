@@ -7,91 +7,147 @@
 //
 
 import UIKit
+
 import Eureka
 import Kingfisher
 
-class SettingsViewController: FormViewController {
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.clearAllNotice()
-    }
-    
+class SettingsViewController: VolumioFormViewController {
+
+    // MARK: - View Callbacks
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        form = Section("System")
-            <<< ButtonRow("Installed plugins") { (row: ButtonRow) -> Void in
+
+        localize()
+
+        form = Section(localizedSystemSectionTitle)
+            <<< ButtonRow(localizedInstalledPluginsTitle) { (row: ButtonRow) -> Void in
                 row.title = row.tag
                 row.presentationMode = .segueName(segueName: "pluginsSettings", onDismiss: nil)
-            }.cellSetup { cell, row in
+            }.cellSetup { (cell, _) in
                 cell.imageView?.image = UIImage(named: "plugins")
             }
-            
-            <<< ButtonRow("Open WebUI") {
+
+            <<< ButtonRow(localizedOpenWebUITitle) {
                 $0.title = $0.tag
-                }.onCellSelection {(cell, row) in
-                    UIApplication.shared.open(NSURL(string: "http://volumio.local") as! URL, options: [:], completionHandler: nil)
-                }
-            
-//            <<< ButtonRow("Network") { (row: ButtonRow) -> Void in
-//                row.title = row.tag
-//                row.presentationMode = .segueName(segueName: "networkSettings", onDismiss: nil)
-//                }.cellSetup { cell, row in
-//                    cell.imageView?.image = UIImage(named: "network")
-//            }
-            
+            }.onCellSelection { _ in
+                guard let playerURL = VolumioIOManager.shared.currentPlayer?.url
+                    else { return }
+                UIApplication.shared.open(playerURL, options: [:], completionHandler: nil)
+            }
+
             +++ Section("")
-            <<< ButtonRow("Shutdown") {
+            <<< ButtonRow(localizedShutdownOptionsTitle) {
                 $0.title = $0.tag
-                }.onCellSelection { [weak self] (cell, row) in
-                    self?.shutdownAlert()
+            }.onCellSelection { [weak self] _ in
+                self?.shutdownAlert()
             }
-        
-            +++ Section("Debug")
-            <<< ButtonRow("Change Device") {
+
+            +++ Section(localizedDebugSectionTitle)
+            <<< ButtonRow(localizedChangePlayerTitle) {
                 $0.title = $0.tag
-                }.onCellSelection{ [weak self] (cell, row) in
-                    UserDefaults.standard.removeObject(forKey: "selectedPlayer")
-                    let controller = self?.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
-                    self?.present(controller, animated: true, completion: nil)
+            }.onCellSelection{ _ in
+                VolumioIOManager.shared.disconnect(unsetDefault: true)
             }
-            <<< ButtonRow("Clear cache") {
+            <<< ButtonRow(localizedClearCacheTitle) {
                 $0.title = $0.tag
-                }.onCellSelection { [weak self] (cell, row) in
-                    self?.clearImageCache()
+            }.onCellSelection { [weak self] _ in
+                self?.clearImageCache()
             }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+    // MARK: -
+
     func clearImageCache() {
-        ImageCache.default.calculateDiskCacheSize { size in
-            print("Used disk size by bytes: \(size/1000000)")
-            
-            ImageCache.default.clearDiskCache(completion: { (data) in
+        ImageCache.default.calculateDiskCacheSize { (size) in
+            Log.info("Used disk cache size by bytes: \(size / 1_000_000)")
+
+            ImageCache.default.clearDiskCache(completion: { _ in
                 ImageCache.default.clearMemoryCache()
             })
         }
     }
-    
+
     func shutdownAlert() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        alert.addAction(
-            UIAlertAction(title: "Shutdown", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "shutdown")
-            })
+        alert.addAction(UIAlertAction(title: localizedShutdownTitle, style: .default) { _ in
+            VolumioIOManager.shared.shutdown()
+        })
+        alert.addAction(UIAlertAction(title: localizedRebootTitle, style: .default) { _ in
+            VolumioIOManager.shared.reboot()
+        })
+        alert.addAction(UIAlertAction(title: localizedCancelTitle, style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - Localization
+
+extension SettingsViewController {
+
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("SETTINGS",
+            comment: "settings view title"
         )
-        alert.addAction(
-            UIAlertAction(title: "Reboot", style: .default, handler: { (action) in
-                SocketIOManager.sharedInstance.doAction(action: "reboot")
-            })
+    }
+
+    fileprivate var localizedSystemSectionTitle: String {
+        return NSLocalizedString("SETTINGS_SECTION_SYSTEM",
+            comment: "system"
         )
-        alert.addAction(
-            UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    }
+
+    fileprivate var localizedInstalledPluginsTitle: String {
+        return NSLocalizedString("SETTINGS_INSTALLED_PLUGINS",
+            comment: "[trigger] show installed volumio player plugins"
         )
-        self.present(alert, animated: true, completion: nil)
+    }
+
+    fileprivate var localizedOpenWebUITitle: String {
+        return NSLocalizedString("SETTINGS_OPEN_WEBUI",
+            comment: "[trigger] show volumio player web ui"
+        )
+    }
+
+    fileprivate var localizedShutdownOptionsTitle: String {
+        return NSLocalizedString("SETTINGS_SHUTDOWN_OPTIONS",
+            comment: "[trigger] show shutdown options for volumio player"
+        )
+    }
+
+    fileprivate var localizedShutdownTitle: String {
+        return NSLocalizedString("SETTINGS_SHUTDOWN",
+            comment: "[trigger] shutdown volumio player"
+        )
+    }
+
+    fileprivate var localizedRebootTitle: String {
+        return NSLocalizedString("SETTINGS_REBOOT",
+            comment: "[trigger] reboot volumio player"
+        )
+    }
+
+    fileprivate var localizedDebugSectionTitle: String {
+        return NSLocalizedString("SETTINGS_SECTION_DEBUG",
+            comment: "debugging"
+        )
+    }
+
+    fileprivate var localizedChangePlayerTitle: String {
+        return NSLocalizedString("SETTINGS_CHANGE_PLAYER",
+            comment: "[trigger] change volumio player"
+        )
+    }
+    fileprivate var localizedClearCacheTitle: String {
+        return NSLocalizedString("SETTINGS_CLEAR_CACHE",
+            comment: "[trigger] clear cache"
+        )
+    }
+
+    fileprivate var localizedCancelTitle: String {
+        return NSLocalizedString("CANCEL", comment: "[trigger] cancel action")
     }
 
 }

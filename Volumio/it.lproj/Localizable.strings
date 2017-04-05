@@ -1,0 +1,140 @@
+/* browse sources view title */
+"BROWSE" = "Sfoglia";
+
+/* [trigger] add item to queue */
+"BROWSE_ADD_TO_QUEUE" = "Aggiungi alla coda";
+
+/* [trigger](short) add items to queue */
+"BROWSE_ADD_TO_QUEUE_ALL" = "Aggiungi tutto alla coda";
+
+/* [trigger] add item to queue and start playing */
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Esegui";
+
+/* [trigger](short) add items to queue and start playing */
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Esegui tutto";
+
+/* [trigger] clear queue, add item and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Svuota ed esegui";
+
+/* [trigger](short) clear queue, add items and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Svuota ed esegui tutto";
+
+/* [trigger](short) edit playlist */
+"BROWSE_EDIT_PLAYLIST" = "Modifica";
+
+/* [trigger](short) play playlist */
+"BROWSE_PLAY_PLAYLIST" = "Esegui";
+
+/* browse search view title */
+"BROWSE_SEARCH" = "Cerca";
+
+/* [trigger] cancel action */
+"CANCEL" = "Annulla";
+
+/* [trigger] more actions */
+"MORE" = "Altro";
+
+/* network info title */
+"NETWORKS_NETWORK_INFO" = "Informazioni Network";
+
+/* wireless networks title */
+"NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
+
+/* [trigger] play anything */
+"PLAY" = "Esegui";
+
+/* [hint] playback queue is empty */
+"PLAYBACK_QUEUE_IS_EMPTY" = "La coda è vuota";
+
+/* [hint](format) added item to playlist(%@) */
+"PLAYLIST_ADDED_ITEM" = "Aggunto a %@";
+
+/* [hint](format) deleted playlist(%@) */
+"PLAYLIST_DELETED" = "%@ rimosso";
+
+/* [hint](format) started playing playlist(%@) */
+"PLAYLIST_PLAYING" = "%@ in esecuzione";
+
+/* [hint](format) removed item(%@) from playlist */
+"PLAYLIST_REMOVED_ITEM" = "%@ rimosso";
+
+/* plugin view title */
+"PLUGIN" = "Plugin";
+
+/* plugins view title */
+"PLUGINS" = "Plugin";
+
+/* volumio player’s plugin status */
+"PLUGIN_STATUS" = "Stato";
+
+/* volumio player’s plugin version */
+"PLUGIN_VERSION" = "Versione";
+
+/* queue view title */
+"QUEUE" = "Coda";
+
+/* [hint](format) added item(%@) to queue */
+"QUEUE_ADDED_ITEM" = "%@ aggiunto";
+
+/* [trigger](short) queue clear */
+"QUEUE_CLEAR" = "Svuota";
+
+/* [toggle](short) queue consume */
+"QUEUE_CONSUME" = "Consuma";
+
+/* removed item from queue */
+"QUEUE_REMOVED_ITEM" = "Rimosso";
+
+/* [toggle](short) queue repeat */
+"QUEUE_REPEAT" = "Ripeti";
+
+/* [toggle](short) queue shuffle */
+"QUEUE_SHUFFLE" = " Casuale";
+
+/* search volumio view text */
+"SEARCH_VOLUMIO_TEXT" = "Scegli quale player controllare, puoi cambiare player nelle impostazioni.";
+
+/* search volumio view title */
+"SEARCH_VOLUMIO_TITLE" = "Seleziona un player";
+
+/* settings view title */
+"SETTINGS" = "Impostazioni";
+
+/* [trigger] change volumio player */
+"SETTINGS_CHANGE_PLAYER" = "Cambia player";
+
+/* [trigger] clear cache */
+"SETTINGS_CLEAR_CACHE" = "Svuota cache";
+
+/* [trigger] show installed volumio player plugins */
+"SETTINGS_INSTALLED_PLUGINS" = "Plugin installati";
+
+/* [trigger] show volumio player web ui */
+"SETTINGS_OPEN_WEBUI" = "Apri WebUI";
+
+/* [trigger] reboot volumio player */
+"SETTINGS_REBOOT" = "Riavvia";
+
+/* debugging */
+"SETTINGS_SECTION_DEBUG" = "Debug";
+
+/* system */
+"SETTINGS_SECTION_SYSTEM" = "Sistema";
+
+/* [trigger] shutdown volumio player */
+"SETTINGS_SHUTDOWN" = "Spegni";
+
+/* [trigger] show shutdown options for volumio player */
+"SETTINGS_SHUTDOWN_OPTIONS" = "Spegni";
+
+/* [trigger](short) show browse view */
+"TAB_BROWSE" = "Sfoglia";
+
+/* [trigger](short) show playback view */
+"TAB_PLAYBACK" = "Esecuzione";
+
+/* [trigger](short) show queue view */
+"TAB_QUEUE" = "Coda";
+
+/* [trigger](short) show settings view */
+"TAB_SETTINGS" = "Impostazioni";

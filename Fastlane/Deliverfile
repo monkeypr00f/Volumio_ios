@@ -1,0 +1,9 @@
+app_identifier "fsintucci.volumio"
+
+username "..."
+
+skip_metadata true
+
+submit_for_review false
+
+screenshots_path "./Screenshots"

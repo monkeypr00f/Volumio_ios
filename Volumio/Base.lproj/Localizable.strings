@@ -1,0 +1,164 @@
+/* browse sources view title */
+"BROWSE" = "Browse";
+
+/* [trigger] add item to queue */
+"BROWSE_ADD_TO_QUEUE" = "Add to queue";
+
+/* [trigger](short) add items to queue */
+"BROWSE_ADD_TO_QUEUE_ALL" = "Add all to queue";
+
+/* [trigger] add item to queue and start playing */
+"BROWSE_ADD_TO_QUEUE_AND_PLAY" = "Play";
+
+/* [trigger](short) add items to queue and start playing */
+"BROWSE_ADD_TO_QUEUE_AND_PLAY_ALL" = "Play all";
+
+/* [trigger] clear queue, add item and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY" = "Clear and play";
+
+/* [trigger](short) clear queue, add items and start playing */
+"BROWSE_CLEAR_AND_ADD_TO_QUEUE_AND_PLAY_ALL" = "Clear and play all";
+
+/* [trigger](short) edit playlist */
+"BROWSE_EDIT_PLAYLIST" = "Edit";
+
+/* [trigger](short) play playlist */
+"BROWSE_PLAY_PLAYLIST" = "Play";
+
+/* browse search view title */
+"BROWSE_SEARCH" = "Search";
+
+/* [trigger] cancel action */
+"CANCEL" = "Cancel";
+
+/* [trigger] connect action */
+"CONNECT" = "Connect";
+
+/* [trigger] more actions */
+"MORE" = "More";
+
+/* network info title */
+"NETWORKS_NETWORK_INFO" = "Network Info";
+
+/* wireless networks title */
+"NETWORKS_WIRELESS_NETWORKS" = "Wireless Networks";
+
+/* [trigger] play anything */
+"PLAY" = "Wiedergeben";
+
+/* [hint] playback queue is empty */
+"PLAYBACK_QUEUE_IS_EMPTY" = "Queue is empty";
+
+/* [hint](format) added item to playlist(%@) */
+"PLAYLIST_ADDED_ITEM" = "Added to %@";
+
+/* [hint](format) deleted playlist(%@) */
+"PLAYLIST_DELETED" = "%@ deleted";
+
+/* [hint](format) started playing playlist(%@) */
+"PLAYLIST_PLAYING" = "%@ playing";
+
+/* [hint](format) removed item(%@) from playlist */
+"PLAYLIST_REMOVED_ITEM" = "%@ removed";
+
+/* plugin view title */
+"PLUGIN" = "Plugin";
+
+/* plugins view title */
+"PLUGINS" = "Plugins";
+
+/* volumio player’s plugin status */
+"PLUGIN_STATUS" = "Status";
+
+/* volumio player’s plugin version */
+"PLUGIN_VERSION" = "Version";
+
+/* queue view title */
+"QUEUE" = "Queue";
+
+/* [hint](format) added item(%@) to queue */
+"QUEUE_ADDED_ITEM" = "%@ added";
+
+/* [trigger](short) queue clear */
+"QUEUE_CLEAR" = "Clear";
+
+/* [toggle](short) queue consume */
+"QUEUE_CONSUME" = "Consume";
+
+/* removed item from queue */
+"QUEUE_REMOVED_ITEM" = "Removed";
+
+/* [toggle](short) queue repeat */
+"QUEUE_REPEAT" = "Repeat";
+
+/* [toggle](short) queue shuffle */
+"QUEUE_SHUFFLE" = "Shuffle";
+
+/* search volumio view text */
+"SEARCH_VOLUMIO_TEXT" = "Choose the player to control, you can always change it in the settings.";
+
+/* search volumio view title */
+"SEARCH_VOLUMIO_TITLE" = "Select a player";
+
+/* settings view title */
+"SETTINGS" = "Settings";
+
+/* [trigger] change volumio player */
+"SETTINGS_CHANGE_PLAYER" = "Change player";
+
+/* [trigger] clear cache */
+"SETTINGS_CLEAR_CACHE" = "Clear cache";
+
+/* [trigger] show installed volumio player plugins */
+"SETTINGS_INSTALLED_PLUGINS" = "Installed Plugins";
+
+/* [trigger] show volumio player web ui */
+"SETTINGS_OPEN_WEBUI" = "Open WebUI";
+
+/* [trigger] reboot volumio player */
+"SETTINGS_REBOOT" = "Reboot";
+
+/* debugging */
+"SETTINGS_SECTION_DEBUG" = "Debug";
+
+/* system */
+"SETTINGS_SECTION_SYSTEM" = "System";
+
+/* [trigger] shutdown volumio player */
+"SETTINGS_SHUTDOWN" = "Shutdown";
+
+/* [trigger] show shutdown options for volumio player */
+"SETTINGS_SHUTDOWN_OPTIONS" = "Shutdown";
+
+/* [trigger](short) show browse view */
+"TAB_BROWSE" = "Browse";
+
+/* [trigger](short) show playback view */
+"TAB_PLAYBACK" = "Playback";
+
+/* [trigger](short) show queue view */
+"TAB_QUEUE" = "Queue";
+
+/* [trigger](short) show settings view */
+"TAB_SETTINGS" = "Settings";
+
+/* [input] label for player name setting */
+"PLAYER_SETTINGS_NAME_TITLE" = "Name";
+
+/* [input] placeholder for player name setting */
+"PLAYER_SETTINGS_NAME_PLACEHOLDER" = "Your player’s name";
+
+/* [input] label for player host setting */
+"PLAYER_SETTINGS_HOST_TITLE" = "Host";
+
+/* [input] placeholder for player host setting */
+"PLAYER_SETTINGS_HOST_PLACEHOLDER" = "Your player’s ip";
+
+/* [input] label for player port setting */
+"PLAYER_SETTINGS_PORT_TITLE" = "Port";
+
+/* [input] placeholder for player port setting */
+"PLAYER_SETTINGS_PORT_PLACEHOLDER" = "Your player’s port";
+
+/* settings (name, host or port) for player are invalid */
+"PLAYER_INVALID_SETTINGS" = "Invalid settings for player";

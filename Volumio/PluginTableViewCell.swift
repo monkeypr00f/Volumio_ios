@@ -12,18 +12,11 @@ class PluginTableViewCell: UITableViewCell {
 
     @IBOutlet weak var pluginName: UILabel!
     @IBOutlet weak var pluginStatus: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+
         pluginStatus.layer.cornerRadius = 8
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

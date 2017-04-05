@@ -6,24 +6,22 @@
 //  Copyright © 2016 Federico Sintucci. All rights reserved.
 //
 
-import UIKit
 import ObjectMapper
 
 class SourceObject: Mappable {
     var name: String?
-    var plugin_name: String?
-    var plugin_type: String?
     var uri: String?
-    
+    var pluginName: String?
+    var pluginType: String?
+
     required init?(map: Map) {
-        
     }
-    
+
     // Mappable
     func mapping(map: Map) {
-        name            <- map["name"]
-        plugin_name     <- map["plugin_name"]
-        plugin_type     <- map["plugin_type"]
-        uri             <- map["uri"]
+              name <- map["name"]
+               uri <- map["uri"]
+        pluginName <- map["plugin_name"]
+        pluginType <- map["plugin_type"]
     }
 }

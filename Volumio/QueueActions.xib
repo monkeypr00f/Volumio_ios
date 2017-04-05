@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QueueActions" customModule="Volumio" customModuleProvider="target">
             <connections>
+                <outlet property="clearLabel" destination="RIu-ty-Wkw" id="9U8-aW-y0n"/>
+                <outlet property="consumeLabel" destination="Zmn-ri-ZQw" id="27T-Q7-Yxe"/>
                 <outlet property="consumeState" destination="YuQ-MJ-eJ5" id="t5o-nK-1hh"/>
+                <outlet property="repeatLabel" destination="c59-lA-Rj3" id="HEN-0h-EmE"/>
                 <outlet property="repeatState" destination="HLh-he-49U" id="bS9-7K-hUy"/>
+                <outlet property="shuffleLabel" destination="i7I-3f-X6H" id="bYy-el-Wlk"/>
                 <outlet property="shuffleState" destination="Ijw-cp-XgX" id="T6h-uH-fkF"/>
                 <outlet property="view" destination="iN0-l3-epB" id="J3F-cy-WvI"/>
             </connections>

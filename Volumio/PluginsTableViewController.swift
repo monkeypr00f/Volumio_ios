@@ -8,47 +8,63 @@
 
 import UIKit
 
-class PluginsTableViewController: UITableViewController {
-    
-    var pluginsList : [PluginObject] = []
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.getInstalledPlugins()
-        registerObservers()
-    }
+class PluginsTableViewController: UITableViewController, ObservesNotifications {
+
+    var pluginsList: [PluginObject] = []
+
+    var observers: [AnyObject] = []
+
+    // MARK: View Callbacks
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        localize()
+
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
-        self.pleaseWait()
-        
-        self.refreshControl?.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+
+        refreshControl?.addTarget(self,
+            action: #selector(handleRefresh),
+            for: UIControlEvents.valueChanged
+        )
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        registerObserver(forName: .browsePlugins) { (notification) in
+            self.clearAllNotice()
+
+            guard let plugins = notification.object as? [PluginObject]
+                else { return }
+            self.pluginsList = plugins
+            self.updatePlugins()
+        }
+
+        pleaseWait()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if !VolumioIOManager.shared.isConnected && !VolumioIOManager.shared.isConnecting {
+            _ = navigationController?.popToRootViewController(animated: animated)
+        } else {
+            VolumioIOManager.shared.getInstalledPlugins()
+        }
+        super.viewDidAppear(animated)
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.clearAllNotice()
+
+        clearAllNotice()
+
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func registerObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSources(notification:)), name: NSNotification.Name("browsePlugins"), object: nil)
-    }
-    
-    func updateSources(notification: NSNotification) {
-        if let sources = notification.object as? [PluginObject] {
-            self.pluginsList = sources
-            self.tableView.reloadData()
-            self.clearAllNotice()
-        }
+    // MARK: - View Update
+
+    func updatePlugins() {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -62,11 +78,13 @@ class PluginsTableViewController: UITableViewController {
         return pluginsList.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath) as! PluginTableViewCell
+        let anyCell = tableView.dequeueReusableCell(withIdentifier: "plugins", for: indexPath)
+        guard let cell = anyCell as? PluginTableViewCell
+            else { fatalError() }
+
         let source = pluginsList[indexPath.row]
-        
+
         cell.pluginName.text = source.prettyName
         if source.active == 1 {
             cell.pluginStatus.backgroundColor = UIColor.green
@@ -76,22 +94,35 @@ class PluginsTableViewController: UITableViewController {
 
         return cell
     }
-    
+
     func handleRefresh(refreshControl: UIRefreshControl) {
-        SocketIOManager.sharedInstance.getInstalledPlugins()
+        VolumioIOManager.shared.getInstalledPlugins()
         refreshControl.endRefreshing()
     }
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "pluginDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! PluginDetailViewController
-                destinationController.service = pluginsList[indexPath.row]
-            }
+            guard let destinationController = segue.destination as? PluginDetailViewController
+                else { fatalError() }
+
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+
+            destinationController.plugin = pluginsList[indexPath.row]
         }
+    }
+
+}
+
+// MARK: - Localization
+
+extension PluginsTableViewController {
+
+    fileprivate func localize() {
+        navigationItem.title = NSLocalizedString("PLUGINS",
+            comment: "plugins view title"
+        )
     }
 
 }

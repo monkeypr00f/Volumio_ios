@@ -7,215 +7,220 @@
 //
 
 import UIKit
-import Kingfisher
+
 import Dropper
 
-class PlaybackViewController: UIViewController {
-    
+/**
+ Controller for playback view. Inherits automatic connection handling from `VolumioViewController`.
+ */
+class PlaybackViewController: VolumioViewController {
+
     // information block
-    @IBOutlet weak var currentAlbum: UILabel!
-    @IBOutlet weak var currentTitle: UILabel!
-    @IBOutlet weak var currentArtist: UILabel!
-    @IBOutlet weak var currentAlbumArt: UIImageView!
-    @IBOutlet weak var currentAddToFavourite: UIButton!
-    @IBOutlet weak var spotifyTrack: UIImageView!
-    
+    @IBOutlet weak fileprivate var currentAlbum: UILabel!
+    @IBOutlet weak fileprivate var currentTitle: UILabel!
+    @IBOutlet weak fileprivate var currentArtist: UILabel!
+    @IBOutlet weak fileprivate var currentAlbumArt: UIImageView!
+    @IBOutlet weak fileprivate var currentAddToFavourite: UIButton!
+    @IBOutlet weak fileprivate var spotifyTrack: UIImageView!
+
     // actions block
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var repeatButton: UIButton!
-    @IBOutlet weak var shuffleButton: UIButton!
-    @IBOutlet weak var sliderVolume: UISlider!
-    @IBOutlet weak var currentProgress: UIProgressView!
-    @IBOutlet weak var seekValue: UILabel!
-    @IBOutlet weak var currentDuration: UILabel!
+    @IBOutlet weak fileprivate var playButton: UIButton!
+    @IBOutlet weak fileprivate var repeatButton: UIButton!
+    @IBOutlet weak fileprivate var shuffleButton: UIButton!
+    @IBOutlet weak fileprivate var sliderVolume: UISlider!
+    @IBOutlet weak fileprivate var currentProgress: UIProgressView!
+    @IBOutlet weak fileprivate var seekValue: UILabel!
+    @IBOutlet weak fileprivate var currentDuration: UILabel!
 
-    //graphic block
-    @IBOutlet weak var outerRing: UIView!
-    @IBOutlet weak var innerRing: UIView!
-    @IBOutlet weak var playerView: UIView!
-    @IBOutlet weak var playerViewShadow: UIView!
-    @IBOutlet weak var dropdownSelector: UIButton!
+    // graphic block
+    @IBOutlet weak fileprivate var outerRing: UIView!
+    @IBOutlet weak fileprivate var innerRing: UIView!
+    @IBOutlet weak fileprivate var playerView: UIView!
+    @IBOutlet weak fileprivate var playerViewShadow: UIView!
+    @IBOutlet weak fileprivate var dropdownSelector: UIButton!
 
-    @IBOutlet weak var blurOverlay: UIVisualEffectView!
-    
+    @IBOutlet weak fileprivate var blurOverlay: UIVisualEffectView!
+
     var counter: Int = 0
     var trackDuration: Int = 0
-    var currentTrack:TrackObject?
+    var currentTrack: TrackObject?
     var timer = Timer()
-    
+
     let dropper = Dropper(width: 375, height: 200)
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        SocketIOManager.sharedInstance.getState()
-    }
+
+    // MARK: - View Callbacks
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let logo = UIImage(named: "logo")
         let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
-        
-        registerObservers()
-        self.pleaseWait()
-        
+        navigationItem.titleView = imageView
+
         repeatButton.alpha = 0.3
         shuffleButton.alpha = 0.3
     }
 
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
         innerRing.makeCircle()
         outerRing.makeCircle()
-        
+
         currentProgress.transform = CGAffineTransform(scaleX: 1.0, y: 3.0)
 
         playerViewShadow.layer.shadowOffset = CGSize.zero
         playerViewShadow.layer.shadowOpacity = 1
         playerViewShadow.layer.shadowRadius = 3
+
+        super.viewWillLayoutSubviews()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.clearAllNotice()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    private func registerObservers() {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrackInfo), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(isDisconnected(notification:)), name: NSNotification.Name("disconnected"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(getCurrentTrack(notification:)), name: NSNotification.Name("currentTrack"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(isOnPlaylist(notification:)), name: NSNotification.Name("addedToPlaylist"), object: nil)
-    }
-    
-    func isDisconnected(notification: NSNotification) {
-        self.clearAllNotice()
-        let controller = self.storyboard?.instantiateViewController(withIdentifier: "SearchingViewController") as! SearchVolumioViewController
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    func getCurrentTrack(notification:NSNotification) {
-        self.clearAllNotice()
-        self.blurOverlay.isHidden = true
-        currentTrack = notification.object as? TrackObject
-        self.getCurrentTrackInfo()
-    }
-    
-    func isOnPlaylist(notification:NSNotification) {
-        self.clearAllNotice()
-        if let notificationObject = notification.object {
-            self.noticeTop("Added to \(notificationObject)", autoClear: true, autoClearTime: 3)
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        registerObserver(forName: .UIApplicationWillEnterForeground) { _ in
+            self.clearAllNotice()
+
+            self.update()
+        }
+        registerObserver(forName: .currentTrack) { [unowned self] (notification) in
+            self.clearAllNotice()
+
+            guard let track = notification.object as? TrackObject
+                else { return }
+            self.currentTrack = track
+            self.update()
+        }
+        registerObserver(forName: .addedToPlaylist) { [unowned self] (notification) in
+            self.clearAllNotice()
+
+            guard let object = notification.object
+                else { return }
+            self.notice(self.localizedAddedToPlaylistNotice(name: String(describing: object)))
         }
     }
-    
-    func getCurrentTrackInfo() {
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        clearAllNotice()
+    }
+
+    // MARK: - View Update
+
+    func update() {
+        let didUpdateTrackInfo = updateTrackInfo(for: currentTrack)
+
+        blurOverlay.isHidden = didUpdateTrackInfo
+
+        updatePlaybackControls(for: currentTrack)
+    }
+
+    @discardableResult
+    func updateTrackInfo(for track: TrackObject?) -> Bool {
+        guard let track = track else { return false }
+
+        guard let title = track.title, !title.isEmpty else { return false }
+
+        currentTitle.text = track.localizedTitle
+        currentArtist.text = track.localizedArtist
+        currentAlbum.text = track.localizedAlbum
+        currentAlbumArt.setAlbumArt(for: track)
         
-        if let currentTrackInfo = currentTrack {
-            
-            if let title = currentTrackInfo.title, title != "" {
-                currentTitle.text = title
-                
-                if let album = currentTrackInfo.album {
-                    currentAlbum.text = album
-                }
-                
-                if let artist = currentTrackInfo.artist {
-                    currentArtist.text = artist
-                }
-                
-                if let volume = currentTrackInfo.volume {
-                    sliderVolume.value = Float(volume)
-                } else {
-                    SocketIOManager.sharedInstance.setVolume(value: 5)
-                }
-                
-                if let duration = currentTrackInfo.duration {
-                    trackDuration = duration
-                    currentDuration.text = timeFormatted(totalSeconds: duration)
-                    if let seek = currentTrackInfo.seek {
-                        counter = seek
-                        seekValue.text = timeFormatted(totalSeconds: counter/1000)
-                        
-                        let percentage = Float(counter) / (Float(trackDuration) * 1000)
-                        currentProgress.setProgress(percentage, animated: true)
-                    }
-                }
-                
-                if let albumArt = currentTrackInfo.albumArt {
-                
-                    if albumArt.range(of:"http") != nil{
-                        currentAlbumArt.kf.setImage(with: URL(string: albumArt), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                    } else {
-                        if let artist = currentTrackInfo.artist, let album = currentTrackInfo.album {
-                            LastFmManager.sharedInstance.getAlbumArt(artist: artist, album: album, completionHandler: { (albumUrl) in
-                                if let albumUrl = albumUrl {
-                                    DispatchQueue.main.async {
-                                        self.currentAlbumArt.kf.setImage(with: URL(string: albumUrl), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
-                                    }
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    currentAlbumArt.image = UIImage(named: "background")
-                }
-                
-                if let service = currentTrackInfo.service {
-                    
-                    if service == "spop" {
-                        spotifyTrack.isHidden = false
-                    }
-                }
-                
-                if let status = currentTrackInfo.status {
-                    switch status {
-                    case "play":
-                        startTimer()
-                        self.playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
-                    case "pause":
-                        stopTimer()
-                        self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-                    case "stop":
-                        stopTimer()
-                        self.playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
-                    default:
-                        stopTimer()
-                        self.playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
-                    }
-                }
-                
-                if let repetition = currentTrackInfo.repetition {
-                    switch repetition {
-                    case 1: self.repeatButton.alpha = 1
-                    default: self.repeatButton.alpha = 0.3
-                    }
-                } else {
-                    self.repeatButton.alpha = 0.3
-                }
-                
-                if let shuffle = currentTrackInfo.shuffle {
-                    switch shuffle {
-                    case 1: self.shuffleButton.alpha = 1
-                    default:self.shuffleButton.alpha = 0.3
-                    }
-                } else {
-                    self.shuffleButton.alpha = 0.3
-                }
-            
-            } else {
-                self.blurOverlay.isHidden = false
-                self.noticeTop("Volumio's queue is empty, choose a track to play")
+        if let volume = track.volume {
+            sliderVolume.value = Float(volume)
+        } else {
+            // why this?
+            VolumioIOManager.shared.setVolume(value: 5)
+        }
+
+        if let duration = track.duration {
+            trackDuration = duration
+            currentDuration.text = timeFormatted(totalSeconds: duration)
+            if let seek = track.seek {
+                counter = seek
+                seekValue.text = timeFormatted(totalSeconds: counter / 1000)
+
+                let percentage = Float(counter) / (Float(trackDuration) * 1000)
+                currentProgress.setProgress(percentage, animated: true)
             }
+        }
+
+//        if let albumArt = track.albumArt {
+//            if albumArt.range(of:"http") != nil{
+//                currentAlbumArt.kf.setImage(with: URL(string: albumArt), placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+//            } else {
+//                if let artist = track.artist, let album = track.album {
+//                    LastFMService.shared.albumGetImageURL(artist: artist, album: album, completion: { (albumUrl) in
+//                        if let albumUrl = albumUrl {
+//                            DispatchQueue.main.async {
+//                                self.currentAlbumArt.kf.setImage(with:albumUrl, placeholder: UIImage(named: "background"), options: [.transition(.fade(0.2))])
+//                            }
+//                        }
+//                    })
+//                }
+//            }
+//        } else {
+//            currentAlbumArt.image = UIImage(named: "background")
+//        }
+
+        if let service = track.service {
+            if service == "spop" {
+                spotifyTrack.isHidden = false
+            }
+        }
+
+        return true
+    }
+
+    @discardableResult
+    func updatePlaybackControls(for track: TrackObject?) -> Bool {
+        guard let track = track
+            else {
+                stopTimer()
+                return false
+            }
+
+        updatePlaybackControls(for: track.status)
+        updateRepetitionControl(with: track.repetition)
+        updateShuffleControl(with: track.shuffle)
+
+        return true
+    }
+
+    func updatePlaybackControls(for status: String?) {
+        guard let status = status else { return }
+
+        switch status {
+        case "play":
+            startTimer()
+            playButton.setImage(UIImage(named: "pause"), for: UIControlState.normal)
+        case "pause":
+            stopTimer()
+            playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+        case "stop":
+            stopTimer()
+            playButton.setImage(UIImage(named: "play"), for: UIControlState.normal)
+        default:
+            stopTimer()
+            playButton.setImage(UIImage(named: "stop"), for: UIControlState.normal)
+        }
+    }
+
+    func updateRepetitionControl(with repetition: Int?) {
+        switch repetition {
+        case .some(1):
+            repeatButton.alpha = 1
+        default:
+            repeatButton.alpha = 0.3
+        }
+    }
+
+    func updateShuffleControl(with shuffle: Int?) {
+        switch shuffle {
+        case .some(1):
+            shuffleButton.alpha = 1
+        default:
+            shuffleButton.alpha = 0.3
         }
     }
 
@@ -223,115 +228,113 @@ class PlaybackViewController: UIViewController {
         let seconds: Int = totalSeconds % 60
         let minutes: Int = (totalSeconds / 60) % 60
         let hours: Int = totalSeconds / 3600
+
         if hours == 0 {
             return String(format: "%02d:%02d", minutes, seconds)
         } else {
             return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         }
     }
-    
+
     func startTimer() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSeek), userInfo:nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(updateSeek),
+            userInfo:nil,
+            repeats: true
+        )
     }
-    
+
     func stopTimer() {
         timer.invalidate()
-        seekValue.text = timeFormatted(totalSeconds: counter/1000)
+        seekValue.text = timeFormatted(totalSeconds: counter / 1000)
     }
-    
+
     func updateSeek() {
         counter += 1000
-        seekValue.text = timeFormatted(totalSeconds: counter/1000)
-        
+        seekValue.text = timeFormatted(totalSeconds: counter / 1000)
+
         let percentage = Float(counter) / (Float(trackDuration) * 1000)
         currentProgress.setProgress(percentage, animated: true)
     }
-    
-    func sliderValueDidChanged(slider: UISlider) {
-        print(slider.value)
-    }
-    
+
+    // MARK: - View Actions
+
     @IBAction func pressPlay(_ sender: UIButton) {
-        
-        if let currentTrackInfo = SocketIOManager.sharedInstance.currentTrack {
+        if let currentTrackInfo = VolumioIOManager.shared.currentTrack {
             switch currentTrackInfo.status! {
             case "play":
-                SocketIOManager.sharedInstance.doAction(action: "pause")
+                VolumioIOManager.shared.pause()
             case "pause":
-                SocketIOManager.sharedInstance.doAction(action: "play")
+                VolumioIOManager.shared.play()
             case "stop":
-                SocketIOManager.sharedInstance.doAction(action: "play")
+                VolumioIOManager.shared.play()
             default:
-                SocketIOManager.sharedInstance.doAction(action: "stop")
+                VolumioIOManager.shared.stop()
             }
-            getCurrentTrackInfo()
+            update()
         }
     }
-    
+
     @IBAction func pressPrevious(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "prev")
+        VolumioIOManager.shared.playPrevious()
     }
-    
+
     @IBAction func pressNext(_ sender: UIButton) {
-        SocketIOManager.sharedInstance.doAction(action: "next")
+        VolumioIOManager.shared.playNext()
     }
-    
+
     @IBAction func toggleRepeat(_ sender: UIButton) {
-        if let repetition = SocketIOManager.sharedInstance.currentTrack?.repetition {
+        if let repetition = VolumioIOManager.shared.currentTrack?.repetition {
             switch repetition {
-            case 1: SocketIOManager.sharedInstance.toggleRepeat(value: 0)
-            default: SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            case 1: VolumioIOManager.shared.toggleRepeat(value: 0)
+            default: VolumioIOManager.shared.toggleRepeat(value: 1)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRepeat(value: 1)
+            VolumioIOManager.shared.toggleRepeat(value: 1)
         }
     }
-    
+
     @IBAction func toggleShuffle(_ sender: UIButton) {
-        if let shuffle = SocketIOManager.sharedInstance.currentTrack?.shuffle {
+        if let shuffle = VolumioIOManager.shared.currentTrack?.shuffle {
             switch shuffle {
-            case 1: SocketIOManager.sharedInstance.toggleRandom(value: 0)
-            default: SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            case 1: VolumioIOManager.shared.toggleRandom(value: 0)
+            default: VolumioIOManager.shared.toggleRandom(value: 1)
             }
         } else {
-            SocketIOManager.sharedInstance.toggleRandom(value: 1)
+            VolumioIOManager.shared.toggleRandom(value: 1)
         }
     }
-    
+
     @IBAction func volumeDown(_ sender: UIButton) {
-        if let currentTrackInfo = currentTrack {
-            if var volume = currentTrackInfo.volume {
-                if volume > 0 {
-                    volume -= 1
-                    SocketIOManager.sharedInstance.setVolume(value: volume)
-                }
-            }
+        guard let volume = currentTrack?.volume else { return }
+
+        if volume > 0 {
+            VolumioIOManager.shared.setVolume(value: volume - 1)
         }
     }
-    
+
     @IBAction func volumeUp(_ sender: UIButton) {
-        if let currentTrackInfo = currentTrack {
-            if var volume = currentTrackInfo.volume {
-                if volume < 100 {
-                    volume += 1
-                    SocketIOManager.sharedInstance.setVolume(value: volume)
-                }
-            }
+        guard let volume = currentTrack?.volume else { return }
+
+        if volume < 100 {
+            VolumioIOManager.shared.setVolume(value: volume + 1)
         }
     }
-    
+
     @IBAction func sliderVolume(_ sender: UISlider) {
         let volume = Int(sender.value)
-        SocketIOManager.sharedInstance.setVolume(value: volume)
+        VolumioIOManager.shared.setVolume(value: volume)
     }
-    
+
     @IBAction func reloadButton(_ sender: UIBarButtonItem) {
-        self.clearAllNotice()
-        SocketIOManager.sharedInstance.reConnect()
-        self.pleaseWait()
+        clearAllNotice()
+        pleaseWait()
+        VolumioIOManager.shared.connectDefault()
     }
-    
+
     @IBAction func dropdownPressed(_ sender: UIButton) {
         if dropper.status == .hidden {
             dropper.delegate = self
@@ -342,10 +345,58 @@ class PlaybackViewController: UIViewController {
             dropper.hideWithAnimation(0.1)
         }
     }
+
+    // MARK: - Volumio Events
+
+    override func volumioWillConnect() {
+        pleaseWait()
+
+        super.volumioWillConnect()
+    }
+
+    override func volumioDidConnect() {
+        super.volumioDidConnect()
+
+        VolumioIOManager.shared.getState()
+    }
+
+    override func volumioDidDisconnect() {
+        clearAllNotice()
+
+        super.volumioDidDisconnect()
+
+        currentTrack = nil
+        update()
+    }
+
 }
 
 extension PlaybackViewController: DropperDelegate {
     func DropperSelectedRow(_ path: IndexPath, contents: String) {
 
     }
+}
+
+// MARK: - Localization
+
+extension PlaybackViewController {
+
+    fileprivate func localizedAddedToPlaylistNotice(name: String) -> String {
+        return String.localizedStringWithFormat(
+            localizedAddedToPlaylistNotice,
+            name
+        )
+    }
+
+    fileprivate var localizedAddedToPlaylistNotice: String {
+        return NSLocalizedString("PLAYLIST_ADDED_ITEM",
+                comment: "[hint](format) added item to playlist(%@)"
+        )
+    }
+
+    fileprivate var localizedQueueIsEmptyNotice: String {
+        return NSLocalizedString("PLAYBACK_QUEUE_IS_EMPTY",
+                comment: "[hint] playback queue is empty")
+    }
+
 }

@@ -1,0 +1,6 @@
+//
+//  Release.xcconfig
+//
+
+APP_LOG_LEVEL = Warn
+
